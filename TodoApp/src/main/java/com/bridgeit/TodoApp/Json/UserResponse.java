@@ -35,6 +35,4 @@ public class UserResponse extends Response {
 		return "UserResponse [userRegistrations=" + userRegistrations + ", registration=" + registration + "]";
 	}
 	
-	
-	
 }

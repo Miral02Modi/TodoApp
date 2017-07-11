@@ -19,4 +19,18 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
+	<filter>
+		<filter-name>authenticationFilter</filter-name>
+		<filter-class>com.bridgeit.TodoApp.filter.CROSSfilter
+		</filter-class>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>authenticationFilter</filter-name>
+		<url-pattern>/update</url-pattern>
+	</filter-mapping>
+
 </web-app>

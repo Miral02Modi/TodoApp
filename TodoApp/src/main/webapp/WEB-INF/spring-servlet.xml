@@ -16,12 +16,14 @@
 
 
 	<context:component-scan base-package="com.bridgeit.TodoApp" />
-	<context:annotation-config />
+	<!-- <context:annotation-config /> -->
 	<mvc:annotation-driven />
 
-
-	<bean id="dao" class="com.bridgeit.TodoApp.dao.RegistrationDaoImpl" />
 	<bean id="service" class="com.bridgeit.TodoApp.service.RegistrationServiceImpl" />
+	<bean id="dao" class="com.bridgeit.TodoApp.dao.RegistrationDaoImpl" />
+	<bean id="tokenService" class="com.bridgeit.TodoApp.service.TokenServiceImpl" />
+	<bean id="dao1" class="com.bridgeit.TodoApp.dao.TokenDaoImpl" />
+	
 	
 		
 	<bean
@@ -46,6 +48,9 @@
 				<value>
 					com.bridgeit.TodoApp.model.UserRegistration
 				</value>
+				<value>
+					com.bridgeit.TodoApp.model.Token
+				</value>
 			</list>
 		</property>
 
@@ -55,6 +60,7 @@
 				<!-- <prop key="hibernate.current_session_context_class">thread</prop> -->
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</prop>
 			</props>
 		</property>
 	</bean>

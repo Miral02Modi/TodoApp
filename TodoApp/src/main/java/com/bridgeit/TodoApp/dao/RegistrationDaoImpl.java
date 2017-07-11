@@ -6,11 +6,13 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Conjunction;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bridgeit.TodoApp.model.UserRegistration;
+import com.bridgeit.TodoApp.validator.Password_Encrypt;;
 
 /**
  * @author Miral
@@ -23,13 +25,18 @@ public class RegistrationDaoImpl implements RegistrationDao {
 
 	@Override
 	public void userRegister(UserRegistration registration) throws Exception {
+
+		// -------Password Encryption
+		Password_Encrypt encrypt = new Password_Encrypt();
+		registration.setPassword(encrypt.generateStorngPasswordHash(registration.getPassword()));
+
 		Session session = factory.getCurrentSession();
 		session.saveOrUpdate(registration);
 	}
 
 	@Override
 	@Transactional
-	public UserRegistration loginUser(String email,String password) {
+	public UserRegistration loginUser(String email, String password) throws Exception {
 
 		/*
 		 * Session session = factory.getCurrentSession(); Criteria criteria =
@@ -46,18 +53,65 @@ public class RegistrationDaoImpl implements RegistrationDao {
 		 * UserRegistration registration2 = list.get(0);
 		 */
 
+		// -------Using Conjunction
+		/*
+		 * Session session = factory.getCurrentSession(); Criteria criteria =
+		 * session.createCriteria(UserRegistration.class);
+		 * 
+		 * Criterion criterion = Restrictions.eq("email", email); Criterion
+		 * criterion2 = Restrictions.eq("password", password); Conjunction
+		 * conjunction = new Conjunction();
+		 * 
+		 * conjunction.add(criterion); conjunction.add(criterion2);
+		 * criteria.add(conjunction);
+		 * 
+		 * return (UserRegistration) criteria.uniqueResult();
+		 */
+		
+		
+		
+		//-------Getting User-register object from database
+		Password_Encrypt encrypt = new Password_Encrypt();
 		Session session = factory.getCurrentSession();
 		Criteria criteria = session.createCriteria(UserRegistration.class);
 
 		Criterion criterion = Restrictions.eq("email", email);
-		Criterion criterion2 = Restrictions.eq("password", password);
 		Conjunction conjunction = new Conjunction();
 
 		conjunction.add(criterion);
-		conjunction.add(criterion2);
 		criteria.add(conjunction);
-	
-		return (UserRegistration) criteria.uniqueResult();
+		UserRegistration registration = (UserRegistration) criteria.uniqueResult();
+		
+		if(registration == null)
+			return null;
+		
+		//-------matching password
+		boolean matched = encrypt.validatePassword(password, registration.getPassword());
+		if (matched)
+			return registration;
+		return null;
+	}
+
+	@Override
+	public void updateProfile(UserRegistration registration) throws Exception {
+
+		Session session = factory.getCurrentSession();
+
+		Criteria criteria = session.createCriteria(UserRegistration.class);
+		criteria.setProjection(Projections.property("id"));
+		Criterion criterion = Restrictions.eq("email", registration.getEmail());
+
+		criteria.add(criterion);
+		Integer id = (Integer) criteria.uniqueResult();
+		System.out.println("Id " + id);
+		registration.setId(id);
+
+		session.update(registration);
+	}
+
+	@Override
+	public UserRegistration getUserByID(String id) throws Exception {
+		return null;
 	}
 
 }

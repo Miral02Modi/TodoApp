@@ -15,15 +15,17 @@
     http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd ">
 
 
-	<context:component-scan base-package="com.bridgeit.TodoApp.service" />
-	<context:component-scan base-package="com.bridgeit.TodoApp.controller" />
+	<context:component-scan base-package="com.bridgeit.TodoApp" />
 	<context:annotation-config />
 	<mvc:annotation-driven />
 
-
-	<bean id="dao" class="com.bridgeit.TodoApp.dao.RegistrationDaoImpl" />
 	<bean id="service" class="com.bridgeit.TodoApp.service.RegistrationServiceImpl" />
-
+	<bean id="dao" class="com.bridgeit.TodoApp.dao.RegistrationDaoImpl" />
+	<bean id="tokenService" class="com.bridgeit.TodoApp.service.TokenServiceImpl" />
+	<bean id="dao1" class="com.bridgeit.TodoApp.dao.TokenDaoImpl" />
+	
+	
+		
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/template/" />
@@ -45,6 +47,9 @@
 			<list>
 				<value>
 					com.bridgeit.TodoApp.model.UserRegistration
+				</value>
+				<value>
+					com.bridgeit.TodoApp.model.Token
 				</value>
 			</list>
 		</property>

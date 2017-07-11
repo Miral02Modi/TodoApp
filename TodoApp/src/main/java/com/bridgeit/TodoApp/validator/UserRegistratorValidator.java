@@ -19,7 +19,6 @@ import com.bridgeit.TodoApp.model.UserRegistration;
 public class UserRegistratorValidator implements Validator {
 	
 	RegisterError registerError = new RegisterError();
-	private static final String PASSWORD_PATTERN = "^[A-Za-z][A-Za-z0-9@#%&*]*$";
 	
 	@Override
 	public boolean supports(Class<?> clazz) {
@@ -33,7 +32,7 @@ public class UserRegistratorValidator implements Validator {
 	public void validate(Object target, Errors error) {
 
 		UserRegistration registration = (UserRegistration) target;
-		
+		System.out.println("inside the register");
 		
 		// Empty email validation
 		ValidationUtils.rejectIfEmpty(error, "email", "email.required", "Email must be required");
@@ -60,18 +59,18 @@ public class UserRegistratorValidator implements Validator {
 		Pattern pattern2 = Pattern.compile(mobileNumber);
 		String phone =""+registration.getPhone();
 		Matcher matcher2 = pattern2.matcher(phone);
-		
+		System.out.println(matcher2.matches());
 		
 		if (!matcher2.matches())
 			error.reject("phone", "Please enter 10digit number");
 		
 		
 		// -----------------------password validation pattern----------
-		Pattern pattern3 = Pattern.compile("^[A-Za-z][A-Za-z0-9@#%&*]*$");
-		Matcher matcher3 = pattern.matcher(registration.getPassword());
-		
+		/*Pattern pattern3 = Pattern.compile("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})");
+		Matcher matcher3 = pattern3.matcher(registration.getPassword());
+		System.out.println("pass"+matcher3.matches());
 		if(!matcher3.matches())
-			error.reject("password","password must be strong");
+			error.reject("password","password must be strong")*/;
 		
 	}
 
