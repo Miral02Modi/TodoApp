@@ -1,10 +1,11 @@
 package com.bridgeit.TodoApp.Json;
 
+
+
 public class Response {
 	
 	int status;
 	String message;
-	
 	
 	
 	public int getStatus() {

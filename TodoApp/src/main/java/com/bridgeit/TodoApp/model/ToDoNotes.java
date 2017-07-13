@@ -1,17 +1,32 @@
 package com.bridgeit.TodoApp.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-public class ToDoNotes {
+import org.hibernate.annotations.GenericGenerator;
+
+
+@Entity
+@Table(name="ToDoNotes")
+@SuppressWarnings("serial")
+public class ToDoNotes implements Serializable {
 	
-	int id;
-	String title;
-	String description;
-	Date date;
+	
+	@Id
+	@GenericGenerator(name="id",strategy="increment")
+	@GeneratedValue(generator="id")
+	private int id;
+	private  String title;
+	private  String description;
+	private  Date date;
 	
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="userId")

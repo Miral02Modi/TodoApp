@@ -53,6 +53,7 @@ public class Password_Encrypt {
 
 	public  boolean validatePassword(String originalPassword, String storedPassword)
 			throws NoSuchAlgorithmException, InvalidKeySpecException {
+		System.out.println(storedPassword);
 		String[] parts = storedPassword.split(":");
 		int iterations = Integer.parseInt(parts[0]);
 		byte[] salt = fromHex(parts[1]);

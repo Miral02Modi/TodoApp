@@ -14,6 +14,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name="Token")
+@SuppressWarnings("serial")
 public class Token implements Serializable {
 	
 	
@@ -22,7 +23,7 @@ public class Token implements Serializable {
 	@GenericGenerator(name="id",strategy="increment")
 	@GeneratedValue(generator="id")
 	
-	int id;
+	private int id;
 	@Column(name="accessToken")
 	private String accessToken;
 	@Column(name="refreshToken")

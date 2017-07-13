@@ -9,6 +9,7 @@ import java.util.UUID;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,6 +34,8 @@ import com.bridgeit.TodoApp.service.TokenService;
 import com.bridgeit.TodoApp.validator.UserRegistratorValidator;
 
 /**
+ * It is 
+ * 
  * @author Miral
  *
  */
@@ -47,12 +50,20 @@ public class RegistrationController {
 	TokenService tokenService;
 
 	// ----------------------------UserRegistration-----------------------------
+	/**
+	 * 
+	 * Registering  user information
+	 * 
+	 * @param registration {@link UserRegistration} all user Information
+	 * @param result  	   {@link BindingResult}  is used for the checking error It is Binding result
+	 * @return  		   {@link ResponseEntity}
+	 */
 	@RequestMapping(value = "/register", method = { RequestMethod.GET, RequestMethod.POST })
-	public ResponseEntity<Response> registerController(@RequestBody UserRegistration registration,
+	public ResponseEntity<Response> registerController(@RequestBody UserRegistration user,
 			BindingResult result) {
 
 		Response response = new Response();
-		validator.validate(registration, result);
+		validator.validate(user, result);
 
 		// --------- Validation checking details of the registration
 		if (result.hasErrors()) {
@@ -70,11 +81,13 @@ public class RegistrationController {
 
 		// --------Checking it is successfully register in database
 		try {
-			service.userRegister(registration);
+			service.userRegister(user);
 			response.setStatus(1);
 			response.setMessage("Success");
-			return new ResponseEntity<Response>(HttpStatus.OK);
+			return new ResponseEntity<Response>(response,HttpStatus.OK);
 		} catch (Exception e) {
+			
+			System.out.println(e);
 			ErrorResponse errorResponse = new ErrorResponse();
 			errorResponse.setStatus(-1);
 			errorResponse.setMessage("Server fails");
@@ -86,14 +99,17 @@ public class RegistrationController {
 	// -------------------------------Login-User--------------------------------------
 
 	/**
-	 * @param loginMap
-	 * @param result
-	 * @param pRequest
-	 * @param presponse
-	 * @return
-	 * @throws IOException
 	 * 
-	 *             It is checking the login information
+	 * 	 It is checking the login information
+	 * 
+	 * @param loginMap   {@link Map} 
+	 * @param result     {@link BindingResult}
+	 * @param pRequest   {@link HttpServletRequest}
+	 * @param presponse  {@link HttpServletResponse}
+	 * @return 
+	 * @throws IOException Servlet request and response throws IO Exception
+	 * 
+	 *             
 	 */
 
 	@RequestMapping(value = "/login", method = { RequestMethod.GET,
@@ -113,7 +129,7 @@ public class RegistrationController {
 			System.out.println("inside the has error");
 			List<FieldError> fieldErrors = result.getFieldErrors();
 			RegisterError registerError = new RegisterError();
-
+			
 			registerError.setList(fieldErrors);
 			registerError.setStatus(-1);
 			registerError.setMessage("Invalid Credential please check your Field");
@@ -123,39 +139,48 @@ public class RegistrationController {
 
 		// -----checking in database data valid user or not
 		try {
-			UserRegistration registration = service.loginUser((String) loginMap.get("email"),
+			UserRegistration user = service.loginUser((String) loginMap.get("email"),
 					(String) loginMap.get("password"));
+			
 
 			// -----Checking the data is available or not
-			if (registration == null) {
+			if (user == null) {
 
 				ErrorResponse errorResponse = new ErrorResponse();
-				errorResponse.setStatus(1);
+				errorResponse.setStatus(-1);
 				errorResponse.setMessage("Invalid User");
 				return new ResponseEntity<Response>(errorResponse, HttpStatus.NOT_FOUND);
 
 			}
-
+			user.setPassword(null);
+			
 			// -----generating token
 			Token token = new Token();
 			token.setAccessToken(UUID.randomUUID().toString().replaceAll("-", ""));
 			token.setRefreshToken(UUID.randomUUID().toString().replaceAll("-", ""));
-			token.setUserId(registration.getId());
+			token.setUserId(user.getId());
 			token.setCreateOn(new Date());
 			tokenService.addToken(token);
 
+			
 			// -----set the cookie
 			Cookie cookie = new Cookie("access_Token", token.getAccessToken());
 			presponse.addCookie(cookie);
 
-			userResponse.setRegistration(registration);
+			userResponse.setRegistration(user);
 			userResponse.setStatus(1);
 			userResponse.setMessage("Success");
+
+			
+			// -----set the session
+			HttpSession httpSession = pRequest.getSession();
+			httpSession.setAttribute("user",user);
+			
 			return new ResponseEntity<Response>(userResponse, HttpStatus.OK);
 
 		} catch (Exception e) {
 
-			System.out.println(e);
+			e.printStackTrace();
 			ErrorResponse errorResponse = new ErrorResponse();
 			errorResponse.setStatus(-1);
 			errorResponse.setMessage("Server fails");
@@ -165,7 +190,16 @@ public class RegistrationController {
 	}
 
 	// -------------------------------Update-User-Profile-------------------------------------
-	@RequestMapping(value = "/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	/**
+	 * 
+	 * Update the user information
+	 * 
+	 * @param registration  	{@link UserRegistration}
+	 * @param result      	    {@link BindingResult}
+	 * @return  			    {@link ResponseEntity}
+	 */
+	// -------------------------------Update-User-Profile-------------------------------------
+	@RequestMapping(value = "/updateUser", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Void> updateProfile(@RequestBody UserRegistration registration, BindingResult result) {
 
 		System.out.println("Inside the update");
@@ -193,7 +227,15 @@ public class RegistrationController {
 
 	}
 
+	
+	
+	
+	
 	// -------------------------------get-User-By-Id-------------------------------------
+	/**
+	 * @param id {@link String}
+	 * @return	 {@link ResponseEntity}
+	 */
 	@RequestMapping(value = "{id}")
 	public ResponseEntity<Void> getUserByID(@PathVariable("id") String id) {
 

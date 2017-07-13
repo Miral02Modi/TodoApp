@@ -1,6 +1,7 @@
 package com.bridgeit.TodoApp.dao;
 
 
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -15,6 +16,7 @@ import com.bridgeit.TodoApp.model.UserRegistration;
 import com.bridgeit.TodoApp.validator.Password_Encrypt;;
 
 /**
+ * 
  * @author Miral
  *
  */
@@ -24,19 +26,19 @@ public class RegistrationDaoImpl implements RegistrationDao {
 	SessionFactory factory;
 
 	@Override
-	public void userRegister(UserRegistration registration) throws Exception {
+	public void userRegister(UserRegistration user) throws Exception {
 
 		// -------Password Encryption
 		Password_Encrypt encrypt = new Password_Encrypt();
-		registration.setPassword(encrypt.generateStorngPasswordHash(registration.getPassword()));
+		user.setPassword(encrypt.generateStorngPasswordHash(user.getPassword()));
 
 		Session session = factory.getCurrentSession();
-		session.saveOrUpdate(registration);
+		session.saveOrUpdate(user);
 	}
 
 	@Override
 	@Transactional
-	public UserRegistration loginUser(String email, String password) throws Exception {
+	public UserRegistration loginUser(String email, String password) throws Exception  {
 
 		/*
 		 * Session session = factory.getCurrentSession(); Criteria criteria =
@@ -80,15 +82,20 @@ public class RegistrationDaoImpl implements RegistrationDao {
 
 		conjunction.add(criterion);
 		criteria.add(conjunction);
-		UserRegistration registration = (UserRegistration) criteria.uniqueResult();
+		UserRegistration user = (UserRegistration) criteria.uniqueResult();
 		
-		if(registration == null)
+		
+		if(user == null)
 			return null;
 		
 		//-------matching password
-		boolean matched = encrypt.validatePassword(password, registration.getPassword());
-		if (matched)
-			return registration;
+		boolean matched = false;
+			matched = encrypt.validatePassword(password, user.getPassword());
+		
+		
+		if (matched){
+			return user;
+		}	
 		return null;
 	}
 
@@ -103,9 +110,9 @@ public class RegistrationDaoImpl implements RegistrationDao {
 
 		criteria.add(criterion);
 		Integer id = (Integer) criteria.uniqueResult();
-		System.out.println("Id " + id);
+		System.out.println("Id" + id);
 		registration.setId(id);
-
+		
 		session.update(registration);
 	}
 

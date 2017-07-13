@@ -12,6 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.bridgeit.TodoApp.model.Token;
 
+/**
+ * @author Miral
+ *
+ */
 public class TokenDaoImpl implements TokenDao {
 
 	@Autowired
@@ -23,7 +27,7 @@ public class TokenDaoImpl implements TokenDao {
 
 		System.out.println("inside the token dao" + factory);
 		Session session = factory.getCurrentSession();
-		session.save(token);
+		session.saveOrUpdate(token);
 		return token;
 	}
 
@@ -37,15 +41,12 @@ public class TokenDaoImpl implements TokenDao {
 		Conjunction conjunction = new Conjunction();
 		conjunction.add(criterion);
 		criteria.add(conjunction);
-		Token token =(Token) criteria.uniqueResult();
-		System.out.println("Token dao"+token);
-		return token;
-
+		return (Token) criteria.uniqueResult();
 	}
 	
 	
 	
-	@Override
+	/*@Override
 	public Token getToken1(String accesToken) {
 		
 		SessionFactory factory = (SessionFactory) new LocalSessionFactoryBean();
@@ -60,7 +61,7 @@ public class TokenDaoImpl implements TokenDao {
 		System.out.println("Token dao"+token);
 		return token;
 
-	}
+	}*/
 
 
 }

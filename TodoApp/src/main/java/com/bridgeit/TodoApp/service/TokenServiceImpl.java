@@ -18,7 +18,6 @@ public class TokenServiceImpl implements TokenService {
 	@Override
 	public Token getToken(String accesToken) {
 		try {
-			System.out.println("inside the service impl");
 			return dao1.getToken(accesToken);
 		} catch (Exception e) {
 			System.out.println(dao1);
@@ -28,7 +27,7 @@ public class TokenServiceImpl implements TokenService {
 	}
 	
 	
-	public Token getToken1(String accesToken) {
+	/*public Token getToken1(String accesToken) {
 		try {
 			System.out.println("inside the service impl");
 			return dao1.getToken1(accesToken);
@@ -37,6 +36,6 @@ public class TokenServiceImpl implements TokenService {
 			return null;
 		}
 
-	}
+	}*/
 
 }

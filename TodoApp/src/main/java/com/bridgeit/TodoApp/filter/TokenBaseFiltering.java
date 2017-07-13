@@ -21,10 +21,15 @@ import com.bridgeit.TodoApp.Json.ErrorResponse;
 import com.bridgeit.TodoApp.model.Token;
 import com.bridgeit.TodoApp.service.TokenService;
 
+/**
+ * @author Miral
+ *
+ */
 public class TokenBaseFiltering implements Filter {
-		
-	/*@Autowired
-	private TokenService tokenService;*/
+
+	/*
+	 * @Autowired private TokenService tokenService;
+	 */
 
 	@Override
 	public void destroy() {
@@ -34,38 +39,33 @@ public class TokenBaseFiltering implements Filter {
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
 			throws IOException, ServletException {
-		
-		System.out.println(req.getServletContext());
+
 		WebApplicationContext applicationContext = WebApplicationContextUtils
 				.getWebApplicationContext(req.getServletContext());
-		System.out.println(applicationContext);
+
 		TokenService tokenService = (TokenService) applicationContext.getBean("tokenService");
-		
-		/*WebApplicationContext applicationContext = WebApplicationContextUtils
-				.getWebApplicationContext(req.getServletContext());
-		TokenService tokenService = applicationContext.getBean(TokenServiceImpl.class);*/
-		System.out.println("token service :: "+tokenService);
-		
+
+		/*
+		 * WebApplicationContext applicationContext = WebApplicationContextUtils
+		 * .getWebApplicationContext(req.getServletContext()); TokenService
+		 * tokenService = applicationContext.getBean(TokenServiceImpl.class);
+		 */
+
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse responce = (HttpServletResponse) resp;
-		
-		System.out.println("filter token service :: "+tokenService);
 
 		String accessToken = request.getHeader("accessToken");
-		System.out.println("Header::" + accessToken);
+
 		Cookie cookie[] = request.getCookies();
 		Date currentDate = new Date();
 
 		if (cookie != null) {
-			System.out.println("indisde the cookie");
-			for (Cookie cookie2 : cookie) 
-			{
-				if(cookie2.getName().equals("access_Token"))
-				{
+			for (Cookie cookie2 : cookie) {
+				if (cookie2.getName().equals("access_Token")) {
 					accessToken = cookie2.getValue();
-					System.out.println("access token get by Cookie :: "+accessToken);
+
 				}
-				System.out.println("Header::" + accessToken);
+
 			}
 
 		} else {
@@ -80,12 +80,10 @@ public class TokenBaseFiltering implements Filter {
 
 		}
 
-		//-------
-		
-		
+		// -------
+
 		Token token = tokenService.getToken(accessToken);
-		
-		System.out.println("database token :: "+token);
+
 		if (token == null) {
 
 			responce.setContentType("application/json");
@@ -99,23 +97,24 @@ public class TokenBaseFiltering implements Filter {
 		long differrenceInSecond = TimeUnit.MILLISECONDS.toSeconds(difference);
 
 		if (differrenceInSecond > 60) {
+			
+			System.out.println("Filter"+differrenceInSecond);
+			if (differrenceInSecond < 2 * 60) {
+				accessToken = token.getRefreshToken();
+				token.setCreateOn(new Date());
+			} else {
+				responce.setContentType("application/json");
+				String jsonResp = "{\"status\":\"-4\",\"errorMessage\":\"Access token is expired. Generate new Access Tokens\"}";
+				responce.getWriter().write(jsonResp);
+				return;
+			}
 
-			responce.setContentType("application/json");
-			String jsonResp = "{\"status\":\"-4\",\"errorMessage\":\"Access token is expired. Generate new Access Tokens\"}";
-			responce.getWriter().write(jsonResp);
-			return;
 		}
 		chain.doFilter(request, responce);
 	}
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-	/*	
-		ServletContext context = filterConfig.getServletContext();
-		WebApplicationContext applicationContext = WebApplicationContextUtils
-				.getWebApplicationContext(context);
-		AutowireCapableBeanFactory capableBeanFactory = applicationContext.getAutowireCapableBeanFactory();
-		capableBeanFactory.configureBean(this, "tokenService");*/
 	}
 
 }

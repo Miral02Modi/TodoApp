@@ -10,6 +10,10 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * @author bridgeit
+ *
+ */
 public class CROSSfilter implements Filter {
 
 	@Override

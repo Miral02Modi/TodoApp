@@ -23,6 +23,8 @@
 	<bean id="dao" class="com.bridgeit.TodoApp.dao.RegistrationDaoImpl" />
 	<bean id="tokenService" class="com.bridgeit.TodoApp.service.TokenServiceImpl" />
 	<bean id="dao1" class="com.bridgeit.TodoApp.dao.TokenDaoImpl" />
+	<bean id="doService" class="com.bridgeit.TodoApp.service.ToDoServiceImpl" />
+	<bean id="todoDao" class="com.bridgeit.TodoApp.dao.ToDoNotesDaoImpl" />
 	
 	
 		
@@ -50,6 +52,9 @@
 				</value>
 				<value>
 					com.bridgeit.TodoApp.model.Token
+				</value>
+				<value>
+					com.bridgeit.TodoApp.model.ToDoNotes
 				</value>
 			</list>
 		</property>

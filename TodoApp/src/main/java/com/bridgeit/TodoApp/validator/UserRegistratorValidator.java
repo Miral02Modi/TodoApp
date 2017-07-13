@@ -36,8 +36,10 @@ public class UserRegistratorValidator implements Validator {
 		
 		// Empty email validation
 		ValidationUtils.rejectIfEmpty(error, "email", "email.required", "Email must be required");
+		
 		// Empty password validation
 		ValidationUtils.rejectIfEmpty(error, "password", "password.required", "Password Must be required");
+		
 		// Empty phone validation
 		ValidationUtils.rejectIfEmpty(error, "phone", "phone.required", "Phone Must be required");
 
@@ -57,12 +59,12 @@ public class UserRegistratorValidator implements Validator {
 		// -----------------------mobile validation pattern----------
 		String mobileNumber = "^(?:0091|\\+91|0)[7-9][0-9]{9}$";
 		Pattern pattern2 = Pattern.compile(mobileNumber);
-		String phone =""+registration.getPhone();
+		String phone = registration.getPhone();
 		Matcher matcher2 = pattern2.matcher(phone);
 		System.out.println(matcher2.matches());
 		
 		if (!matcher2.matches())
-			error.reject("phone", "Please enter 10digit number");
+			error.rejectValue("phone","phone.rejected" ,"Please enter 10 digit number");
 		
 		
 		// -----------------------password validation pattern----------
@@ -70,7 +72,7 @@ public class UserRegistratorValidator implements Validator {
 		Matcher matcher3 = pattern3.matcher(registration.getPassword());
 		System.out.println("pass"+matcher3.matches());
 		if(!matcher3.matches())
-			error.reject("password","password must be strong")*/;
+			error.rejectValue("password","password must be strong")*/;
 		
 	}
 
