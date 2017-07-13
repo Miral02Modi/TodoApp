@@ -237,18 +237,19 @@ public class ToDoNotesController {
 	 * @return			{@link ResponseEntity}
 	 */
 	// ----------------------------------delete--Notes--------------------------------------
-	@RequestMapping(value = "deleteNotes/{id}", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "deleteNotes/{id}", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Response> deleteNotes(@PathVariable("id") int id, HttpServletRequest pRequest,
 			HttpServletResponse pResponse) {
 
 		// ------Getting Session
 		/*HttpSession httpSession = pRequest.getSession();
 		UserRegistration user = (UserRegistration) httpSession.getAttribute("user");*/
+		System.out.println("inside the delete id is "+id);
 		ToDoNotes doNotes = new ToDoNotes();
 		doNotes.setId(id);
 		
 		try {
-			ToDoNotes doNotes2 = doService.deleteNote(doNotes);
+			ToDoNotes doNotes2 =  doService.deleteNote(doNotes);
 
 			// ------Setting Response
 			TodoNotesResponse response = new TodoNotesResponse();

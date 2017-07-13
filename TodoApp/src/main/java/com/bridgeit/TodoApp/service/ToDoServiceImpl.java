@@ -44,9 +44,9 @@ public class ToDoServiceImpl implements ToDoService {
 
 
 	@Override
+	@Transactional
 	public ToDoNotes deleteNote(ToDoNotes doNotes) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return todoDao.deleteNote(doNotes);
 	}
 
 }

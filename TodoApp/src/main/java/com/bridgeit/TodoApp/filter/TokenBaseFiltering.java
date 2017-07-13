@@ -99,9 +99,17 @@ public class TokenBaseFiltering implements Filter {
 		if (differrenceInSecond > 60) {
 			
 			System.out.println("Filter"+differrenceInSecond);
-			if (differrenceInSecond < 2 * 60) {
-				accessToken = token.getRefreshToken();
+			if (differrenceInSecond < 2 * 60 && !token.getRefreshToken().equals(token.getAccessToken())) {
+				System.out.println("inside the refresh Token");
+				//accessToken = token.getRefreshToken();
+				token.setAccessToken(token.getRefreshToken());
 				token.setCreateOn(new Date());
+				try {
+					tokenService.addToken(token);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
 			} else {
 				responce.setContentType("application/json");
 				String jsonResp = "{\"status\":\"-4\",\"errorMessage\":\"Access token is expired. Generate new Access Tokens\"}";

@@ -2,7 +2,10 @@ package com.bridgeit.TodoApp.dao;
 
 import java.util.List;
 
+import javax.persistence.criteria.CriteriaBuilder;
+
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Conjunction;
@@ -77,8 +80,14 @@ public class ToDoNotesDaoImpl implements ToDoNotesDao{
 
 	@Override
 	public ToDoNotes deleteNote(ToDoNotes doNotes) throws Exception {
+		System.out.println("inside the delete dao");
 		Session session = factory.openSession();
-		session.delete(doNotes);
+		/*session.delete(doNotes);
+		System.out.println("inside the delete dao1 end");*/
+		Query query=session.createQuery("delete from ToDoNotes where id=:noteID");  
+		query.setParameter("noteID", doNotes.getId());
+		query.executeUpdate();  
+			
 		return doNotes;
 	}
 	
