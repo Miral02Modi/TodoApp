@@ -3,7 +3,6 @@ package com.bridgeit.TodoApp.model;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -28,7 +27,7 @@ public class ToDoNotes implements Serializable {
 	private  String description;
 	private  Date date;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(/*cascade=CascadeType.ALL,*/optional=false)
 	@JoinColumn(name="userId")
 	UserRegistration user;
 	

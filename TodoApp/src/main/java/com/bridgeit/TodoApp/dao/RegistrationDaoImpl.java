@@ -20,11 +20,14 @@ import com.bridgeit.TodoApp.validator.Password_Encrypt;;
  * @author Miral
  *
  */
+
 public class RegistrationDaoImpl implements RegistrationDao {
 
 	@Autowired
 	SessionFactory factory;
 
+	
+	
 	@Override
 	public void userRegister(UserRegistration user) throws Exception {
 
@@ -36,6 +39,7 @@ public class RegistrationDaoImpl implements RegistrationDao {
 		session.saveOrUpdate(user);
 	}
 
+	
 	@Override
 	@Transactional
 	public UserRegistration loginUser(String email, String password) throws Exception  {

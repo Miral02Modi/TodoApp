@@ -1,11 +1,13 @@
 package com.bridgeit.TodoApp.dao;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Conjunction;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.hql.internal.ast.HqlASTFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,6 +43,15 @@ public class TokenDaoImpl implements TokenDao {
 		conjunction.add(criterion);
 		criteria.add(conjunction);
 		return (Token) criteria.uniqueResult();
+	}
+	
+	
+	public Token deleteToken(Token token) throws Exception{
+		
+		Session session = factory.getCurrentSession();
+		Query query = session.createQuery("delete from Token where user.id := userId");
+		query.setParameter("userId", token.getUserId());
+		return token;
 	}
 	
 	

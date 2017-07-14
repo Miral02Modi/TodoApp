@@ -2,7 +2,6 @@ package com.bridgeit.TodoApp.dao;
 
 import java.util.List;
 
-import javax.persistence.criteria.CriteriaBuilder;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -78,6 +77,7 @@ public class ToDoNotesDaoImpl implements ToDoNotesDao{
 		return doNotes;
 	}
 
+	
 	@Override
 	public ToDoNotes deleteNote(ToDoNotes doNotes) throws Exception {
 		System.out.println("inside the delete dao");

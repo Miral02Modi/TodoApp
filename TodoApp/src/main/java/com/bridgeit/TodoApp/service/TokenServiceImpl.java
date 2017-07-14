@@ -25,6 +25,11 @@ public class TokenServiceImpl implements TokenService {
 		}
 
 	}
+
+	@Override
+	public Token deleteToken(Token token) throws Exception {
+		return dao1.deleteToken(token);
+	}
 	
 	
 	/*public Token getToken1(String accesToken) {

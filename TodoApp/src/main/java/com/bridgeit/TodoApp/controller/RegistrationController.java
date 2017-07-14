@@ -52,6 +52,8 @@ public class RegistrationController {
 	// ----------------------------UserRegistration-----------------------------
 	/**
 	 * 
+	 * This is code for the register the user
+	 * 
 	 * Registering  user information
 	 * 
 	 * @param registration {@link UserRegistration} all user Information
@@ -117,14 +119,14 @@ public class RegistrationController {
 	public ResponseEntity<Response> loginController(@RequestBody Map<String, String> loginMap, BindingResult result,
 			HttpServletRequest pRequest, HttpServletResponse presponse) throws IOException {
 
-		UserRegistration registration1 = new UserRegistration();
+		/*UserRegistration registration1 = new UserRegistration();
 		registration1.setEmail(loginMap.get("email"));
 		registration1.setPassword(loginMap.get("password"));
-
+*/
 		UserResponse userResponse = new UserResponse();
 
 		// -----server side the validation for login
-		if (result.hasErrors()) {
+		/*if (result.hasErrors()) {
 
 			System.out.println("inside the has error");
 			List<FieldError> fieldErrors = result.getFieldErrors();
@@ -135,7 +137,7 @@ public class RegistrationController {
 			registerError.setMessage("Invalid Credential please check your Field");
 
 			return new ResponseEntity<Response>(registerError, HttpStatus.NOT_ACCEPTABLE);
-		}
+		}*/
 
 		// -----checking in database data valid user or not
 		try {

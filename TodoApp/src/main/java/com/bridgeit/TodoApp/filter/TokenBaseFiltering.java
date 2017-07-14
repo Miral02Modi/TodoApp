@@ -85,6 +85,13 @@ public class TokenBaseFiltering implements Filter {
 		Token token = tokenService.getToken(accessToken);
 
 		if (token == null) {
+			
+			
+			try {
+				tokenService.deleteToken(token);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 
 			responce.setContentType("application/json");
 			String jsonResp = "{\"status\":\"-3\",\"errorMessage\":\"Invalid access token\"}";
@@ -98,7 +105,7 @@ public class TokenBaseFiltering implements Filter {
 
 		if (differrenceInSecond > 60) {
 			
-			System.out.println("Filter"+differrenceInSecond);
+			//System.out.println("Filter"+differrenceInSecond);
 			if (differrenceInSecond < 2 * 60 && !token.getRefreshToken().equals(token.getAccessToken())) {
 				System.out.println("inside the refresh Token");
 				//accessToken = token.getRefreshToken();
@@ -109,8 +116,15 @@ public class TokenBaseFiltering implements Filter {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				Cookie cookie1 = new Cookie("access_Token", token.getAccessToken());
+				responce.addCookie(cookie1);
 				
 			} else {
+				try {
+					tokenService.deleteToken(token);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				responce.setContentType("application/json");
 				String jsonResp = "{\"status\":\"-4\",\"errorMessage\":\"Access token is expired. Generate new Access Tokens\"}";
 				responce.getWriter().write(jsonResp);
@@ -118,6 +132,13 @@ public class TokenBaseFiltering implements Filter {
 			}
 
 		}
+		
+		token.setCreateOn(new Date());
+		try {
+			tokenService.addToken(token);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
 		chain.doFilter(request, responce);
 	}
 

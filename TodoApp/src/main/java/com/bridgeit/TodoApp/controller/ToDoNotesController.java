@@ -93,7 +93,7 @@ public class ToDoNotesController {
 	// ----------------------------------Search--by--Title-------------------------------
 	/**
 	 * 
-	 * Search By the Title
+	 * This is the code for the search all notes by their title
 	 * 
 	 * @param title     {@link Map}
 	 * @param result    {@link BindingResult}
@@ -140,6 +140,9 @@ public class ToDoNotesController {
 
 	// ----------------------------------Search--by--ID---------------------------------
 	/**	
+	 * 
+	 * This is code for the search all notes information by specific user
+	 * 
 	 * @param id 		{@link String}
 	 * @param pRequest	{@link HttpServletRequest}
 	 * @param pResponse	{@link HttpServletResponse}	
@@ -183,7 +186,7 @@ public class ToDoNotesController {
 	
 	// ----------------------------------Update--Notes--------------------------------------
 	/**
-	 * Update Notes
+	 * This is code for the update the todoNotes
 	 * 
 	 * @param doNotes	{@link ToDoNotes}	
 	 * @param pRequest	{@link HttpServletRequest}
