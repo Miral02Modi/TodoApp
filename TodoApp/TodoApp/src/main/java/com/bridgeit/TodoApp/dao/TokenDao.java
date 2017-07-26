@@ -12,5 +12,9 @@ public interface TokenDao {
 	
 	public Token getToken(String accesToken) throws Exception;
 	
+	public Token deleteToken(Token token) throws Exception;
+	
+	public Token getTokenByRefreshToken(String refreToken) throws Exception ;
+	
 	//public Token getToken1(String accesToken);
 }

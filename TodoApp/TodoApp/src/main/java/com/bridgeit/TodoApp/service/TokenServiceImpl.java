@@ -16,14 +16,23 @@ public class TokenServiceImpl implements TokenService {
 	}
 
 	@Override
-	public Token getToken(String accesToken) {
-		try {
-			return dao1.getToken(accesToken);
-		} catch (Exception e) {
-			System.out.println(dao1);
-			return null;
-		}
+	public Token getToken(String accesToken){
+			try {
+				return dao1.getToken(accesToken);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+	}
 
+	@Override
+	public Token deleteToken(Token token) throws Exception {
+		return dao1.deleteToken(token);
+	}
+
+	@Override
+	public Token getTokenByRefreshToken(String refreToken) throws Exception {
+		return dao1.getTokenByRefreshToken(refreToken);
 	}
 	
 	

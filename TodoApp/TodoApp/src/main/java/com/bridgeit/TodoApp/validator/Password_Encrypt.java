@@ -10,40 +10,7 @@ import javax.crypto.spec.PBEKeySpec;
 
 public class Password_Encrypt {
 
-	/*public static void main(String[] args) {
-
-		Password_Encrypt encrypt = new Password_Encrypt();	
-		// -----------Encrypt password
-		String originalPassword = "MiralModi";
-		String generatedSecuredPasswordHash;
-		try {
-			generatedSecuredPasswordHash = encrypt.generateStorngPasswordHash(originalPassword);
-			System.out.println(generatedSecuredPasswordHash);
-		} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
-			e.printStackTrace();
-		}
-
-		// -----------decrypt password
-		String originalPassword1 = "MiralModi";
-
-		boolean matched;
-		try {
-
-			String generatedSecuredPasswordHash1 = encrypt.generateStorngPasswordHash(originalPassword);
-			System.out.println(generatedSecuredPasswordHash1);
-			matched = encrypt.validatePassword("MiralModi", generatedSecuredPasswordHash1);
-			System.out.println(matched);
-			matched = encrypt.validatePassword("MiralModi", generatedSecuredPasswordHash1);
-			System.out.println(matched);
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		} catch (InvalidKeySpecException e) {
-			e.printStackTrace();
-		}
-	}*/
-
-	
-	public  byte[] fromHex(String hex) throws NoSuchAlgorithmException {
+	public byte[] fromHex(String hex) throws NoSuchAlgorithmException {
 		byte[] bytes = new byte[hex.length() / 2];
 		for (int i = 0; i < bytes.length; i++) {
 			bytes[i] = (byte) Integer.parseInt(hex.substring(2 * i, 2 * i + 2), 16);
@@ -51,7 +18,7 @@ public class Password_Encrypt {
 		return bytes;
 	}
 
-	public  boolean validatePassword(String originalPassword, String storedPassword)
+	public boolean validatePassword(String originalPassword, String storedPassword)
 			throws NoSuchAlgorithmException, InvalidKeySpecException {
 		System.out.println(storedPassword);
 		String[] parts = storedPassword.split(":");
@@ -70,8 +37,7 @@ public class Password_Encrypt {
 		return diff == 0;
 	}
 
-	public String generateStorngPasswordHash(String password)
-			throws NoSuchAlgorithmException, InvalidKeySpecException {
+	public String generateStorngPasswordHash(String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
 		int iterations = 1000;
 		char[] chars = password.toCharArray();
 		byte[] salt = getSalt();
@@ -99,4 +65,5 @@ public class Password_Encrypt {
 			return hex;
 		}
 	}
+
 }

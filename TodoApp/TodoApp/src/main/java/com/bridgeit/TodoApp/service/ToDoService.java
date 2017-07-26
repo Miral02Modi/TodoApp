@@ -19,4 +19,7 @@ public interface ToDoService {
 	public ToDoNotes updateNote(ToDoNotes doNotes) throws Exception;
 	
 	public ToDoNotes deleteNote(ToDoNotes doNotes) throws Exception;
+	
+	public ToDoNotes archivedNotes(ToDoNotes doNotes) throws Exception;
+	
 }

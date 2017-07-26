@@ -1,0 +1,125 @@
+
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation"
+	id="navigationBar">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed"
+				data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+				aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#menu-toggle" id="menu-toggle"><span
+				aria-hidden="true"><img src="imgs/menu.svg" alt="Sidemenu"></span></a>
+		</div>
+		<div id="navbar" class="navbar-collapse collapse">
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="#"><span aria-hidden="true"><img
+							src="imgs/refresh.svg" alt="refresh"></span></a></li>
+				<li><a href="#"><span aria-hidden="true"><img
+							src="imgs/grid.svg" alt="grid"></span></a></li>
+				<li><a href="#"><span aria-hidden="true"><img
+							src="imgs/bell.png" alt="notification"></span></a></li>
+				<li><a href="#"><span aria-hidden="true"><img
+							src="Images/navigationBarImages/refresh.svg" alt="avatar"></span></a></li>
+				<!--  <li><a href="#"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> Log Out</a></li> -->
+			</ul>
+			<div>
+				<form class="navbar-form navbar-left" action="#" method="GET">
+					<!-- <input type="text" id="searchBar" name="search" placeholder="Search.." value=""> -->
+					<input style="text-align: center" type="text" class="form-control"
+						placeholder="Search..." id="query" name="search" value="">
+					<div class="input-group" id="searchBarDiv">
+						<div class="input-group-btn">
+							<button type="submit" class="btn btn-success">
+								<span class="glyphicon glyphicon-search"> <!-- style="background-color: blue" -->
+								</span>
+							</button>
+						</div>
+					</div>
+			</div>
+			</form>
+		</div>
+	</div>
+</nav>
+
+<div id="wrapper" class="toggled">
+	<div class="container-fluid" id="sidebarContainerFluid">
+		<!-- Sidebar -->
+		<div id="sidebar-wrapper" style="background-color: #e8e8e8">
+			<ul class="sidebar-nav">
+				<li class="sidebar-brand"><br></li>
+				<li class="sidebar-brand"><a href="#" class="navbar-brand">
+						<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+						Profile
+				</a></li>
+				<li><a href="#"><span class="glyphicon glyphicon-home"
+						aria-hidden="true"></span> Home</a></li>
+				<li><a href="#"><span class="glyphicon glyphicon-search"
+						aria-hidden="true"></span> Search</a></li>
+				<li><span class="glyphicon glyphicon-search" aria-hidden="true"></span><font
+					color="#337AB7"> STATISTICS</font></li>
+				<li><a href="#"><span class="glyphicon glyphicon-tasks"
+						aria-hidden="true"></span> Reports</a></li>
+				<li><a href="#"><span class="glyphicon glyphicon-stats"
+						aria-hidden="true"></span> Statistic</a></li>
+				<li><span class="glyphicon glyphicon-search" aria-hidden="true"></span><font
+					color="#337AB7"> ADMINISTRATION</font></li>
+				<li><a href="#"><span class="glyphicon glyphicon-user"
+						aria-hidden="true"></span> Users</a></li>
+				<li><a href="#"><span class="glyphicon glyphicon-envelope"
+						aria-hidden="true"></span> Messages</a></li>
+			</ul>
+		</div>
+		<!-- /#sidebar-wrapper -->
+
+		<!-- Page Content -->
+		<div id="page-content-wrapper">
+			<div class="container-fluid" id="pageContainerfluid">
+				<div class="row">
+					<div class="col-lg-12" style="margin-top: 30px;"">
+						<div ></div>
+						----------------------------------
+						<div class="presentation"  data-ng-show="IsVisible1">
+							<input type="text" id="titleInput" placeholder="Title...." style="border: none;"
+								data-ng-click="ShowHide()">
+						</div>
+						<!-- /card division  -->
+
+						<!--this is editable division, this division will show when click card division -->
+						<div data-ng-show="IsVisible" class="presentation1">
+							<div id="presentationTitle" contenteditable1 contenteditable="true"   strip-br="true"
+								placeholder="Title...." ng-model="title1"></div>
+							<div id="presentationNote"  contenteditable1 contenteditable="true"  strip-br="true"
+								placeholder="Title...." ng-model="description1"></div>
+							<div id="presentationedit" contenteditable="true" style="outline: none"
+								placeholder="Title....">
+								<button id="doneButton" ng-click="createNote()" style="float: right;">
+									DONE</button>
+							</div>
+						</div>
+
+
+
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-4"></div>
+					<div class="col-lg-4"></div>
+					<div class="col-lg-4"></div>
+				</div>
+			</div>
+		</div>
+		<!-- /#page-content-wrapper -->
+	</div>
+</div>
+<!-- /#wrapper -->
+
+<script type="text/javascript">
+	$("#menu-toggle").click(function(e) {
+		console.log("inside the toggele");
+		e.preventDefault();
+		$("#wrapper").toggleClass("toggled");
+	});
+</script>

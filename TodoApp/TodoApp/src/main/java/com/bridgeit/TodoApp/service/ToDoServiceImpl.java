@@ -49,4 +49,11 @@ public class ToDoServiceImpl implements ToDoService {
 		return todoDao.deleteNote(doNotes);
 	}
 
+
+	@Override
+	public ToDoNotes archivedNotes(ToDoNotes doNotes) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -10,7 +10,6 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -27,9 +26,8 @@ import com.bridgeit.TodoApp.service.TokenService;
  */
 public class TokenBaseFiltering implements Filter {
 
-	/*
-	 * @Autowired private TokenService tokenService;
-	 */
+	
+	
 
 	@Override
 	public void destroy() {
@@ -45,21 +43,24 @@ public class TokenBaseFiltering implements Filter {
 
 		TokenService tokenService = (TokenService) applicationContext.getBean("tokenService");
 
-		/*
-		 * WebApplicationContext applicationContext = WebApplicationContextUtils
-		 * .getWebApplicationContext(req.getServletContext()); TokenService
-		 * tokenService = applicationContext.getBean(TokenServiceImpl.class);
-		 */
+		System.out.println("Inside the filter::::");
 
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse responce = (HttpServletResponse) resp;
-
-		String accessToken = request.getHeader("accessToken");
-
-		Cookie cookie[] = request.getCookies();
 		Date currentDate = new Date();
+		
 
-		if (cookie != null) {
+		
+
+		String accessToken =request.getHeader("accToken");
+		System.out.println("accessToken using set Header::::" + accessToken);
+	    
+		
+
+/*		Cookie cookie[] = request.getCookies();*/
+		
+
+		/*if (accessToken != null || cookie != null) {
 			for (Cookie cookie2 : cookie) {
 				if (cookie2.getName().equals("access_Token")) {
 					accessToken = cookie2.getValue();
@@ -68,7 +69,11 @@ public class TokenBaseFiltering implements Filter {
 
 			}
 
-		} else {
+		}*/ 
+		
+		
+		//------validate the accessToken is available or not
+		if(accessToken == null || accessToken.trim().isEmpty()) {
 
 			ErrorResponse errorResponse = new ErrorResponse();
 			errorResponse.setStatus(-1);
@@ -81,10 +86,18 @@ public class TokenBaseFiltering implements Filter {
 		}
 
 		// -------
-
 		Token token = tokenService.getToken(accessToken);
-
+		
+		
+		
+		//-----Checking the 
 		if (token == null) {
+
+			/*try {
+				tokenService.deleteToken(token);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}*/
 
 			responce.setContentType("application/json");
 			String jsonResp = "{\"status\":\"-3\",\"errorMessage\":\"Invalid access token\"}";
@@ -95,29 +108,38 @@ public class TokenBaseFiltering implements Filter {
 		Date oldDate = token.getCreateOn();
 		long difference = currentDate.getTime() - oldDate.getTime();
 		long differrenceInSecond = TimeUnit.MILLISECONDS.toSeconds(difference);
-
+		System.out.println(differrenceInSecond);
+		
+		System.out.println(differrenceInSecond > 60/2);
 		if (differrenceInSecond > 60) {
-			
-			System.out.println("Filter"+differrenceInSecond);
-			if (differrenceInSecond < 2 * 60 && !token.getRefreshToken().equals(token.getAccessToken())) {
+			System.out.println("session has been expired");
+			// System.out.println("Filter"+differrenceInSecond);
+			/*if (differrenceInSecond < 2 * 60 && !token.getRefreshToken().equals(token.getAccessToken())) {
 				System.out.println("inside the refresh Token");
-				//accessToken = token.getRefreshToken();
+				// accessToken = token.getRefreshToken();
 				token.setAccessToken(token.getRefreshToken());
 				token.setCreateOn(new Date());
-				try {
-					tokenService.addToken(token);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
 				
-			} else {
+				Cookie cookie1 = new Cookie("access_Token", token.getAccessToken());
+				responce.addCookie(cookie1);
+				
+				
+				
+				return;
+			} else {*/
+				
 				responce.setContentType("application/json");
 				String jsonResp = "{\"status\":\"-4\",\"errorMessage\":\"Access token is expired. Generate new Access Tokens\"}";
 				responce.getWriter().write(jsonResp);
 				return;
-			}
+			
 
 		}
+	
+		 /*token.setCreateOn(new Date()); try { tokenService.addToken(token); }
+		 catch (Exception e) { e.printStackTrace(); }*/
+		 
+		System.out.println("do chain");
 		chain.doFilter(request, responce);
 	}
 

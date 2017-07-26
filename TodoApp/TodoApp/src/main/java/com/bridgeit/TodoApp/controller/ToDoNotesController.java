@@ -68,7 +68,8 @@ public class ToDoNotesController {
 			UserRegistration user = (UserRegistration) httpSession.getAttribute("user");
 			doNotesModel.setUser(user);
 			doNotesModel.setDate(new Date());
-
+			doNotesModel.setPinned("false");
+			doNotesModel.setArchive("false");
 			// ------setting into the DataBase
 			doService.createNotes(doNotesModel);
 
@@ -93,13 +94,17 @@ public class ToDoNotesController {
 	// ----------------------------------Search--by--Title-------------------------------
 	/**
 	 * 
-	 * Search By the Title
+	 * This is the code for the search all notes by their title
 	 * 
-	 * @param title     {@link Map}
-	 * @param result    {@link BindingResult}
-	 * @param pRequest  {@link HttpServletRequest}  
-	 * @param pResponse {@link HttpServletResponse}
-	 * @return			{@link ResponseEntity}
+	 * @param title
+	 *            {@link Map}
+	 * @param result
+	 *            {@link BindingResult}
+	 * @param pRequest
+	 *            {@link HttpServletRequest}
+	 * @param pResponse
+	 *            {@link HttpServletResponse}
+	 * @return {@link ResponseEntity}
 	 */
 	// ----------------------------------Search--by--Title-------------------------------
 	@RequestMapping(value = "/searchByTitle", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -139,15 +144,21 @@ public class ToDoNotesController {
 	}
 
 	// ----------------------------------Search--by--ID---------------------------------
-	/**	
-	 * @param id 		{@link String}
-	 * @param pRequest	{@link HttpServletRequest}
-	 * @param pResponse	{@link HttpServletResponse}	
-	 * @return 			{@link ResponseEntity}
+	/**
+	 * 
+	 * This is code for the search all notes information by specific user
+	 * 
+	 * @param id
+	 *            {@link String}
+	 * @param pRequest
+	 *            {@link HttpServletRequest}
+	 * @param pResponse
+	 *            {@link HttpServletResponse}
+	 * @return {@link ResponseEntity}
 	 */
 	// ----------------------------------Search--by--ID---------------------------------
 	@RequestMapping(value = "searchById/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Response> searchBYId(@PathVariable("id") String id, HttpServletRequest pRequest,
+	public ResponseEntity<Response> searchBYId(@PathVariable("id") int id, HttpServletRequest pRequest,
 			HttpServletResponse pResponse) {
 
 		// ------Getting Session
@@ -156,15 +167,25 @@ public class ToDoNotesController {
 
 		try {
 
-			// ------Searching all the data of login user by his id
-			List<ToDoNotes> list2 = doService.searchById(user.getId());
+			if (user.getId() == id) {
 
-			// ------Setting Response
-			TodoNotesResponse response = new TodoNotesResponse();
-			response.setStatus(1);
-			response.setMessage("Successfully retrived");
-			response.setList(list2);
-			return new ResponseEntity<Response>(response, HttpStatus.OK);
+				// ------Searching all the data of login user by his id
+				List<ToDoNotes> list2 = doService.searchById(user.getId());
+
+				// ------Setting Response
+				TodoNotesResponse response = new TodoNotesResponse();
+				response.setStatus(1);
+				response.setMessage("Successfully retrived");
+				response.setList(list2);
+				return new ResponseEntity<Response>(response, HttpStatus.OK);
+			} else {
+
+				// ------Setting Response
+				ErrorResponse errorResponse = new ErrorResponse();
+				errorResponse.setStatus(-1);
+				errorResponse.setMessage("Exception Occur");
+				return new ResponseEntity<Response>(errorResponse, HttpStatus.NOT_ACCEPTABLE);
+			}
 
 		} catch (Exception e) {
 
@@ -179,40 +200,51 @@ public class ToDoNotesController {
 
 	}
 
-	
-	
 	// ----------------------------------Update--Notes--------------------------------------
 	/**
-	 * Update Notes
+	 * This is code for the update the todoNotes
 	 * 
-	 * @param doNotes	{@link ToDoNotes}	
-	 * @param pRequest	{@link HttpServletRequest}
-	 * @param pResponse	{@link HttpServletResponse}
-	 * @return			{@link ResponseEntity}
+	 * @param doNotes
+	 *            {@link ToDoNotes}
+	 * @param pRequest
+	 *            {@link HttpServletRequest}
+	 * @param pResponse
+	 *            {@link HttpServletResponse}
+	 * @return {@link ResponseEntity}
 	 */
 	// ----------------------------------Update--Notes--------------------------------------
 	@RequestMapping(value = "/updateNotes/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Response> updateNote(@PathVariable("id") int id,@RequestBody ToDoNotes doNotes, HttpServletRequest pRequest,
-			HttpServletResponse pResponse) {
-		
+	public ResponseEntity<Response> updateNote(@PathVariable("id") int id, @RequestBody ToDoNotes doNotes,
+			HttpServletRequest pRequest, HttpServletResponse pResponse) {
+
 		doNotes.setId(id);
 		System.out.println(doNotes);
 		// ------Getting Session
 		HttpSession httpSession = pRequest.getSession();
 		UserRegistration user = (UserRegistration) httpSession.getAttribute("user");
 
-		//doNotes.setId(user.getId());
+		// doNotes.setId(user.getId());
 		doNotes.setUser(user);
-		System.out.println("inside the update Notes"+doNotes);
+		System.out.println("inside the update Notes" + doNotes);
 		try {
-			ToDoNotes doNotes2 = doService.updateNote(doNotes);
+			if (user.getId() == id) {
+				ToDoNotes doNotes2 = doService.updateNote(doNotes);
 
-			// ------Setting Response
-			TodoNotesResponse response = new TodoNotesResponse();
-			response.setStatus(1);
-			response.setMessage("Successfully update");
-			response.setTodoNotes(doNotes2);
-			return new ResponseEntity<Response>(response, HttpStatus.OK);
+				// ------Setting Response
+				TodoNotesResponse response = new TodoNotesResponse();
+				response.setStatus(1);
+				response.setMessage("Successfully update");
+				response.setTodoNotes(doNotes2);
+				return new ResponseEntity<Response>(response, HttpStatus.OK);
+			} else {
+
+				// ------Setting Response
+				ErrorResponse errorResponse = new ErrorResponse();
+				errorResponse.setStatus(-1);
+				errorResponse.setMessage("Exception Occur");
+				return new ResponseEntity<Response>(errorResponse, HttpStatus.NOT_ACCEPTABLE);
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -224,17 +256,18 @@ public class ToDoNotesController {
 		}
 	}
 
-	
-	
 	// ----------------------------------delete--Notes--------------------------------------
 	/**
 	 * 
-	 * Delete Notes		
+	 * This is the code for the Delete Note
 	 * 
-	 * @param doNotes	{@link ToDoNotes}
-	 * @param pRequest	{@link HttpServletRequest}
-	 * @param pResponse	{@link HttpServletResponse}
-	 * @return			{@link ResponseEntity}
+	 * @param doNotes
+	 *            {@link ToDoNotes}
+	 * @param pRequest
+	 *            {@link HttpServletRequest}
+	 * @param pResponse
+	 *            {@link HttpServletResponse}
+	 * @return {@link ResponseEntity}
 	 */
 	// ----------------------------------delete--Notes--------------------------------------
 	@RequestMapping(value = "deleteNotes/{id}", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -242,21 +275,34 @@ public class ToDoNotesController {
 			HttpServletResponse pResponse) {
 
 		// ------Getting Session
-		/*HttpSession httpSession = pRequest.getSession();
-		UserRegistration user = (UserRegistration) httpSession.getAttribute("user");*/
-		System.out.println("inside the delete id is "+id);
+
+		HttpSession httpSession = pRequest.getSession();
+		UserRegistration user = (UserRegistration) httpSession.getAttribute("user");
+
+		System.out.println("inside the delete id is " + id);
 		ToDoNotes doNotes = new ToDoNotes();
 		doNotes.setId(id);
-		
-		try {
-			ToDoNotes doNotes2 =  doService.deleteNote(doNotes);
 
-			// ------Setting Response
-			TodoNotesResponse response = new TodoNotesResponse();
-			response.setStatus(1);
-			response.setMessage("Successfully delete");
-			response.setTodoNotes(doNotes2);
-			return new ResponseEntity<Response>(response, HttpStatus.OK);
+		try {
+
+			if (user.getId() == id) {
+				ToDoNotes doNotes2 = doService.deleteNote(doNotes);
+
+				// ------Setting Response
+				TodoNotesResponse response = new TodoNotesResponse();
+				response.setStatus(1);
+				response.setMessage("Successfully delete");
+				response.setTodoNotes(doNotes2);
+				return new ResponseEntity<Response>(response, HttpStatus.OK);
+			} else {
+
+				// ------Setting Response
+				ErrorResponse errorResponse = new ErrorResponse();
+				errorResponse.setStatus(-1);
+				errorResponse.setMessage("Exception Occur");
+				return new ResponseEntity<Response>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -267,4 +313,60 @@ public class ToDoNotesController {
 			return new ResponseEntity<Response>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+
+	/**
+	 * 
+	 * This is the code for the archive the code
+	 * 
+	 * @param noteId
+	 *            {@link Integer}
+	 * @param doNotes
+	 *            {@link ToDoNotes}
+	 * @param pRequest
+	 *            {@link HttpServletRequest}
+	 * @param pResponse
+	 *            {@link HttpServletResponse}
+	 * @return {@link ResponseEntity}
+	 */
+	@RequestMapping(value = "/archivedNotes/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Response> archivedNotes(@PathVariable(name = "id") int noteId, ToDoNotes doNotes,
+			HttpServletRequest pRequest, HttpServletResponse pResponse) {
+		
+		
+		HttpSession session = pRequest.getSession();
+		UserRegistration user = (UserRegistration) session.getAttribute("user");
+		
+		
+		
+		doNotes.setArchive("true");
+
+		try {
+			
+			if(user.getId() == noteId){
+			doService.createNotes(doNotes);
+
+			// ------Setting Response
+			TodoNotesResponse response = new TodoNotesResponse();
+			response.setStatus(1);
+			response.setMessage("Successfully delete");
+			response.setTodoNotes(doNotes);
+			return new ResponseEntity<Response>(response, HttpStatus.OK);
+			}else{
+				ErrorResponse errorResponse = new ErrorResponse();
+				errorResponse.setStatus(-1);
+				errorResponse.setMessage("Exception Occur");
+				return new ResponseEntity<Response>(errorResponse, HttpStatus.NOT_ACCEPTABLE);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			// ------Setting Response
+			ErrorResponse errorResponse = new ErrorResponse();
+			errorResponse.setStatus(-1);
+			errorResponse.setMessage("Exception Occur");
+			return new ResponseEntity<Response>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+	}
+
 }

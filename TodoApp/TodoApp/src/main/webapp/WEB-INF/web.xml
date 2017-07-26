@@ -4,9 +4,9 @@
 	http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
 	<display-name>Archetype Created Web Application</display-name>
 
-	<welcome-file-list>
+	<!-- <welcome-file-list>
 		<welcome-file>landingPage</welcome-file>
-	</welcome-file-list>
+	</welcome-file-list> -->
 
 	<!-- <welcome-file-list> <welcome-file>landingPage</welcome-file> </welcome-file-list> -->
 
@@ -43,7 +43,7 @@
 
 	<filter-mapping>
 		<filter-name>authenticationFilter</filter-name>
-		<url-pattern>/update</url-pattern>
+		<url-pattern>/createNote</url-pattern>
 	</filter-mapping>
 
 </web-app>

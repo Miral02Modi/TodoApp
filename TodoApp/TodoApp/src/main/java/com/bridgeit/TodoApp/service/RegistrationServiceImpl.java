@@ -35,9 +35,6 @@ public class RegistrationServiceImpl implements RegistrationService {
 		 dao.updateProfile(registration);
 	}
 
-
-
-
 	
 	@Override
 	public UserRegistration getUserbyId(String id) throws Exception {

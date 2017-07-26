@@ -1,54 +1,66 @@
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Register</title>
-<style>
-.error {
-	color: red;
-	font-weight: bold;
-}
-</style>
+<link rel="stylesheet" href="css/login.css">
+<link rel="stylesheet" href="css/NavbarCss.css">
+<link rel="stylesheet" href="css/createNote.css">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="bower_components/angular/angular.js"></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.6.5/angular-sanitize.js"
+	charset="utf-8"></script>
+<script type="text/javascript"
+	src="bower_components/angular-ui-router/release/angular-ui-router.js"
+	charset="utf-8"></script>
+	
+
+
 </head>
-<body>
-	<form:form action="register" method="post" commandName="register">
-		<table>
-			<tr>
-				<td>Name</td>
-				<td><form:input path="name" /></td>
-				<td align="left"><form:errors path="name" cssClass="error" /></td>
-			</tr>
 
-			<tr>
-				<td>Email</td>
-				<td><form:input path="email" /></td>
-				<td align="left"><form:errors path="email" cssClass="error" /></td>
-			</tr>
 
-			<tr>
-				<td>Password</td>
-				<td><form:password path="password" /></td>
-				<td align="left"><modi:errors path="password" cssClass="error" /></td>
-			</tr>
 
-			<tr>
-				<td>Confirm Password</td>
-				<td><input type="password" name="confirmPassword" /></td>
-			</tr>
-
-			<tr>
-				<td>Mobile Number</td>
-				<td><form:input path="phone" /></td>
-				<td align="left"><form:errors path="phone" cssClass="error" /></td>
-			</tr>
-
-			<tr>
-				<!-- <td></td> -->
-				<td><input type="submit" />
-					<button formaction="loginView">Login</button></td>
-			</tr>
-		</table>
-	</form:form>
+<body data-ng-app="todoApp" style="background-color: #e8e8e8">
+	<div ui-view></div>
 </body>
+
+
+
+<script type="text/javascript" src="js/DesignJs/NavBar.js" charset="utf-8"></script>
+<script type="text/javascript" src="js/app.js" charset="utf-8"></script>
+<script type="text/javascript" src="js/controller/LoginController.js"
+	charset="utf-8"></script>
+<script type="text/javascript" src="js/controller/RegisterController.js"
+	charset="utf-8"></script>
+<script type="text/javascript" src="js/controller/showDivisionController.js"
+	charset="utf-8"></script>
+
+
+
+<script type="text/javascript" src="js/service/loginService.js"
+	charset="utf-8"></script>
+<script type="text/javascript" src="js/service/loginService.js"
+	charset="utf-8"></script>
+<script type="text/javascript" src="js/service/RegisterService.js"
+	charset="utf-8"></script>
+<script type="text/javascript" src="js/service/RefreshTokenService.js"
+	charset="utf-8"></script>
+<script type="text/javascript" src="js/service/createNoteService.js"
+	charset="utf-8"></script>	
+
+
+<script type="text/javascript" src="js/directive.js"
+	charset="utf-8"></script>	
+	
+	
 </html>

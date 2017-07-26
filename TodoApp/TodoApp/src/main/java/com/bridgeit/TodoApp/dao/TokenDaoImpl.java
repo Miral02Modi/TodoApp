@@ -1,6 +1,7 @@
 package com.bridgeit.TodoApp.dao;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Conjunction;
@@ -41,6 +42,31 @@ public class TokenDaoImpl implements TokenDao {
 		conjunction.add(criterion);
 		criteria.add(conjunction);
 		return (Token) criteria.uniqueResult();
+	}
+	
+	
+	@Override
+	public Token getTokenByRefreshToken(String refreToken) throws Exception {
+		
+		Session session = factory.openSession();
+		Criteria criteria = session.createCriteria(Token.class);
+		Criterion criterion = Restrictions.eq("refreshToken", refreToken);
+
+		Conjunction conjunction = new Conjunction();
+		conjunction.add(criterion);
+		criteria.add(conjunction);
+	
+		return (Token) criteria.uniqueResult();
+	}
+	
+	
+	@Transactional
+	public Token deleteToken(Token token) throws Exception{
+		
+		Session session = factory.getCurrentSession();
+		Query query = session.createQuery("delete from Token where user.id := userId");
+		query.setParameter("userId", token.getUserId());
+		return token;
 	}
 	
 	

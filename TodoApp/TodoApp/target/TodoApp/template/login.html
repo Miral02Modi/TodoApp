@@ -1,0 +1,35 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+</body>
+</html> -->
+
+
+<div class="wrapper">
+	<form class="form-signin" method="post" name="loginForm">
+		<h2 class="form-signin-heading">Please login</h2>
+
+
+		<br> <label>Email</label> <input type="text" class="form-control"
+			name="Email" id="email" placeholder="Email Address" data-ng-model="email"/>
+
+		<p id="p1" style="color: red"></p>
+
+		<br> <label>Password</label>
+		
+		 <input type="password"
+			class="form-control" name="password" id="Password"
+			placeholder="Password" data-ng-model="password" required />
+		<p id="p2" style="color: red"></p>
+		<br>
+		<button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="loginController()">Login</button>
+		<a ui-sref="register">register</a>
+		{{logObj}}
+		{{welcome}}
+	</form>
+</div>

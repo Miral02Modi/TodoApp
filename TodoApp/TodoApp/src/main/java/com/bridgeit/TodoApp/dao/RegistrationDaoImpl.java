@@ -20,11 +20,14 @@ import com.bridgeit.TodoApp.validator.Password_Encrypt;;
  * @author Miral
  *
  */
+
 public class RegistrationDaoImpl implements RegistrationDao {
 
 	@Autowired
 	SessionFactory factory;
 
+	
+	
 	@Override
 	public void userRegister(UserRegistration user) throws Exception {
 
@@ -36,6 +39,7 @@ public class RegistrationDaoImpl implements RegistrationDao {
 		session.saveOrUpdate(user);
 	}
 
+	
 	@Override
 	@Transactional
 	public UserRegistration loginUser(String email, String password) throws Exception  {
@@ -89,6 +93,7 @@ public class RegistrationDaoImpl implements RegistrationDao {
 			return null;
 		
 		//-------matching password
+		System.out.println("validate password matching"+user.getPassword());
 		boolean matched = false;
 			matched = encrypt.validatePassword(password, user.getPassword());
 		
@@ -100,20 +105,24 @@ public class RegistrationDaoImpl implements RegistrationDao {
 	}
 
 	@Override
-	public void updateProfile(UserRegistration registration) throws Exception {
+	public void updateProfile(UserRegistration user) throws Exception {
+		
+		
+		Password_Encrypt encrypt = new Password_Encrypt();
+		user.setPassword(encrypt.generateStorngPasswordHash(user.getPassword()));
 
 		Session session = factory.getCurrentSession();
-
+			
 		Criteria criteria = session.createCriteria(UserRegistration.class);
 		criteria.setProjection(Projections.property("id"));
-		Criterion criterion = Restrictions.eq("email", registration.getEmail());
+		Criterion criterion = Restrictions.eq("email", user.getEmail());
 
 		criteria.add(criterion);
 		Integer id = (Integer) criteria.uniqueResult();
 		System.out.println("Id" + id);
-		registration.setId(id);
+		user.setId(id);
 		
-		session.update(registration);
+		session.update(user);
 	}
 
 	@Override

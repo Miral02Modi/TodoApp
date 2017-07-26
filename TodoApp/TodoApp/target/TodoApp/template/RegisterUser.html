@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+	<div class="wrapper" ng-controller="loginCtrl">
+		<form class="form-signin" method="post">
+
+			<h2 class="form-signin-heading">Please login</h2>
+			
+			
+			<br> <label>Name</label> <input type="text"
+				class="form-control" name="user.name" id="name"
+				placeholder="Name" data-ng-model="name" />
+			
+			
+
+			<br> <label>Email</label> <input type="text"
+				class="form-control" name="user.email" id="email"
+				placeholder="Email Address" data-ng-model="email" />
+
+			<p id="p1" style="color: red"></p>
+
+			<br> <label>Password</label> <input type="password"
+				class="form-control" name="user.password" id="Password"
+				placeholder="Password" data-ng-model="password" />
+			<p id="p2" style="color: red"></p>
+			
+			
+			<br> <label>Confirm Password</label> <input type="password"
+				class="form-control" name="confirmPassword" id="confirmPassword"
+				placeholder="Password" />
+			<p id="p2" style="color: red"></p>
+			
+			
+			<br> <label>Mobile Number</label> <input type="text"
+				class="form-control" name="user.phone" id="phone"
+				placeholder="Mobile Number" data-ng-model="phone"/>
+			
+			<br>
+			<button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="registerController()">Register</button>
+			
+			<p>{{user}}</p>
+			
+		</form>
+	</div>
+
+</body>
+</html>

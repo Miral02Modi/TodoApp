@@ -1,0 +1,65 @@
+.presentation {
+	width: 600px;
+	/*   height: 120px; */
+	padding: 20px;
+	margin: auto;
+	background: #FFF;
+	margin-top: 10px;
+	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+	transition: all 0.3s;
+	border-radius: 3px;
+}
+
+.presentation1 {
+	width: 600px;
+	/*   height: 120px; */
+	/*   padding: 20px;*/
+	margin: auto;
+	background: #FFF;
+	margin-top: 10px;
+	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+	transition: all 0.3s;
+	border-radius: 3px;
+}
+
+#presentationTitle {
+	width: 590px;
+	/*   height: 120px; */
+	padding: 20px;
+	background: #FFF;
+	transition: all 0.3s;
+	outline: none;
+}
+
+#presentationNote {
+	width: 590px;
+	/*   height: 120px; */
+	padding: 20px;
+	background: #FFF;
+	transition: all 0.3s;
+	outline: none;
+}
+
+#presentationedit {
+	width: 590px;
+	/*   height: 120px; */
+	padding: 20px;
+	background: #FFF;
+	transition: all 0.3s;
+	word-wrap: break-word;
+}
+
+.presentation:hover {
+	box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px
+		rgba(0, 0, 0, 0.22);
+	transition: all 0.3s;
+	transform: translateZ(10px);
+}
+
+#doneButton {
+	background-color: Transparent;
+	background-repeat: no-repeat;
+	border: none;
+	cursor: pointer;
+	overflow: hidden;
+}

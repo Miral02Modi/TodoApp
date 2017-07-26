@@ -3,7 +3,6 @@ package com.bridgeit.TodoApp.model;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -27,8 +26,10 @@ public class ToDoNotes implements Serializable {
 	private  String title;
 	private  String description;
 	private  Date date;
+	private  String archive;
+	private  String pinned; 
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(/*cascade=CascadeType.ALL,*/optional=false)
 	@JoinColumn(name="userId")
 	UserRegistration user;
 	
@@ -73,12 +74,27 @@ public class ToDoNotes implements Serializable {
 	}
 	
 	
-	@Override
-	public String toString() {
-		return "ToDoNotes [id=" + id + ", title=" + title + ", description=" + description + ", date=" + date
-				+ ", user=" + user + "]";
+	
+	public String getArchive() {
+		return archive;
+	}
+	public void setArchive(String archive) {
+		this.archive = archive;
 	}
 	
 	
+	public String getPinned() {
+		return pinned;
+	}
+	public void setPinned(String pinned) {
+		this.pinned = pinned;
+	}
+	
+	
+	@Override
+	public String toString() {
+		return "ToDoNotes [id=" + id + ", title=" + title + ", description=" + description + ", date=" + date
+				+ ", archive=" + archive + ", pinned=" + pinned + ", user=" + user + "]";
+	}
 	
 }

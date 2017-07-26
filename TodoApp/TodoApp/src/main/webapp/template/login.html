@@ -1,0 +1,54 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+</body>
+</html> -->
+
+
+<div class="wrapper">
+	<form class="form-signin" method="post" name="loginForm">
+		<h2 class="form-signin-heading">Please login</h2>
+
+
+		<br> <label>Email</label> <input type="email"
+			class="form-control" name="email" id="email"
+			placeholder="Email Address" ng-model="email" required />
+			
+			
+	 	<span class="error" ng-show="loginForm.email.$error.email && loginForm.email.$dirty">
+		 	***Email is a required field***
+	 	</span>
+
+
+
+
+		<p id="p1" style="color: red"></p>
+
+		<br> <label>Password</label> <input type="password"
+			class="form-control" name="password" id="Password"
+			placeholder="Password" data-ng-model="password" required /> 
+			
+			<span class="error" ng-show="loginForm.password.$error.required && loginForm.password.$dirty">
+				***password is Required!***
+			</span>
+
+		<!-- <p id="p2" style="color: red"></p> -->
+
+
+		<br>
+		<button class="btn btn-lg btn-primary btn-block" type="submit"
+			ng-click="loginController()"  ng-disabled="loginForm.$invalid">Login</button>
+		<a ui-sref="register">register</a>
+
+		<!-- <h1>{{loginForm.email1.$error.email}}</h1> -->
+		<div role="alert"></div>
+
+	</form>
+</div>
+
+ 
