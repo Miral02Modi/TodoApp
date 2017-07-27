@@ -1,4 +1,8 @@
 
+
+
+<!---------------------Navigation Bar --------------------------------->
+
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation"
 	id="navigationBar">
 	<div class="container-fluid">
@@ -44,6 +48,9 @@
 	</div>
 </nav>
 
+
+
+<!---------------------Sidebar Bar --------------------------------->
 <div id="wrapper" class="toggled">
 	<div class="container-fluid" id="sidebarContainerFluid">
 		<!-- Sidebar -->
@@ -74,45 +81,57 @@
 		</div>
 		<!-- /#sidebar-wrapper -->
 
+
+
+		<!---------------------Title card --------------------------------->
 		<!-- Page Content -->
-		<div id="page-content-wrapper">
+		<div id="page-content-wrapper"
+			style="margin-top: 75px;">
 			<div class="container-fluid" id="pageContainerfluid">
+
 				<div class="row">
-					<div class="col-lg-12" style="margin-top: 30px;"">
-						<div ></div>
-						----------------------------------
-						<div class="presentation"  data-ng-show="IsVisible1">
-							<input type="text" id="titleInput" placeholder="Title...." style="border: none;"
-								data-ng-click="ShowHide()">
-						</div>
+					<div class="col-lg-3"></div>
+					<div class="col-lg-8" style="border: 1px solid green;">
+						<div contenteditable1 contenteditable="true"
+							placeholder="Take a Note..." class="presentation"
+							data-ng-show="IsVisible1" data-ng-click="ShowHide()"
+							id="mainTitle"></div>
+						<!-- <input type="text" id="titleInput" placeholder="Title...."
+								style="border: none;" data-ng-click="ShowHide()"> -->
+
 						<!-- /card division  -->
 
 						<!--this is editable division, this division will show when click card division -->
 						<div data-ng-show="IsVisible" class="presentation1">
-							<div id="presentationTitle" contenteditable1 contenteditable="true"   strip-br="true"
-								placeholder="Title...." ng-model="title1"></div>
-							<div id="presentationNote"  contenteditable1 contenteditable="true"  strip-br="true"
-								placeholder="Title...." ng-model="description1"></div>
-							<div id="presentationedit" contenteditable="true" style="outline: none"
-								placeholder="Title....">
-								<button id="doneButton" ng-click="createNote()" style="float: right;">
-									DONE</button>
+
+							<div contenteditable1 contenteditable="true" placeholder="Title"
+								ng-model="title1" id="presentationTitle" class="createTitle"></div>
+							<div contenteditable1 contenteditable="true"
+								placeholder="Take a notes..." ng-model="description1"
+								id="presentationNote" class="createDescription"></div>
+
+
+							<div id="presentationedit" style="outline: none"
+								placeholder="yuyiuiu.">
+								<button id="doneButton" ng-click="createNote()"
+									style="float: right;">DONE</button>
 							</div>
 						</div>
-
-
-
 					</div>
-				</div>
-				<div class="row">
-					<div class="col-lg-4"></div>
-					<div class="col-lg-4"></div>
-					<div class="col-lg-4"></div>
-				</div>
+			</div>
+
+
+
+
+			<div class="row">
+				<div class="col-lg-4"></div>
+				<div class="col-lg-4"></div>
+				<div class="col-lg-4"></div>
 			</div>
 		</div>
-		<!-- /#page-content-wrapper -->
 	</div>
+	<!-- /#page-content-wrapper -->
+</div>
 </div>
 <!-- /#wrapper -->
 

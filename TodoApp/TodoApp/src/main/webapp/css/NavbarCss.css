@@ -39,6 +39,7 @@
 
 #page-content-wrapper {
 	width: 100%;
+	background-color: #e8e8e8;
 }
 
 #wrapper.toggled #page-content-wrapper {
@@ -142,12 +143,14 @@
 		/* 		width:500px; */
 	}
 	#page-content-wrapper {
-		
 		padding: 15px;
 		width: 79%;
 		background-color: #e8e8e8;
 	}
-	#pageContainerfluid, #sidebarContainerFluid {
+	#pageContainerfluid,#sidebarContainerFluid{
 		background-color: #e8e8e8;
-		visibility: visible;
+	}
+	
+	html,body {
+		background-color: #e8e8e8;
 	}

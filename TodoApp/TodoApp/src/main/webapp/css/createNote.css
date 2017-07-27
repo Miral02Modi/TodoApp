@@ -1,58 +1,65 @@
 .presentation {
-	width: 600px;
+	width: 95%;
 	/*   height: 120px; */
-	padding: 20px;
-	margin: auto;
+	padding: 11px;
+	/* margin: auto; */
 	background: #FFF;
 	margin-top: 10px;
 	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-	transition: all 0.3s;
+	/* transition: all 0.3s; */
 	border-radius: 3px;
 }
 
 .presentation1 {
-	width: 600px;
+	width: 95%;
 	/*   height: 120px; */
 	/*   padding: 20px;*/
-	margin: auto;
+	/* margin: auto; */
 	background: #FFF;
 	margin-top: 10px;
 	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-	transition: all 0.3s;
+	/* transition: all 0.3s; */
 	border-radius: 3px;
 }
 
 #presentationTitle {
-	width: 590px;
+	width: 95%;
 	/*   height: 120px; */
-	padding: 20px;
+	padding: 10px;
 	background: #FFF;
-	transition: all 0.3s;
+	/* transition: all 0.3s; */
+	font-family:'Roboto Slab','Times New Roman',serif;
+	font-weight:bold;
+	font-size:17px;
+	line-height:23px;
 	outline: none;
 }
 
 #presentationNote {
-	width: 590px;
+	width: 95%;
 	/*   height: 120px; */
-	padding: 20px;
+	padding: 11px;
+	/* white-space:pre-wrap; */
+	font-family:'Roboto Slab','Times New Roman',serif;
+	/* font-variant-ligatures:none; */
 	background: #FFF;
-	transition: all 0.3s;
+	/* transition: all 0.3s; */
 	outline: none;
 }
 
 #presentationedit {
-	width: 590px;
+	width: 95%;
 	/*   height: 120px; */
-	padding: 20px;
+	padding: 23px;
 	background: #FFF;
-	transition: all 0.3s;
+	/* transition: all 0.3s; */
 	word-wrap: break-word;
 }
 
 .presentation:hover {
 	box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px
 		rgba(0, 0, 0, 0.22);
-	transition: all 0.3s;
+	/* transition: all 0.3s; */
 	transform: translateZ(10px);
 }
 
@@ -63,3 +70,37 @@
 	cursor: pointer;
 	overflow: hidden;
 }
+
+#presentationNote[contenteditable=true]:empty:before {
+	content: attr(placeholder);
+	font-size: 14px;
+	line-height: 19px;
+	min-height: 46px;
+	color: grey;
+}
+
+
+#presentationTitle[contenteditable=true]:empty:before {
+	content: attr(placeholder);
+	font-family: 'Roboto Condensed', arial, sans-serif;
+	font-size: 17px;
+	display: block;
+	font-weight: bold;
+	color: gray;
+}
+#mainTitle[contenteditable=true]:empty:before {
+	content: attr(placeholder);
+	font-size: 14px;
+	line-height: 19px;
+	min-height: 46px;
+	color: grey;
+}	
+
+/* .createTitle {
+	font-family: 'Roboto Condensed', arial, sans-serif;
+	font-weight: bold;
+	font-size: 17px;
+} */
+
+
+
