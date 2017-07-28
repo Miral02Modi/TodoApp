@@ -42,9 +42,9 @@
 	charset="utf-8"></script>
 <script type="text/javascript" src="js/controller/RegisterController.js"
 	charset="utf-8"></script>
-<script type="text/javascript" src="js/controller/showDivisionController.js"
+<!-- <script type="text/javascript" src="js/controller/showDivisionController.js" charset="utf-8"></script> --> 
+<script type="text/javascript" src="js/controller/TodoController.js"
 	charset="utf-8"></script>
-
 
 
 <script type="text/javascript" src="js/service/loginService.js"
@@ -56,7 +56,9 @@
 <script type="text/javascript" src="js/service/RefreshTokenService.js"
 	charset="utf-8"></script>
 <script type="text/javascript" src="js/service/createNoteService.js"
-	charset="utf-8"></script>	
+	charset="utf-8"></script>
+<script type="text/javascript" src="js/service/DeleteNotes.js"
+	charset="utf-8"></script>		
 	
 
 

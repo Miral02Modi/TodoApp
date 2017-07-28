@@ -69,7 +69,7 @@ public class ReFreshValiadate {
 			long diffence = currentDate.getTime() - oldDate.getTime();
 			long diffenceInSecond = TimeUnit.MILLISECONDS.toSeconds(diffence);
 
-			if (diffenceInSecond <= 2 * 60) { // 60 days
+			if (diffenceInSecond <= 60 * 60) { // 60 days
 
 				Token token2 = new Token();
 				token2.setAccessToken(UUID.randomUUID().toString().replaceAll("-", ""));

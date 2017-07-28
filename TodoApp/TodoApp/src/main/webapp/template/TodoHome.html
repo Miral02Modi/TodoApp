@@ -85,19 +85,18 @@
 
 		<!---------------------Title card --------------------------------->
 		<!-- Page Content -->
-		<div id="page-content-wrapper"
-			style="margin-top: 75px;">
+		<div id="page-content-wrapper" style="margin-top: 75px;">
 			<div class="container-fluid" id="pageContainerfluid">
 
 				<div class="row">
 					<div class="col-lg-3"></div>
-					<div class="col-lg-8" style="border: 1px solid green;">
+					<div class="col-lg-8">
 						<div contenteditable1 contenteditable="true"
 							placeholder="Take a Note..." class="presentation"
 							data-ng-show="IsVisible1" data-ng-click="ShowHide()"
 							id="mainTitle"></div>
-						<!-- <input type="text" id="titleInput" placeholder="Title...."
-								style="border: none;" data-ng-click="ShowHide()"> -->
+
+
 
 						<!-- /card division  -->
 
@@ -118,27 +117,33 @@
 							</div>
 						</div>
 					</div>
+				</div>
+				<br> <br>
+
+				<div class="row">
+					<div class="col-lg-4 col-sm-9 col-md-4 col-xs-12"
+						ng-repeat="x in notes">
+
+						<div class="presentation1">
+							<div ng-bind-html="x.title" id="presentationTitle"></div>
+							<div ng-bind-html="x.description" id="presentationNote"></div>
+							<div id="presentationedit" style="outline: none">
+								<button id="doneButton" ng-click="deleteNote(x.id)"
+									style="float: right;">Delete</button>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-
-
-
-
-			<div class="row">
-				<div class="col-lg-4"></div>
-				<div class="col-lg-4"></div>
-				<div class="col-lg-4"></div>
-			</div>
+			<!-- /#page-content-wrapper -->
 		</div>
 	</div>
-	<!-- /#page-content-wrapper -->
-</div>
-</div>
-<!-- /#wrapper -->
+	<!-- /#wrapper -->
 
-<script type="text/javascript">
-	$("#menu-toggle").click(function(e) {
-		console.log("inside the toggele");
-		e.preventDefault();
-		$("#wrapper").toggleClass("toggled");
-	});
-</script>
+	<script type="text/javascript">
+		$("#menu-toggle").click(function(e) {
+			console.log("inside the toggele");
+			e.preventDefault();
+			$("#wrapper").toggleClass("toggled");
+		});
+	</script>

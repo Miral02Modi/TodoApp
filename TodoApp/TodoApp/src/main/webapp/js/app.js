@@ -15,7 +15,7 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 	}).state("todoHome",{
 		url:"/todoHome",
 		templateUrl:"template/TodoHome.html",
-		controller : "showDivision"
+		controller : "TodoController"
 	});	
 	$urlRouterProvider.otherwise('/login');
 	//console.log("inside the main");

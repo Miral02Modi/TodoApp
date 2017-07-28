@@ -1,6 +1,7 @@
 package com.bridgeit.TodoApp.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +31,7 @@ import com.bridgeit.TodoApp.service.ToDoService;
 /**
  * @author Miral
  *
+ * Here I am performing Notes curd operation
  */
 @RestController
 public class ToDoNotesController {
@@ -73,10 +75,14 @@ public class ToDoNotesController {
 			// ------setting into the DataBase
 			doService.createNotes(doNotesModel);
 
+			List<ToDoNotes> notes = getNotes(user.getId());
+			Collections.reverse(notes);
+			System.out.println("all data" + notes);
 			// ------Setting Response
-			Response response = new Response();
+			TodoNotesResponse response = new TodoNotesResponse();
 			response.setStatus(1);
 			response.setMessage("Successfully added");
+			response.setList(notes);
 			return new ResponseEntity<Response>(response, HttpStatus.OK);
 
 		} catch (Exception e) {
@@ -270,12 +276,12 @@ public class ToDoNotesController {
 	 * @return {@link ResponseEntity}
 	 */
 	// ----------------------------------delete--Notes--------------------------------------
-	@RequestMapping(value = "deleteNotes/{id}", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Response> deleteNotes(@PathVariable("id") int id, HttpServletRequest pRequest,
+	@RequestMapping(value = "deleteNotes", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Response> deleteNotes(@RequestBody int id, HttpServletRequest pRequest,
 			HttpServletResponse pResponse) {
 
 		// ------Getting Session
-
+		System.out.println("inside the delete");
 		HttpSession httpSession = pRequest.getSession();
 		UserRegistration user = (UserRegistration) httpSession.getAttribute("user");
 
@@ -285,23 +291,18 @@ public class ToDoNotesController {
 
 		try {
 
-			if (user.getId() == id) {
 				ToDoNotes doNotes2 = doService.deleteNote(doNotes);
 
 				// ------Setting Response
 				TodoNotesResponse response = new TodoNotesResponse();
+				List<ToDoNotes> notes = getNotes(user.getId());
 				response.setStatus(1);
 				response.setMessage("Successfully delete");
 				response.setTodoNotes(doNotes2);
+				response.setList(notes);
+				
+				
 				return new ResponseEntity<Response>(response, HttpStatus.OK);
-			} else {
-
-				// ------Setting Response
-				ErrorResponse errorResponse = new ErrorResponse();
-				errorResponse.setStatus(-1);
-				errorResponse.setMessage("Exception Occur");
-				return new ResponseEntity<Response>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
-			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -331,32 +332,70 @@ public class ToDoNotesController {
 	@RequestMapping(value = "/archivedNotes/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Response> archivedNotes(@PathVariable(name = "id") int noteId, ToDoNotes doNotes,
 			HttpServletRequest pRequest, HttpServletResponse pResponse) {
-		
-		
+
 		HttpSession session = pRequest.getSession();
 		UserRegistration user = (UserRegistration) session.getAttribute("user");
-		
-		
-		
+
 		doNotes.setArchive("true");
 
 		try {
-			
-			if(user.getId() == noteId){
-			doService.createNotes(doNotes);
 
-			// ------Setting Response
-			TodoNotesResponse response = new TodoNotesResponse();
-			response.setStatus(1);
-			response.setMessage("Successfully delete");
-			response.setTodoNotes(doNotes);
-			return new ResponseEntity<Response>(response, HttpStatus.OK);
-			}else{
+			if (user.getId() == noteId) {
+				doService.createNotes(doNotes);
+
+				// ------Setting Response
+				TodoNotesResponse response = new TodoNotesResponse();
+				response.setStatus(1);
+				response.setMessage("Successfully delete");
+				response.setTodoNotes(doNotes);
+				return new ResponseEntity<Response>(response, HttpStatus.OK);
+			} else {
 				ErrorResponse errorResponse = new ErrorResponse();
 				errorResponse.setStatus(-1);
 				errorResponse.setMessage("Exception Occur");
 				return new ResponseEntity<Response>(errorResponse, HttpStatus.NOT_ACCEPTABLE);
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			// ------Setting Response
+			ErrorResponse errorResponse = new ErrorResponse();
+			errorResponse.setStatus(-1);
+			errorResponse.setMessage("Exception Occur");
+			return new ResponseEntity<Response>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+	}
+
+	List<ToDoNotes> getNotes(int id) {
+
+		try {
+			return doService.searchById(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@RequestMapping(value = "/getTodoList", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Response> getTodoList(HttpServletRequest pRequest, HttpServletResponse pResponse) {
+
+		System.out.println("inside the todoNotescontroller Notes");
+		try {
+
+			// ------Getting the Session
+			HttpSession httpSession = pRequest.getSession();
+			UserRegistration user = (UserRegistration) httpSession.getAttribute("user");
+
+			List<ToDoNotes> notes = getNotes(user.getId());
+			System.out.println("all data" + notes);
+			// ------Setting Response
+			TodoNotesResponse response = new TodoNotesResponse();
+			response.setStatus(1);
+			response.setMessage("Successfully added");
+			response.setList(notes);
+			return new ResponseEntity<Response>(response, HttpStatus.OK);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 

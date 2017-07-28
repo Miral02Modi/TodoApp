@@ -28,11 +28,12 @@
 	padding: 10px;
 	background: #FFF;
 	/* transition: all 0.3s; */
-	font-family:'Roboto Slab','Times New Roman',serif;
-	font-weight:bold;
-	font-size:17px;
-	line-height:23px;
+	font-family: 'Roboto Slab', 'Times New Roman', serif;
+	font-weight: bold;
+	font-size: 17px;
+	line-height: 23px;
 	outline: none;
+	word-wrap: break-word;
 }
 
 #presentationNote {
@@ -40,11 +41,16 @@
 	/*   height: 120px; */
 	padding: 11px;
 	/* white-space:pre-wrap; */
-	font-family:'Roboto Slab','Times New Roman',serif;
+	font-family: 'Roboto Slab', 'Times New Roman', serif;
 	/* font-variant-ligatures:none; */
 	background: #FFF;
 	/* transition: all 0.3s; */
 	outline: none;
+	color: black;
+	line-height: 19px;
+	min-height: 46px;
+	font-size: 18px;
+	word-wrap: break-word;
 }
 
 #presentationedit {
@@ -79,7 +85,6 @@
 	color: grey;
 }
 
-
 #presentationTitle[contenteditable=true]:empty:before {
 	content: attr(placeholder);
 	font-family: 'Roboto Condensed', arial, sans-serif;
@@ -88,19 +93,17 @@
 	font-weight: bold;
 	color: gray;
 }
+
 #mainTitle[contenteditable=true]:empty:before {
 	content: attr(placeholder);
 	font-size: 14px;
 	line-height: 19px;
 	min-height: 46px;
 	color: grey;
-}	
+}
 
 /* .createTitle {
 	font-family: 'Roboto Condensed', arial, sans-serif;
 	font-weight: bold;
 	font-size: 17px;
 } */
-
-
-
