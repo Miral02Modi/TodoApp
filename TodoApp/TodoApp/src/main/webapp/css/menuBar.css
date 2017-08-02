@@ -1,0 +1,28 @@
+.titleImagesDiv {
+	height: 34px;
+	width: 34px;
+	float: left;
+	margin: 0px 8px;
+	padding: 6px
+}
+.titleImagesDiv:hover {
+	cursor: pointer;
+}
+
+.noteImagesDiv {
+	height: 34px;
+	width: 34px;
+	float: left;
+	padding: 6px
+}
+.noteImagesDiv:hover {
+	cursor: pointer;
+}
+
+.modal-content {
+    margin-top: 140px;
+}
+
+.modal-open .modal {
+	background-color: #e5e5e5;
+}

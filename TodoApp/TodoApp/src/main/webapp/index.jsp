@@ -7,11 +7,13 @@
 <link rel="stylesheet" href="css/login.css">
 <link rel="stylesheet" href="css/NavbarCss.css">
 <link rel="stylesheet" href="css/createNote.css">
+<link rel="stylesheet" href="css/menuBar.css">
+
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script
@@ -21,12 +23,19 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.6.5/angular-sanitize.js"
 	charset="utf-8"></script>
 <script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap.min.js"></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
+
+
+<script type="text/javascript"
 	src="bower_components/angular-ui-router/release/angular-ui-router.js"
 	charset="utf-8"></script>
-	
-
-
 </head>
+
+
+
+
 
 
 
@@ -36,13 +45,14 @@
 
 
 
-<script type="text/javascript" src="js/DesignJs/NavBar.js" charset="utf-8"></script>
+<script type="text/javascript" src="js/DesignJs/NavBar.js"
+	charset="utf-8"></script>
 <script type="text/javascript" src="js/app.js" charset="utf-8"></script>
 <script type="text/javascript" src="js/controller/LoginController.js"
 	charset="utf-8"></script>
 <script type="text/javascript" src="js/controller/RegisterController.js"
 	charset="utf-8"></script>
-<!-- <script type="text/javascript" src="js/controller/showDivisionController.js" charset="utf-8"></script> --> 
+<!-- <script type="text/javascript" src="js/controller/showDivisionController.js" charset="utf-8"></script> -->
 <script type="text/javascript" src="js/controller/TodoController.js"
 	charset="utf-8"></script>
 
@@ -58,12 +68,18 @@
 <script type="text/javascript" src="js/service/createNoteService.js"
 	charset="utf-8"></script>
 <script type="text/javascript" src="js/service/DeleteNotes.js"
-	charset="utf-8"></script>		
-	
+	charset="utf-8"></script>
+<script type="text/javascript" src="js/service/updateNote.js"
+	charset="utf-8"></script>
 
 
-<script type="text/javascript" src="js/directive.js"
-	charset="utf-8"></script>	
+
+<script type="text/javascript" src="js/directive.js" charset="utf-8"></script>
+
+<script>
+	$(document).ready(function() {
+		$('[data-toggle="tooltip"]').tooltip();
+	});
 	
-	
+</script>	
 </html>

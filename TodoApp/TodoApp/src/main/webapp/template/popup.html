@@ -1,0 +1,39 @@
+
+<div contenteditable1 contenteditable="true" placeholder="Title"
+	ng-model="$update.title1" ng-bind-html="$update.title" tabindex="1" 
+	id="presentationTitle" class="createTitle"></div>
+<div contenteditable1 contenteditable="true" tabindex="2" 
+	placeholder="Take a notes..." ng-model="$update.description1"
+	id="presentationNote" class="createDescription"
+	ng-bind-html="$update.description"></div>
+<div id="presentationNote" class="createDescription" style="outline: none">
+
+	<div class="noteImagesDiv" data-toggle="tooltip" data-placement="bottom" title="Reminde me">
+		<img src="imgs/remindericon.svg">
+	</div>
+	<div class="noteImagesDiv" data-toggle="tooltip" data-placement="bottom" title="Collabrate">
+		<img src="imgs/collabrate.svg">
+	</div>
+	<div class="noteImagesDiv" data-toggle="tooltip" data-placement="bottom" title="Change color">
+		<img src="imgs/color.svg">
+	</div>
+	<div class="noteImagesDiv" data-toggle="tooltip" data-placement="bottom" title="Add image">
+		<img src="imgs/image.svg">
+	</div>
+	<div class="noteImagesDiv" data-toggle="tooltip" data-placement="bottom" title="Archive">
+		<img src="imgs/archive.svg">
+	</div>
+	<div class="noteImagesDiv" data-toggle="tooltip" data-placement="bottom" title="More" >
+		<img src="imgs/more.svg">
+	</div>
+
+	<!-- <button id="doneButton" data-ng-click="deleteNote(x.id)"
+									style="float: right;">Delete</button> -->
+
+	<div class="noteImagesDiv" data-ng-click="deleteNote(x.id)">
+		<img src="imgs/Trash.png">
+	</div>
+
+	<button id="doneButton" ng-click="$update.updateData($update.id)"
+		style="float: right;">DONE</button>
+</div>

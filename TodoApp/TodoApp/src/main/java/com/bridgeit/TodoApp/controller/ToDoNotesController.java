@@ -219,21 +219,19 @@ public class ToDoNotesController {
 	 * @return {@link ResponseEntity}
 	 */
 	// ----------------------------------Update--Notes--------------------------------------
-	@RequestMapping(value = "/updateNotes/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Response> updateNote(@PathVariable("id") int id, @RequestBody ToDoNotes doNotes,
+	@RequestMapping(value = "/updateNotes", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Response> updateNote(@RequestBody ToDoNotes doNotes,
 			HttpServletRequest pRequest, HttpServletResponse pResponse) {
-
-		doNotes.setId(id);
-		System.out.println(doNotes);
+		
+		System.out.println("inside the update id"+doNotes.getId());
 		// ------Getting Session
 		HttpSession httpSession = pRequest.getSession();
 		UserRegistration user = (UserRegistration) httpSession.getAttribute("user");
 
 		// doNotes.setId(user.getId());
 		doNotes.setUser(user);
-		System.out.println("inside the update Notes" + doNotes);
+		System.out.println("inside the update Notes" + doNotes.getId());
 		try {
-			if (user.getId() == id) {
 				ToDoNotes doNotes2 = doService.updateNote(doNotes);
 
 				// ------Setting Response
@@ -242,14 +240,14 @@ public class ToDoNotesController {
 				response.setMessage("Successfully update");
 				response.setTodoNotes(doNotes2);
 				return new ResponseEntity<Response>(response, HttpStatus.OK);
-			} else {
+				/*} else {
 
 				// ------Setting Response
 				ErrorResponse errorResponse = new ErrorResponse();
 				errorResponse.setStatus(-1);
 				errorResponse.setMessage("Exception Occur");
 				return new ResponseEntity<Response>(errorResponse, HttpStatus.NOT_ACCEPTABLE);
-			}
+			}*/
 
 		} catch (Exception e) {
 			e.printStackTrace();
