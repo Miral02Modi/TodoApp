@@ -28,6 +28,8 @@ public class ToDoNotes implements Serializable {
 	private  Date date;
 	private  String archive;
 	private  String pinned; 
+	private  String color;
+	private  String colorIndication; 
 	
 	@ManyToOne(/*cascade=CascadeType.ALL,*/optional=false)
 	@JoinColumn(name="userId")
@@ -91,10 +93,19 @@ public class ToDoNotes implements Serializable {
 	}
 	
 	
+	public String getColor() {
+		return color;
+	}
+	public void setColor(String color) {
+		this.color = color;
+	}
+	
+	
 	@Override
 	public String toString() {
 		return "ToDoNotes [id=" + id + ", title=" + title + ", description=" + description + ", date=" + date
-				+ ", archive=" + archive + ", pinned=" + pinned + ", user=" + user + "]";
+				+ ", archive=" + archive + ", pinned=" + pinned + ", color=" + color + ", colorIndication="
+				+ colorIndication + ", user=" + user + "]";
 	}
 	
 }

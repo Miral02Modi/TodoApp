@@ -108,10 +108,10 @@ public class TokenBaseFiltering implements Filter {
 		Date oldDate = token.getCreateOn();
 		long difference = currentDate.getTime() - oldDate.getTime();
 		long differrenceInSecond = TimeUnit.MILLISECONDS.toSeconds(difference);
+	
 		System.out.println(differrenceInSecond);
 		
-		System.out.println(differrenceInSecond > 12 * 60 * 30);
-		if (differrenceInSecond > 12 * 60 * 30) {
+		if (differrenceInSecond > 60*60*24) {
 			System.out.println("session has been expired");
 			// System.out.println("Filter"+differrenceInSecond);
 			/*if (differrenceInSecond < 2 * 60 && !token.getRefreshToken().equals(token.getAccessToken())) {

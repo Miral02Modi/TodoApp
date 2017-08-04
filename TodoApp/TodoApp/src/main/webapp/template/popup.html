@@ -1,12 +1,18 @@
 
-<div contenteditable1 contenteditable="true" placeholder="Title"
-	ng-model="$update.title1" ng-bind-html="$update.title" tabindex="1" 
-	id="presentationTitle" class="createTitle"></div>
-<div contenteditable1 contenteditable="true" tabindex="2" 
-	placeholder="Take a notes..." ng-model="$update.description1"
+<div contenteditable1 contenteditable="true" placeholder="Title" style="width: 100%"
+	ng-model="$update.title" ng-bind-html="$update.title" tabindex="1" role="textbox"
+	id="presentationTitle" class="createTitle" ng-style="{'background-color':$update.color}"></div>
+
+
+
+<div contenteditable1 contenteditable="true" tabindex="2" style="width: 100%"
+	placeholder="Take a notes..." ng-model="$update.description" role="textbox"
 	id="presentationNote" class="createDescription"
-	ng-bind-html="$update.description"></div>
-<div id="presentationNote" class="createDescription" style="outline: none">
+	ng-bind-html="$update.description" ng-style="{'background-color':$update.color}"></div>
+
+
+
+<div id="presentationNote" class="createDescription" style="outline: none;width: 100%" ng-style="{'background-color':$update.color}">
 
 	<div class="noteImagesDiv" data-toggle="tooltip" data-placement="bottom" title="Reminde me">
 		<img src="imgs/remindericon.svg">
@@ -14,9 +20,51 @@
 	<div class="noteImagesDiv" data-toggle="tooltip" data-placement="bottom" title="Collabrate">
 		<img src="imgs/collabrate.svg">
 	</div>
-	<div class="noteImagesDiv" data-toggle="tooltip" data-placement="bottom" title="Change color">
+	<!-- <div class="noteImagesDiv" data-toggle="tooltip" data-placement="bottom" title="Change color">
 		<img src="imgs/color.svg">
+	</div> -->
+	
+	<!-- <colorbox></colorbox> -->
+	
+	
+	<div class="noteImagesDiv showIconColor" data-placement="bottom"
+	title="Change color">
+	<div class="showDropdownColor">
+		<div style="display: inline-block;">
+			
+			<div
+				style="height: 25px; width: 26px; float: left; border: 1px solid #e0e0e0; border-radius: 13px;"
+				ng-click="$update.colorChange($update.id,'#fff')"></div>
+			
+			<div class="colorBox" style="background-color: rgb(255, 138, 128);"
+				ng-click="$update.colorChange($update.id,'rgb(255, 138, 128)')"></div>
+			
+			<div class="colorBox" style="background-color: rgb(255, 209, 128);"
+				ng-click="$update.colorChange($update.id,'rgb(255, 209, 128)')"></div>
+				
+			<div class="colorBox" style="background-color: rgb(255, 255, 141);"
+				ng-click="$update.colorChange($update.id,'rgb(255, 255, 141)')"></div>
+		</div>
+		
+		<div style="display: inline-block;">
+			
+			<div ng-click="$update.colorChange($update.id,'rgb(207, 216, 220)')"
+				style="height: 25px; width: 26px; float: left; background-color: rgb(207, 216, 220); border-radius: 13px;"></div>
+			
+			<div class="colorBox" ng-click="$update.colorChange($update.id,'rgb(128, 216, 255)')"
+				style="background-color: rgb(128, 216, 255);"></div>
+			
+			<div class="colorBox" ng-click="$update.colorChange($update.id,'rgb(167, 255, 235)')"
+				style="background-color: rgb(167, 255, 235);"></div>
+			
+			<div class="colorBox" ng-click="$update.colorChange($update.id,'rgb(204, 255, 144)')"
+				style="background-color: rgb(204, 255, 144);"></div>
+		</div>
 	</div>
+	<img src="imgs/color.svg">
+</div>
+	
+	
 	<div class="noteImagesDiv" data-toggle="tooltip" data-placement="bottom" title="Add image">
 		<img src="imgs/image.svg">
 	</div>

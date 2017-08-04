@@ -1,31 +1,32 @@
-myApp.directive('contenteditable1', ['$sce', function($sce) {
-  return {
-    restrict: 'A', // only activate on element attribute
-    require: '?ngModel', // get a hold of NgModelController
-    link: function(scope, element, attrs, ngModel) {
-      if (!ngModel) return; // do nothing if no ng-model
+myApp.directive('contenteditable1', [function() {
+   return {
+       require: '?ngModel',
+       scope: {
+       },
+       link: function(scope, element, attrs, ctrl) {
+           // view -> model (when div gets blur update the view value of the model)
+           element.bind('blur', function() {
+               scope.$apply(function() {
+                   ctrl.$setViewValue(element.html());
+               });
+           });
 
-      // Specify how UI should be updated
-      ngModel.$render = function() {
-        element.html($sce.getTrustedHtml(ngModel.$viewValue || ''));
-      };
+           // model -> view
+           ctrl.$render = function() {
+               element.html(ctrl.$viewValue);
+           };
 
-      // Listen for change events to enable binding
-      element.on('blur keyup change', function() {
-        scope.$evalAsync(read);
-      });
-      read(); // initialize
+           // load init value from DOM
+           ctrl.$render();
 
-      // Write data to the model
-      function read() {
-        var html = element.html();
-        // When we clear the content editable the browser leaves a <br> behind
-        // If strip-br attribute is provided then we strip this out
-        if ( attrs.stripBr && html == '<br>' ) {
-          html = '';
-        }
-        ngModel.$setViewValue(html);
-      }
-    }
-  };
+           // remove the attached events to element when destroying the scope
+           scope.$on('$destroy', function() {
+               element.unbind('blur');
+               element.unbind('paste');
+               element.unbind('focus');
+           });
+       }
+   };
+
 }]);
+

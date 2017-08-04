@@ -60,7 +60,7 @@ public class ReFreshValiadate {
 				TokenResponse response = new TokenResponse();
 				response.setMessage("Invalid refresh Token");
 				response.setStatus(-1);
-				return new ResponseEntity<Object>(response, HttpStatus.NOT_FOUND);
+				return new ResponseEntity<Object>(response, HttpStatus.OK);
 
 			}
 
@@ -69,7 +69,7 @@ public class ReFreshValiadate {
 			long diffence = currentDate.getTime() - oldDate.getTime();
 			long diffenceInSecond = TimeUnit.MILLISECONDS.toSeconds(diffence);
 
-			if (diffenceInSecond <= 60 * 60) { // 60 days
+			if (diffenceInSecond <= 60 * 60 * 12) { // 60 days
 
 				Token token2 = new Token();
 				token2.setAccessToken(UUID.randomUUID().toString().replaceAll("-", ""));
@@ -88,7 +88,7 @@ public class ReFreshValiadate {
 			response.setMessage("Refresh Token has Been Expired");
 			response.setStatus(-1);
 			
-			return new ResponseEntity<Object>(response, HttpStatus.NOT_ACCEPTABLE);
+			return new ResponseEntity<Object>(response, HttpStatus.OK);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -96,7 +96,7 @@ public class ReFreshValiadate {
 			response.setMessage("Refresh Token has Been Expired");
 			response.setStatus(-1);
 
-			return new ResponseEntity<Object>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<Object>(response, HttpStatus.OK);
 		}
 
 	}

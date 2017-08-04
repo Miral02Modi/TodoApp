@@ -16,6 +16,10 @@
 			</button>
 			<a class="navbar-brand" href="#menu-toggle" id="menu-toggle"><span
 				aria-hidden="true"><img src="imgs/menu.svg" alt="Sidemenu"></span></a>
+			<a style="margin-left: 1px; margin-top: 4px" class="navbar-brand"
+				href="#"><span aria-hidden="true"><img
+					src="imgs/googlelogo.svg" alt="notification"></span></a>
+
 		</div>
 
 		<div id="navbar" class="navbar-collapse collapse"
@@ -36,34 +40,34 @@
 
 				<li><a href="#"><span aria-hidden="true"><img
 							src="imgs/bell.png" alt="notification"></span></a></li>
-				
-		
-							
-							
-			<li class="dropdown">
-				<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" style="height: 32px; width: 32px; margin: 14px; padding: 1px;">
-					<span aria-hidden="true"> 
-						<img src="imgs/usericon.png" alt="user" style="height: 32px; width: 31px; border-radius: 50%;">
+
+
+
+
+				<li class="dropdown"><a href="javascript:void(0);"
+					class="dropdown-toggle" data-toggle="dropdown"
+					style="height: 32px; width: 32px; margin: 14px; padding: 1px;">
+						<span aria-hidden="true"> <img src="imgs/usericon.png"
+							alt="user" style="height: 32px; width: 31px; border-radius: 50%;">
 					</span>
 				</a>
-				<div class="dropdown-menu" style="height: 170px; padding: 10px">
-				<div style="height: 96px; width: 270px;border-bottom: 1px solid #ddd;">
-					<div
-						style="width: 40%; height: 100%; padding: 8px;">
-						<img src="http://localhost:8080/TodoApp/imgs/usericon.png"
-							style="height: 102%; width: 91%; border-radius: 50%;">
-					</div>
-				</div>
-				<div style="float: right;padding: 14px;">
-					<button class="btn btn-default dropdown-toggle" type="button"
-						data-toggle="dropdown">Sign out</button>	
-				</div>
-			</div>
-			</li>	
-							
-							
-							
-							
+					<div class="dropdown-menu" style="height: 170px; padding: 10px">
+						<div
+							style="height: 96px; width: 270px; border-bottom: 1px solid #ddd;">
+							<div style="width: 40%; height: 100%; padding: 8px;">
+								<img src="http://localhost:8080/TodoApp/imgs/usericon.png"
+									style="height: 102%; width: 91%; border-radius: 50%;">
+							</div>
+						</div>
+						<div style="float: right; padding: 14px;">
+							<button class="btn btn-default dropdown-toggle" type="button"
+								data-toggle="dropdown">Sign out</button>
+						</div>
+					</div></li>
+
+
+
+
 				<!--  <li><a href="#"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> Log Out</a></li> -->
 			</ul>
 		</div>
@@ -147,7 +151,7 @@
 
 							<div contenteditable1 contenteditable="true" placeholder="Title"
 								ng-value="value" ng-model="title1" id="presentationTitle"
-								role="textbox" class="createTitle" tabindex="0"
+								role="textbox" class="createTitle" tabindex="0" focus
 								ng-blur="hideTitle()"></div>
 
 
@@ -200,10 +204,13 @@
 						ng-repeat="x in notes | filter:test as results track by $index">
 						<div ng-class="addSpace3"></div>
 						<div ng-class="chnageView">
-							<div class="toDoNoteCss">
+							<div class="toDoNoteCss" ng-style="{'background-color':x.color}">
 								<div ng-bind-html="x.title" id="presentationTitle"
+									ng-style="{'background-color':x.color}" ng-model="titleNote"
 									data-ng-click="displayPopupData(x)"></div>
-								<div ng-bind-html="x.description" id="presentationNote"
+
+								<div ng-bind-html="x.description" id="presentationNote" ng-model="descNote"
+									ng-style="{'background-color':x.color}"
 									data-ng-click="displayPopupData(x)"></div>
 
 								<div style="display: inline-block; height: 35px">
@@ -216,10 +223,47 @@
 											data-placement="bottom" title="Collabrate">
 											<img src="imgs/collabrate.svg">
 										</div>
-										<div class="noteImagesDiv showIcon" data-toggle="tooltip"
+
+
+										<!-- created color box -->
+										<!-- <div class="noteImagesDiv showIconColor"
 											data-placement="bottom" title="Change color">
+											<div class="showDropdownColor">
+												<div style="display: inline-block;">
+													<div
+														style="height: 25px; width: 26px; float: left; border: 1px solid #e0e0e0; border-radius: 13px;" ng-click="colorChange(x,'#fff')"></div>
+													<div class="colorBox"
+														style="background-color: rgb(255, 138, 128);" ng-click="colorChange(x,'rgb(255, 138, 128)')"></div>
+													<div class="colorBox"
+														style="background-color: rgb(255, 209, 128);" ng-click="colorChange(x,'rgb(255, 209, 128)')"></div>
+													<div class="colorBox"
+														style="background-color: rgb(255, 255, 141);" ng-click="colorChange(x,'rgb(255, 255, 141)')"></div>
+												</div>
+												<div style="display: inline-block;">
+													<div  ng-click="colorChange(x,'rgb(207, 216, 220)')"
+														style="height: 25px; width: 26px; float: left; background-color: rgb(207, 216, 220); border-radius: 13px;"></div>
+													<div class="colorBox" ng-click="colorChange(x,'rgb(128, 216, 255)')"
+														style="background-color: rgb(128, 216, 255);"></div>
+													<div class="colorBox" ng-click="colorChange(x,'rgb(167, 255, 235)')"
+														style="background-color: rgb(167, 255, 235);"></div>
+													<div class="colorBox" ng-click="colorChange(x,'rgb(204, 255, 144)')"
+														style="background-color: rgb(204, 255, 144);"></div>
+												</div>
+											</div>
 											<img src="imgs/color.svg">
-										</div>
+										</div> -->
+
+										
+										
+										<!-- color division -->
+										
+											
+												<colorbox></colorbox>
+											
+											
+
+
+
 										<div class="noteImagesDiv showIcon" data-toggle="tooltip"
 											data-placement="bottom" title="Add Image">
 											<img src="imgs/image.svg">

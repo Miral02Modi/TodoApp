@@ -3,11 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Register</title>
+<title>Miral Keep</title>
+ <link rel="icon" href="imgs/keep-logo.ico" type="image/ico" sizes="16x16">
+
+
 <link rel="stylesheet" href="css/login.css">
 <link rel="stylesheet" href="css/NavbarCss.css">
 <link rel="stylesheet" href="css/createNote.css">
 <link rel="stylesheet" href="css/menuBar.css">
+<link rel="stylesheet" href="css/dropDown.css">
 
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
 
@@ -57,6 +61,9 @@
 	charset="utf-8"></script>
 
 
+
+
+<!-- JavScript services -->
 <script type="text/javascript" src="js/service/loginService.js"
 	charset="utf-8"></script>
 <script type="text/javascript" src="js/service/loginService.js"
@@ -74,7 +81,10 @@
 
 
 
+
+
 <script type="text/javascript" src="js/directive.js" charset="utf-8"></script>
+<script type="text/javascript" src="js/directive/colorDirective.js" charset="utf-8"></script>
 
 <script>
 	$(document).ready(function() {

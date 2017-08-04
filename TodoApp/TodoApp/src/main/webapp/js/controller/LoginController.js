@@ -1,5 +1,11 @@
 myApp.controller('loginCtrl', function($scope, loginService, $state) {
 
+	/*if(localStorage.getItem("accesstoken") != null){
+		$state.go("todoHome");
+	}*/
+	
+	
+	
 	$scope.loginController = function() {
 
 		var obj = {
@@ -11,7 +17,11 @@ myApp.controller('loginCtrl', function($scope, loginService, $state) {
 
 			console.log(data);
 			console.log(data.headers('accToken'));
-
+			
+			if(localStorage.getItem("accesstoken") == null){
+				$state.go("login");
+			}
+			
 			if (data.status === 200) {
 				localStorage.setItem("accesstoken", data.headers('accToken'));
 				localStorage.setItem("refreshtoken", data.data.refreshToken);

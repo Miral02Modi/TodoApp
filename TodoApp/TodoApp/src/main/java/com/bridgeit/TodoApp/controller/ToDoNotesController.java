@@ -223,7 +223,12 @@ public class ToDoNotesController {
 	public ResponseEntity<Response> updateNote(@RequestBody ToDoNotes doNotes,
 			HttpServletRequest pRequest, HttpServletResponse pResponse) {
 		
-		System.out.println("inside the update id"+doNotes.getId());
+		
+		
+		doNotes.setArchive("false");
+		doNotes.setPinned("false");
+		doNotes.setDate(new Date());
+		System.out.println("inside the update id"+doNotes);
 		// ------Getting Session
 		HttpSession httpSession = pRequest.getSession();
 		UserRegistration user = (UserRegistration) httpSession.getAttribute("user");
@@ -232,22 +237,19 @@ public class ToDoNotesController {
 		doNotes.setUser(user);
 		System.out.println("inside the update Notes" + doNotes.getId());
 		try {
-				ToDoNotes doNotes2 = doService.updateNote(doNotes);
-
+				doService.updateNote(doNotes);
+				List<ToDoNotes> notes = getNotes(user.getId());
+				Collections.reverse(notes);
+				System.out.println("all data" + notes);
+				
 				// ------Setting Response
 				TodoNotesResponse response = new TodoNotesResponse();
 				response.setStatus(1);
-				response.setMessage("Successfully update");
-				response.setTodoNotes(doNotes2);
+				response.setMessage("Successfully added");
+				response.setList(notes);
+				
+				
 				return new ResponseEntity<Response>(response, HttpStatus.OK);
-				/*} else {
-
-				// ------Setting Response
-				ErrorResponse errorResponse = new ErrorResponse();
-				errorResponse.setStatus(-1);
-				errorResponse.setMessage("Exception Occur");
-				return new ResponseEntity<Response>(errorResponse, HttpStatus.NOT_ACCEPTABLE);
-			}*/
 
 		} catch (Exception e) {
 			e.printStackTrace();
