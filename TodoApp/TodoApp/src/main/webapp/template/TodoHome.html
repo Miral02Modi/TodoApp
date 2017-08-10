@@ -39,7 +39,15 @@
 							src="imgs/listview.svg" alt="grid"></span></a></li>
 
 				<li><a href="#"><span aria-hidden="true"><img
-							src="imgs/bell.png" alt="notification"></span></a></li>
+							src="imgs/bell.png" alt="notification"></span></a>
+						
+					<div >
+						<div></div>
+						<div></div>
+						<div></div>
+					</div>
+				
+				</li>
 
 
 
@@ -104,26 +112,22 @@
 		<div id="sidebar-wrapper" style="background-color: #e8e8e8">
 			<ul class="sidebar-nav">
 				<li class="sidebar-brand"><br></li>
-				<li class="sidebar-brand"><a href="#" class="navbar-brand">
-						<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-						Profile
+				<li class="sidebar-brand"><a href="javaScript:void(0);"
+					class="navbar-brand"> <span class="glyphicon glyphicon-user"
+						aria-hidden="true"></span> Profile
 				</a></li>
-				<li><a href="#"><span class="glyphicon glyphicon-home"
-						aria-hidden="true"></span> Home</a></li>
-				<li><a href="#"><span class="glyphicon glyphicon-search"
-						aria-hidden="true"></span> Search</a></li>
-				<li><span class="glyphicon glyphicon-search" aria-hidden="true"></span><font
-					color="#337AB7"> STATISTICS</font></li>
-				<li><a href="#"><span class="glyphicon glyphicon-tasks"
-						aria-hidden="true"></span> Reports</a></li>
-				<li><a href="#"><span class="glyphicon glyphicon-stats"
-						aria-hidden="true"></span> Statistic</a></li>
-				<li><span class="glyphicon glyphicon-search" aria-hidden="true"></span><font
-					color="#337AB7"> ADMINISTRATION</font></li>
-				<li><a href="#"><span class="glyphicon glyphicon-user"
-						aria-hidden="true"></span> Users</a></li>
-				<li><a href="#"><span class="glyphicon glyphicon-envelope"
-						aria-hidden="true"></span> Messages</a></li>
+				<li><a ui-sref="todoHome"><span class="glyphicon glyphicon-home"
+						aria-hidden="true"></span> Notes</a></li>
+				<li><a href="javaScript:void(0);"><span
+						class="glyphicon glyphicon-search" aria-hidden="true"></span>
+						Reminders</a></li>
+				<!-- <li><span class="glyphicon glyphicon-search" aria-hidden="true"></span><font
+					color="#337AB7"> Archive</font></li> -->
+				<li ng-click="trashCaller()"><a href="javaScript:void(0);"><span
+						class="glyphicon glyphicon-tasks" aria-hidden="true"></span> Trash</a></li>
+				<li><a ui-sref="archive"><span
+						class="glyphicon glyphicon-stats" aria-hidden="true"></span>
+						Archive</a></li>
 			</ul>
 		</div>
 		<!-- /#sidebar-wrapper -->
@@ -135,9 +139,13 @@
 		<div id="page-content-wrapper" style="margin-top: 75px;">
 			<div class="container-fluid" id="pageContainerfluid">
 
-				<div class="row">
+				<div class="row" ng-show="createNotes11">
+
 					<div class="col-lg-3"></div>
 					<div class="col-lg-7">
+
+
+
 						<div contenteditable1 contenteditable="true" role="textbox"
 							placeholder="Take a Note..." class="presentation"
 							data-ng-show="IsVisible1" data-ng-click="ShowHide()"
@@ -147,12 +155,24 @@
 
 						<!-- /card division  -->
 						<div data-ng-show="IsVisible" class="presentation1"
-							style="padding: 7px;" id="showDivision">
+							style="padding: 7px;" id="showDivision"
+							ng-style="{'background-color':createColor}">
 
-							<div contenteditable1 contenteditable="true" placeholder="Title"
+
+							<div>
+								<div style="float: right; padding: 7px; cursor: pointer;"
+									ng-click="generatePin('true')" ng-if="createPin=='false'">
+									<img src="imgs/pin.svg">
+								</div>
+								<div style="float: right; padding: 7px; cursor: pointer;"
+									ng-click="generatePin('false')" ng-if="createPin=='true'">
+									<img src="imgs/unPin.svg">
+								</div>
+								<div contenteditable1 contenteditable="true" placeholder="Title"
 								ng-value="value" ng-model="title1" id="presentationTitle"
 								role="textbox" class="createTitle" tabindex="0" focus
 								ng-blur="hideTitle()"></div>
+							</div>
 
 
 							<div contenteditable1 contenteditable="true" tabindex="1"
@@ -172,11 +192,13 @@
 									<img src="imgs/collabrate.svg">
 								</div>
 								<div class="titleImagesDiv" data-toggle="tooltip"
-									data-placement="bottom" title="Change color">
-									<img src="imgs/color.svg">
+									data-placement="bottom" title="Change color"
+									style="padding: 0px">
+									<!-- <img src="imgs/color.svg"> -->
+									<colorbox></colorbox>
 								</div>
 								<div class="titleImagesDiv" data-toggle="tooltip"
-									data-placement="bottom" title="Add image">
+									data-placement="bottom" title="Add image" >
 									<img src="imgs/image.svg">
 								</div>
 								<div class="titleImagesDiv" data-toggle="tooltip"
@@ -197,105 +219,21 @@
 					</div>
 				</div>
 				<br> <br>
+
+
+
+
+				<!-- <pinneddirect></pinneddirect> -->
+
+
 				<!-- Collection of notes div -->
 				<div class="row">
-					<!-- ng-repeat="x in notes track by $index" -->
-					<div
-						ng-repeat="x in notes | filter:test as results track by $index">
-						<div ng-class="addSpace3"></div>
-						<div ng-class="chnageView">
-							<div class="toDoNoteCss" ng-style="{'background-color':x.color}">
-								<div ng-bind-html="x.title" id="presentationTitle"
-									ng-style="{'background-color':x.color}" ng-model="titleNote"
-									data-ng-click="displayPopupData(x)"></div>
-
-								<div ng-bind-html="x.description" id="presentationNote" ng-model="descNote"
-									ng-style="{'background-color':x.color}"
-									data-ng-click="displayPopupData(x)"></div>
-
-								<div style="display: inline-block; height: 35px">
-									<div id="presentationDelete" class="showIcon">
-										<div class="noteImagesDiv showIcon" data-toggle="tooltip"
-											data-placement="bottom" title="Reminde me">
-											<img src="imgs/remindericon.svg">
-										</div>
-										<div class="noteImagesDiv showIcon" data-toggle="tooltip"
-											data-placement="bottom" title="Collabrate">
-											<img src="imgs/collabrate.svg">
-										</div>
-
-
-										<!-- created color box -->
-										<!-- <div class="noteImagesDiv showIconColor"
-											data-placement="bottom" title="Change color">
-											<div class="showDropdownColor">
-												<div style="display: inline-block;">
-													<div
-														style="height: 25px; width: 26px; float: left; border: 1px solid #e0e0e0; border-radius: 13px;" ng-click="colorChange(x,'#fff')"></div>
-													<div class="colorBox"
-														style="background-color: rgb(255, 138, 128);" ng-click="colorChange(x,'rgb(255, 138, 128)')"></div>
-													<div class="colorBox"
-														style="background-color: rgb(255, 209, 128);" ng-click="colorChange(x,'rgb(255, 209, 128)')"></div>
-													<div class="colorBox"
-														style="background-color: rgb(255, 255, 141);" ng-click="colorChange(x,'rgb(255, 255, 141)')"></div>
-												</div>
-												<div style="display: inline-block;">
-													<div  ng-click="colorChange(x,'rgb(207, 216, 220)')"
-														style="height: 25px; width: 26px; float: left; background-color: rgb(207, 216, 220); border-radius: 13px;"></div>
-													<div class="colorBox" ng-click="colorChange(x,'rgb(128, 216, 255)')"
-														style="background-color: rgb(128, 216, 255);"></div>
-													<div class="colorBox" ng-click="colorChange(x,'rgb(167, 255, 235)')"
-														style="background-color: rgb(167, 255, 235);"></div>
-													<div class="colorBox" ng-click="colorChange(x,'rgb(204, 255, 144)')"
-														style="background-color: rgb(204, 255, 144);"></div>
-												</div>
-											</div>
-											<img src="imgs/color.svg">
-										</div> -->
-
-										
-										
-										<!-- color division -->
-										
-											
-												<colorbox></colorbox>
-											
-											
-
-
-
-										<div class="noteImagesDiv showIcon" data-toggle="tooltip"
-											data-placement="bottom" title="Add Image">
-											<img src="imgs/image.svg">
-										</div>
-										<div class="noteImagesDiv showIcon" data-toggle="tooltip"
-											data-placement="bottom" title="Archive">
-											<img src="imgs/archive.svg">
-										</div>
-										<div class="noteImagesDiv showIcon" data-toggle="tooltip"
-											data-placement="bottom" title="More">
-											<a href="javascript:void(0);" onclick="miral()"
-												class="select_more"><img src="imgs/more.svg"></a>
-										</div>
-
-										<ul class="dropdown-menu">
-											<li><a href="#">HTML</a></li>
-											<li><a href="#">CSS</a></li>
-											<li><a href="#">JavaScript</a></li>
-										</ul>
-
-										<!-- <button id="doneButton" data-ng-click="deleteNote(x.id)"
-									style="float: right;">Delete</button> -->
-
-										<div class="noteImagesDiv showIcon"
-											data-ng-click="deleteNote(x.id)">
-											<img src="imgs/Trash.png">
-										</div>
-
-									</div>
-								</div>
-							</div>
-						</div>
+					<div class="col-lg-1"></div>
+					<div class="col-lg-10">
+						<div ng-show="pinned11" ng-include="'template/pinNotes.html'"></div>
+						<div ng-show="notes11" ng-include="'template/NotesDisplay.html'"></div>
+						<div ng-show="trash11" ng-include="'template/Trash.html'"></div>
+						<div ng-show="archive11" ng-include="'template/Archive.html'"></div>
 					</div>
 				</div>
 				<!-- /#page-content-wrapper -->
@@ -303,32 +241,6 @@
 		</div>
 		<!-- /#wrapper -->
 
-
-		<!-- dropdown list using bootstrap -->
-
-
-
-
-
-		<!-- <div class="dropdown">
-			<button class="btn btn-default dropdown-toggle" type="button"
-				data-toggle="dropdown">Tutorials</button>
-			<div class="dropdown-menu" style="height: 170px; padding: 10px">
-				<div style="height: 96px; width: 281px; border: 1px solid blue;">
-					<div
-						style="border: 1px solid pink; background-color: aqua; width: 40%; height: 100%; padding: 8px;">
-						<img src="http://localhost:8080/TodoApp/imgs/usericon.png"
-							style="height: 102%; width: 91%; border-radius: 50%;">
-					</div>
-				</div>
-				<div style="border: 1px solid #ddd">
-					<button class="btn btn-default dropdown-toggle" type="button"
-						data-toggle="dropdown">Add</button>
-					<button class="btn btn-default dropdown-toggle" type="button"
-						data-toggle="dropdown">Add</button>	
-				</div>
-			</div>
-		</div> -->
 
 
 

@@ -29,7 +29,7 @@ public class ToDoNotes implements Serializable {
 	private  String archive;
 	private  String pinned; 
 	private  String color;
-	private  String colorIndication; 
+	private  String isTrash; 
 	
 	@ManyToOne(/*cascade=CascadeType.ALL,*/optional=false)
 	@JoinColumn(name="userId")
@@ -101,11 +101,22 @@ public class ToDoNotes implements Serializable {
 	}
 	
 	
+	
+	public String getIsTrash() {
+		return isTrash;
+	}
+	public void setIsTrash(String isTrash) {
+		this.isTrash = isTrash;
+	}
+	
+	
 	@Override
 	public String toString() {
 		return "ToDoNotes [id=" + id + ", title=" + title + ", description=" + description + ", date=" + date
-				+ ", archive=" + archive + ", pinned=" + pinned + ", color=" + color + ", colorIndication="
-				+ colorIndication + ", user=" + user + "]";
+				+ ", archive=" + archive + ", pinned=" + pinned + ", color=" + color + ", isTrash=" + isTrash
+				+ ", user=" + user + "]";
 	}
+	
+	
 	
 }

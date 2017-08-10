@@ -70,7 +70,6 @@ public class ToDoNotesController {
 			UserRegistration user = (UserRegistration) httpSession.getAttribute("user");
 			doNotesModel.setUser(user);
 			doNotesModel.setDate(new Date());
-			doNotesModel.setPinned("false");
 			doNotesModel.setArchive("false");
 			// ------setting into the DataBase
 			doService.createNotes(doNotesModel);
@@ -225,8 +224,6 @@ public class ToDoNotesController {
 		
 		
 		
-		doNotes.setArchive("false");
-		doNotes.setPinned("false");
 		doNotes.setDate(new Date());
 		System.out.println("inside the update id"+doNotes);
 		// ------Getting Session

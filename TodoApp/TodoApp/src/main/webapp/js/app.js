@@ -16,7 +16,14 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 		url:"/todoHome",
 		templateUrl:"template/TodoHome.html",
 		controller : "TodoController"
+	}).state("trash",{
+		url:"/trash",
+		templateUrl:"template/TodoHome.html",
+		controller : "trashController"
+	}).state("archive",{
+		url:"/archive",
+		templateUrl:"template/TodoHome.html",
+		controller : "archiveController"
 	});	
 	$urlRouterProvider.otherwise('/login');
-	//console.log("inside the main");
 });

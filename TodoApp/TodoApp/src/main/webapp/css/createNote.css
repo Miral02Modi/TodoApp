@@ -3,7 +3,7 @@
 	/*   height: 120px; */
 	padding: 11px;
 	/* margin: auto; */
-	background: #FFF;
+	background: #fff;
 	margin-top: 10px;
 	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 	/* transition: all 0.3s; */
@@ -23,12 +23,12 @@
 }
 
 .toDoNoteCss {
-	width: 85%;
+	width: 92%;
 	background: #FFF;
 	margin-top: 10px;
 	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 	/* transition: all 0.3s; */
-	border-radius: 3px;
+	/* border-radius: 3px; */
 	word-wrap: break-word;
 }
 
@@ -37,7 +37,7 @@
 	width: 95%;
 	/*   height: 120px; */
 	padding: 10px;
-	background: #FFF;
+	background: transparent;
 	/* transition: all 0.3s; */
 	font-family: 'Roboto Slab', 'Times New Roman', serif;
 	font-weight: bold;
@@ -54,7 +54,7 @@
 	/* white-space:pre-wrap; */
 	font-family: 'Roboto Slab', 'Times New Roman', serif;
 	/* font-variant-ligatures:none; */
-	background: #FFF;
+	background: transparent;
 	/* transition: all 0.3s; */
 	outline: none;
 	color: black;
@@ -68,7 +68,7 @@
 	width: 95%;
 	/*   height: 120px; */
 	/* padding: 23px; */
-	background: #FFF;
+	background: transparent;
 	/* transition: all 0.3s; */
 	word-wrap: break-word;
 }
@@ -137,8 +137,17 @@ width: 85%;
 .showIcon{
 	display: none;
 }
-.toDoNoteCss:hover .showIcon{
+.toDoNoteCss:hover .showIcon {
 	display: block;
+}
+
+
+.pin{
+	display: none;
+}
+.toDoNoteCss:hover .pin{
+	display: block;
+	cursor: pointer;
 }
 
 /* .createTitle {

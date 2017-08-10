@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Miral Keep</title>
- <link rel="icon" href="imgs/keep-logo.ico" type="image/ico" sizes="16x16">
+<link rel="icon" href="imgs/keep-logo.ico" type="image/ico"
+	sizes="16x16">
 
 
 <link rel="stylesheet" href="css/login.css">
@@ -17,6 +18,9 @@
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -30,7 +34,8 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap.min.js"></script>
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
-
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
 <script type="text/javascript"
 	src="bower_components/angular-ui-router/release/angular-ui-router.js"
@@ -59,7 +64,10 @@
 <!-- <script type="text/javascript" src="js/controller/showDivisionController.js" charset="utf-8"></script> -->
 <script type="text/javascript" src="js/controller/TodoController.js"
 	charset="utf-8"></script>
-
+<script type="text/javascript" src="js/controller/TrashController.js"
+	charset="utf-8"></script>
+<script type="text/javascript" src="js/controller/ArchiveController.js"
+	charset="utf-8"></script>
 
 
 
@@ -84,12 +92,14 @@
 
 
 <script type="text/javascript" src="js/directive.js" charset="utf-8"></script>
-<script type="text/javascript" src="js/directive/colorDirective.js" charset="utf-8"></script>
+<script type="text/javascript" src="js/directive/colorDirective.js"
+	charset="utf-8"></script>
+<script type="text/javascript" src="js/directive/pinnedDirective.js"
+	charset="utf-8"></script>
 
 <script>
 	$(document).ready(function() {
 		$('[data-toggle="tooltip"]').tooltip();
 	});
-	
-</script>	
+</script>
 </html>

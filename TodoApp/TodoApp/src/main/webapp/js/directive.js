@@ -29,4 +29,3 @@ myApp.directive('contenteditable1', [function() {
    };
 
 }]);
-
