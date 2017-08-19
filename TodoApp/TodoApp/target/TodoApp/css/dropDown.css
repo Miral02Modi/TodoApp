@@ -1,0 +1,31 @@
+.showDropdownColor {
+	display: none;
+	margin-top: -71px;
+	width: 136px;
+	height: 70px;
+	z-index: 2000;
+	position: absolute;
+	background-color: #fff;
+	box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+	background-clip: padding-box;
+	border: 1px solid rgba(0, 0, 0, .15);
+	padding: 6px;
+	padding-top: 8px;
+	border-radius: 
+}
+
+.showIconColor:hover .showDropdownColor {
+	display: block;
+}
+
+.colorBox {
+	height: 25px;
+	width: 26px;
+	float: left;
+	margin-left: 5px;
+	border-radius: 13px;
+	border: 1px solid #e0e0e0; 
+}
+.colorBox:HOVER {
+	border: 2px solid rgb(207,216,220); 
+}

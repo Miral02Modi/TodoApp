@@ -33,6 +33,8 @@ myApp.controller('loginCtrl', function($scope, loginService, $state) {
 		});
 
 	}
-
 	// console.log("Inside the login controller ended");
 });
+
+
+

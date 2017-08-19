@@ -85,4 +85,13 @@
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	<tx:annotation-driven transaction-manager="transactionManager" />
+	
+	<!-- <import resource="spring-social.xml" />
+	
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>classpath:application.properties</value>
+		</property>
+	</bean> -->
 </beans>

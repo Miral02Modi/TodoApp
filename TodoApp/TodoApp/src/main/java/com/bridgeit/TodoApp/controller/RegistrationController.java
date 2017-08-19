@@ -89,7 +89,7 @@ public class RegistrationController {
 
 		// --------It give response to the client
 		try {
-			service.userRegister(user);
+			service.userRegister(user,"mannual");
 			response.setStatus(1);
 			response.setMessage("Success");
 			return new ResponseEntity<Response>(response,HttpStatus.OK);

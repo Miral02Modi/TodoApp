@@ -1,15 +1,21 @@
 
 <div class="row">
-	<div class="neVct-LS81yb-tJHJj" style="visibility: visible;">Pinned</div>
+	<div class="neVct-LS81yb-tJHJj"
+		style="color: rgba(0, 0, 0, .54); font-weight: bold; font-family: 'Roboto', arial, sans-serif; font-size: 14px; 
+		visibility: visible;">Pinned</div>
 	<!-- ng-repeat="x in notes track by $index" -->
-	<div ng-repeat="x in notes | filter:test as results track by $index" ng-if="x.pinned == 'true'">
-		<div ng-class="addSpace3" ng-if="x.pinned == 'true'"></div>
-		<div ng-class="chnageView" style="padding-right: 0px;padding-left: 0px" >
-			<div class="toDoNoteCss" ng-style="{'background-color':x.color}" ng-if="x.pinned == 'true'">
-				
+	<div id="sortable2"
+		ng-repeat="x in notes | filter:test as results track by $index"
+		ng-if="x.pinned == 'true'">
+		<div ng-class="addSpace3"></div>
+		<div ng-class="chnageView"
+			style="padding-right: 0px; padding-left: 0px">
+			<div class="toDoNoteCss" ng-style="{'background-color':x.color}">
+
 				<div>
-					<div style="float: right; padding: 7px" class="pin" ng-click="pinned(x,'false')">
-						<img src="imgs/unPin.svg" >
+					<div style="float: right; padding: 7px; display: block;"
+						class="pin" ng-click="pinned(x,'false')">
+						<img src="imgs/unPin.svg">
 					</div>
 					<div ng-bind-html="x.title" id="presentationTitle"
 						ng-style="{'background-color':x.color}" ng-model="titleNote"
@@ -63,8 +69,7 @@
 						<!-- <button id="doneButton" data-ng-click="deleteNote(x.id)"
 									style="float: right;">Delete</button> -->
 
-						<div class="noteImagesDiv showIcon"
-							data-ng-click="deleteNote(x)">
+						<div class="noteImagesDiv showIcon" data-ng-click="deleteNote(x)">
 							<img src="imgs/Trash.png">
 						</div>
 
@@ -73,7 +78,12 @@
 			</div>
 		</div>
 	</div>
-	<br>
-	<br>
-	<br>	
+	<br> <br> <br>
 </div>
+
+
+<script>
+	$(function() {
+		$("#sortable2").sortable();
+	});
+</script>

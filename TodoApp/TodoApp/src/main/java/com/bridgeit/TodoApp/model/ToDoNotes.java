@@ -30,6 +30,8 @@ public class ToDoNotes implements Serializable {
 	private  String pinned; 
 	private  String color;
 	private  String isTrash; 
+	private  String reminderTime; 
+	
 	
 	@ManyToOne(/*cascade=CascadeType.ALL,*/optional=false)
 	@JoinColumn(name="userId")
@@ -110,13 +112,21 @@ public class ToDoNotes implements Serializable {
 	}
 	
 	
+	
+	
+	public String getReminderTime() {
+		return reminderTime;
+	}
+	public void setReminderTime(String reminderTime) {
+		this.reminderTime = reminderTime;
+	}
+	
+	
 	@Override
 	public String toString() {
 		return "ToDoNotes [id=" + id + ", title=" + title + ", description=" + description + ", date=" + date
 				+ ", archive=" + archive + ", pinned=" + pinned + ", color=" + color + ", isTrash=" + isTrash
-				+ ", user=" + user + "]";
+				+ ", reminderTime=" + reminderTime + ", user=" + user + "]";
 	}
-	
-	
 	
 }

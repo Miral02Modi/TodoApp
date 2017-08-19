@@ -1,0 +1,257 @@
+
+
+
+<!---------------------Navigation Bar --------------------------------->
+
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation"
+	id="navigationBar">
+	<div class="container-fluid">
+		<div class="navbar-header" style="display: inline-block;">
+			<button type="button" class="navbar-toggle collapsed"
+				data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+				aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#menu-toggle" id="menu-toggle"><span
+				aria-hidden="true"><img src="imgs/menu.svg" alt="Sidemenu"></span></a>
+			<a style="margin-left: 1px; margin-top: 4px" class="navbar-brand"
+				href="#"><span aria-hidden="true"><img
+					src="imgs/googlelogo.svg" alt="notification"></span></a>
+
+		</div>
+
+		<div id="navbar" class="navbar-collapse collapse"
+			style="float: right;">
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="javascript:void(0);"><span class="refresh"
+						aria-hidden="true" ng-click="refresh()"><img
+							src="imgs/refresh.svg" alt="refresh" data-toggle="tooltip"
+							title="refresh"></span></a></li>
+
+
+
+				<li><a href="javascript:void(0);"><span aria-hidden="true"
+						ng-show="gridImage" ng-click="showListImage()"><img
+							src="imgs/grid.svg" alt="grid"></span> <span aria-hidden="true"
+						ng-show="listImage" ng-click="showGridImage()"><img
+							src="imgs/listview.svg" alt="grid"></span></a></li>
+
+				<li><a href="#"><span aria-hidden="true"><img
+							src="imgs/bell.png" alt="notification"></span></a>
+						
+					<div >
+						<div></div>
+						<div></div>
+						<div></div>
+					</div>
+				
+				</li>
+
+
+
+
+				<li class="dropdown"><a href="javascript:void(0);"
+					class="dropdown-toggle" data-toggle="dropdown"
+					style="height: 32px; width: 32px; margin: 14px; padding: 1px;">
+						<span aria-hidden="true"> <img src="imgs/usericon.png"
+							alt="user" style="height: 32px; width: 31px; border-radius: 50%;">
+					</span>
+				</a>
+					<div class="dropdown-menu" style="height: 170px; padding: 10px">
+						<div
+							style="height: 96px; width: 270px; border-bottom: 1px solid #ddd;">
+							<div style="width: 40%; height: 100%; padding: 8px;">
+								<img src="http://localhost:8080/TodoApp/imgs/usericon.png"
+									style="height: 102%; width: 91%; border-radius: 50%;">
+							</div>
+						</div>
+						<div style="float: right; padding: 14px;">
+							<button class="btn btn-default dropdown-toggle" type="button"
+								data-toggle="dropdown">Sign out</button>
+						</div>
+					</div></li>
+
+
+
+
+				<!--  <li><a href="#"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> Log Out</a></li> -->
+			</ul>
+		</div>
+		<div>
+			<!-- <form action="#" method="GET"> -->
+
+			<!-- <input type="text" id="searchBar" name="search" placeholder="Search.." value=""> -->
+			<input ng-click="chngBackgroundOfSearch()" ng-style="myObj"
+				style="text-align: center; margin-top: 6px; margin-left: 232px; width: 573px; height: 47px; -color: transparent; background-color: transparent;"
+				type="text" class="form-control" placeholder="Search..." id="query"
+				name="search" ng-model="test" ng-click="hideAndShowSearchButton">
+			<div class="input-group">
+				<div class="input-group-btn">
+					<!-- <button type="submit" class="btn btn-success"
+						ng-show="searchButton"
+						style="margin-left: -5px; width: 49px; height: 45px; border-color: transparent; background-color: transparent;">
+						<span class="glyphicon glyphicon-search"> style="background-color: blue"
+						</span>
+					</button> -->
+				</div>
+			</div>
+			<!-- </form> -->
+		</div>
+	</div>
+	</div>
+</nav>
+
+
+
+<!---------------------Sidebar Bar --------------------------------->
+<div id="wrapper" class="toggled">
+	<div class="container-fluid" id="sidebarContainerFluid">
+		<!-- Sidebar -->
+		<div id="sidebar-wrapper" style="background-color: #e8e8e8">
+			<ul class="sidebar-nav">
+				<li class="sidebar-brand"><br></li>
+				<li class="sidebar-brand"><a href="javaScript:void(0);"
+					class="navbar-brand"> <span class="glyphicon glyphicon-user"
+						aria-hidden="true"></span> Profile
+				</a></li>
+				<li><a ui-sref="todoHome"><span class="glyphicon glyphicon-home"
+						aria-hidden="true"></span> Notes</a></li>
+				<li><a href="javaScript:void(0);"><span
+						class="glyphicon glyphicon-search" aria-hidden="true"></span>
+						Reminders</a></li>
+				<!-- <li><span class="glyphicon glyphicon-search" aria-hidden="true"></span><font
+					color="#337AB7"> Archive</font></li> -->
+				<li ng-click="trashCaller()"><a href="javaScript:void(0);"><span
+						class="glyphicon glyphicon-tasks" aria-hidden="true"></span> Trash</a></li>
+				<li><a ui-sref="archive"><span
+						class="glyphicon glyphicon-stats" aria-hidden="true"></span>
+						Archive</a></li>
+			</ul>
+		</div>
+		<!-- /#sidebar-wrapper -->
+
+
+
+		<!---------------------Title card --------------------------------->
+		<!-- Page Content -->
+		<div id="page-content-wrapper" style="margin-top: 75px;">
+			<div class="container-fluid" id="pageContainerfluid">
+
+				<div class="row" ng-show="createNotes11">
+
+					<div class="col-lg-3"></div>
+					<div class="col-lg-7">
+
+
+
+						<div contenteditable1 contenteditable="true" role="textbox"
+							placeholder="Take a Note..." class="presentation"
+							data-ng-show="IsVisible1" data-ng-click="ShowHide()"
+							id="mainTitle"></div>
+
+
+
+						<!-- /card division  -->
+						<div data-ng-show="IsVisible" class="presentation1"
+							style="padding: 7px;" id="showDivision"
+							ng-style="{'background-color':createColor}">
+
+
+							<div>
+								<div style="float: right; padding: 7px; cursor: pointer;"
+									ng-click="generatePin('true')" ng-if="createPin=='false'">
+									<img src="imgs/pin.svg">
+								</div>
+								<div style="float: right; padding: 7px; cursor: pointer;"
+									ng-click="generatePin('false')" ng-if="createPin=='true'">
+									<img src="imgs/unPin.svg">
+								</div>
+								<div contenteditable1 contenteditable="true" placeholder="Title"
+								ng-value="value" ng-model="title1" id="presentationTitle"
+								role="textbox" class="createTitle" tabindex="0" focus
+								ng-blur="hideTitle()"></div>
+							</div>
+
+
+							<div contenteditable1 contenteditable="true" tabindex="1"
+								class="createDesc" placeholder="Take a notes..."
+								ng-model="description1" ng-blur="hideTitle()" ng-value="value"
+								id="presentationNote" class="createDescription"></div>
+
+
+							<div id="presentationedit" class="icon"
+								style="display: inline-block; display: b">
+								<div class="titleImagesDiv" data-toggle="tooltip"
+									data-placement="bottom" title="Reminde me">
+									<img src="imgs/remindericon.svg">
+								</div>
+								<div class="titleImagesDiv" data-toggle="tooltip"
+									data-placement="bottom" title="Collabrate">
+									<img src="imgs/collabrate.svg">
+								</div>
+								<div class="titleImagesDiv" data-toggle="tooltip"
+									data-placement="bottom" title="Change color"
+									style="padding: 0px">
+									<!-- <img src="imgs/color.svg"> -->
+									<colorbox></colorbox>
+								</div>
+								<div class="titleImagesDiv" data-toggle="tooltip"
+									data-placement="bottom" title="Add image" >
+									<img src="imgs/image.svg">
+								</div>
+								<div class="titleImagesDiv" data-toggle="tooltip"
+									data-placement="bottom" title="Archive">
+									<img src="imgs/archive.svg">
+								</div>
+								<div class="titleImagesDiv" data-toggle="tooltip"
+									data-placement="bottom" title="More">
+									<img src="imgs/more.svg">
+								</div>
+
+								<div style="float: right;">
+									<button id="doneButton" ng-click="createNote()"
+										style="float: right; font-weight: bold; padding: 7px;">DONE</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<br> <br>
+
+
+
+
+				<!-- <pinneddirect></pinneddirect> -->
+
+
+				<!-- Collection of notes div -->
+				<div class="row">
+					<div class="col-lg-1"></div>
+					<div class="col-lg-10">
+						<div ng-show="pinned11" ng-include="'template/pinNotes.html'"></div>
+						<div ng-show="notes11" ng-include="'template/NotesDisplay.html'"></div>
+						<div ng-show="trash11" ng-include="'template/Trash.html'"></div>
+						<div ng-show="archive11" ng-include="'template/Archive.html'"></div>
+					</div>
+				</div>
+				<!-- /#page-content-wrapper -->
+			</div>
+		</div>
+		<!-- /#wrapper -->
+
+		<script type="text/javascript">
+			$(document).ready(function() {
+
+				$("#menu-toggle").click(function(e) {
+					e.preventDefault();
+					$("#wrapper").toggleClass("toggled");
+				});
+			});
+
+			function miral() {
+				$('.dropdown-menu').toggle();
+			}
+			
+		</script>

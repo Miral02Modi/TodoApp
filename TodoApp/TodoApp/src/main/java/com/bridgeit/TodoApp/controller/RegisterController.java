@@ -37,7 +37,4 @@ public class RegisterController {
 		model.addAttribute("login", new UserRegistration());
 		return "Login";
 	}
-	
-	
-	
 }

@@ -17,8 +17,8 @@ public class RegistrationServiceImpl implements RegistrationService {
 	
 	@Override
 	@Transactional
-	public void userRegister(UserRegistration registration) throws Exception {
-		dao.userRegister(registration);
+	public void userRegister(UserRegistration registration,String url) throws Exception {
+		dao.userRegister(registration,url);
 	}
 
 	
@@ -39,6 +39,13 @@ public class RegistrationServiceImpl implements RegistrationService {
 	@Override
 	public UserRegistration getUserbyId(String id) throws Exception {
 		return	dao.getUserByID(id);
+	}
+
+
+	@Override
+	@Transactional
+	public UserRegistration checkUserAvailable(String email) throws Exception {
+		return dao.checkUserAvailable(email);
 	}
 	
 }

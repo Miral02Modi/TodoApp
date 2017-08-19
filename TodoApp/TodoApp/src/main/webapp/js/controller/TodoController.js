@@ -1,7 +1,10 @@
+
+
 myApp.controller('TodoController', function($scope, createNoteService,
 		updateNoteService, deleteNoteService, refreshTokenService, $http,
 		$state, $uibModal) {
 	/* showDividion */
+	
 
 	if (localStorage.getItem("accesstoken") == null) {
 		console.log("inside the todoHome");
@@ -122,8 +125,11 @@ myApp.controller('TodoController', function($scope, createNoteService,
 			color : $scope.createColor,
 			isTrash : "false"
 		}
-
-		if (obj.title == "" && obj.description == "") {
+		$scope.title1="";
+	    $scope.description1="";
+		
+		if (obj.title == "" && obj.description == "" && obj.description!== 'undefined' 
+			&& obj.title !== 'undefined') {
 			console.log("create note");
 
 		} else {
@@ -131,6 +137,7 @@ myApp.controller('TodoController', function($scope, createNoteService,
 			createNoteService.createNote(obj).then(
 					function(data) {
 						console.log("Inside the http response" + data.data);
+						 
 						console.log(data.data.status === "-4");
 						if (data.data.status === "-4") {
 							console.log("Inside the data status");
@@ -140,7 +147,7 @@ myApp.controller('TodoController', function($scope, createNoteService,
 
 						console.log(data.data.status === 1);
 						if (data.data.status === 1) {
-
+							
 							$("#presentationNote").html('');
 							$("#presentationTitle").html("");
 							$scope.notes = data.data.list;
@@ -198,6 +205,7 @@ myApp.controller('TodoController', function($scope, createNoteService,
 				this.color = x.color;
 				this.pinned = x.pinned;
 				this.archive = x.archive;
+				this.isTrash = x.isTrash;
 
 				console.log("title" + this.title);
 				console.log("description" + this.description);
@@ -205,7 +213,12 @@ myApp.controller('TodoController', function($scope, createNoteService,
 				console.log("color" + this.pinned);
 
 				this.colorChange = function(noteId, bgcolor) {
-
+					
+					
+					console.log("inside the color change"+bgcolor);
+					console.log("inside the color trash"+this.isTrash);
+					console.log("inside the color archive"+this.archive);
+					console.log("inside the color pinned"+this.pinned);
 					/*
 					 * console.log("inside the color change
 					 * controller::"+this.pinned);
@@ -221,7 +234,7 @@ myApp.controller('TodoController', function($scope, createNoteService,
 					obj.color = this.color;
 					obj.id = noteId;
 					obj.pinned = this.pinned;
-					obj.isTrash = "false";
+					obj.isTrash = this.isTrash;
 					obj.archive = this.archive;
 
 					updateNoteService.updateNote(obj).then(
@@ -232,9 +245,9 @@ myApp.controller('TodoController', function($scope, createNoteService,
 							});
 				};
 
-				this.updateData = function(noteId) {
+				this.updateData = function(noteId,color) {
 
-					console.log("inside the update id:::" + noteId);
+					console.log("inside the update id:::" + this.color);
 
 					var obj = {};
 
@@ -243,7 +256,7 @@ myApp.controller('TodoController', function($scope, createNoteService,
 					obj.description = this.description;
 					obj.color = this.color;
 					obj.id = noteId;
-					obj.isTrash = "true";
+					obj.isTrash = this.isTrash;
 					obj.archive = this.archive;
 
 					console.log("update note data" + obj.title);
@@ -542,4 +555,20 @@ myApp.controller('TodoController', function($scope, createNoteService,
 	};
 
 	$scope.setOptions();
+	
+	
+	$scope.createReminder = function(note,day,time){
+		
+		if(day == "Today"){
+			
+			
+		}
+		
+	};
 });
+
+
+
+
+
+

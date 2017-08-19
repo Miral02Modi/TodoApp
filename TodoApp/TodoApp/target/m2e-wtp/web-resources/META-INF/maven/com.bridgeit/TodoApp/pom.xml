@@ -142,12 +142,80 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.8.7</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-servlet-api</artifactId>
 			<version>7.0.53</version>
 			<scope>provided</scope>
 		</dependency>
+
+
+		<!-- Spring social -->
+
+		<dependency>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-config</artifactId>
+			<version>1.1.0.RELEASE</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-core</artifactId>
+			<version>1.1.0.RELEASE</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-security</artifactId>
+			<version>1.1.0.RELEASE</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-web</artifactId>
+			<version>1.1.0.RELEASE</version>
+		</dependency>
+
+		<!-- facebook pom file -->
+		<dependency>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-facebook</artifactId>
+			<version>2.0.3.RELEASE</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.scribe</groupId>
+			<artifactId>scribe</artifactId>
+			<version>1.3.2</version>
+		</dependency>
+
+
+
+		<!-- https://mvnrepository.com/artifact/org.jboss.resteasy/resteasy-client -->
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-client</artifactId>
+			<version>3.1.3.Final</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.jboss.resteasy/resteasy-jackson-provider -->
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jackson-provider</artifactId>
+			<version>3.1.3.Final</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.jboss.resteasy/jaxrs-api -->
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>jaxrs-api</artifactId>
+			<version>3.0.10.Final</version>
+		</dependency>
+
+
+
 
 	</dependencies>
 	<build>

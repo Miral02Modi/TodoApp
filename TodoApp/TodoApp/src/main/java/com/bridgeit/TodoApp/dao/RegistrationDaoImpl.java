@@ -1,8 +1,9 @@
 package com.bridgeit.TodoApp.dao;
 
-
+import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Conjunction;
@@ -26,23 +27,26 @@ public class RegistrationDaoImpl implements RegistrationDao {
 	@Autowired
 	SessionFactory factory;
 
-	
-	
 	@Override
-	public void userRegister(UserRegistration user) throws Exception {
-
-		// -------Password Encryption
-		Password_Encrypt encrypt = new Password_Encrypt();
-		user.setPassword(encrypt.generateStorngPasswordHash(user.getPassword()));
-
+	public void userRegister(UserRegistration user, String url) throws Exception {
+		
 		Session session = factory.getCurrentSession();
-		session.saveOrUpdate(user);
+		
+		if (url.equals("mannual")) {
+			// -------Password Encryption
+			Password_Encrypt encrypt = new Password_Encrypt();
+			user.setPassword(encrypt.generateStorngPasswordHash(user.getPassword()));
+
+			
+			session.saveOrUpdate(user);
+		}if(url.equals("facebook")){
+			session.saveOrUpdate(user);
+		}
 	}
 
-	
 	@Override
 	@Transactional
-	public UserRegistration loginUser(String email, String password) throws Exception  {
+	public UserRegistration loginUser(String email, String password) throws Exception {
 
 		/*
 		 * Session session = factory.getCurrentSession(); Criteria criteria =
@@ -73,10 +77,8 @@ public class RegistrationDaoImpl implements RegistrationDao {
 		 * 
 		 * return (UserRegistration) criteria.uniqueResult();
 		 */
-		
-		
-		
-		//-------Getting User-register object from database
+
+		// -------Getting User-register object from database
 		Password_Encrypt encrypt = new Password_Encrypt();
 		Session session = factory.getCurrentSession();
 		Criteria criteria = session.createCriteria(UserRegistration.class);
@@ -87,32 +89,29 @@ public class RegistrationDaoImpl implements RegistrationDao {
 		conjunction.add(criterion);
 		criteria.add(conjunction);
 		UserRegistration user = (UserRegistration) criteria.uniqueResult();
-		
-		
-		if(user == null)
+
+		if (user == null)
 			return null;
-		
-		//-------matching password
-		System.out.println("validate password matching"+user.getPassword());
+
+		// -------matching password
+		System.out.println("validate password matching" + user.getPassword());
 		boolean matched = false;
-			matched = encrypt.validatePassword(password, user.getPassword());
-		
-		
-		if (matched){
+		matched = encrypt.validatePassword(password, user.getPassword());
+
+		if (matched) {
 			return user;
-		}	
+		}
 		return null;
 	}
 
 	@Override
 	public void updateProfile(UserRegistration user) throws Exception {
-		
-		
+
 		Password_Encrypt encrypt = new Password_Encrypt();
 		user.setPassword(encrypt.generateStorngPasswordHash(user.getPassword()));
 
 		Session session = factory.getCurrentSession();
-			
+
 		Criteria criteria = session.createCriteria(UserRegistration.class);
 		criteria.setProjection(Projections.property("id"));
 		Criterion criterion = Restrictions.eq("email", user.getEmail());
@@ -121,12 +120,23 @@ public class RegistrationDaoImpl implements RegistrationDao {
 		Integer id = (Integer) criteria.uniqueResult();
 		System.out.println("Id" + id);
 		user.setId(id);
-		
+
 		session.update(user);
+	}
+
+	@SuppressWarnings("rawtypes")
+	public UserRegistration  checkUserAvailable(String email) throws Exception {
+		
+		Session session = factory.getCurrentSession(); 
+		Query query = session.createQuery("from UserRegistration where email=:emailId");
+		query.setParameter("emailId", email);
+		List list = query.list();	
+		return (UserRegistration) list.get(0);
 	}
 
 	@Override
 	public UserRegistration getUserByID(String id) throws Exception {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

@@ -1,0 +1,48 @@
+<div class="noteImagesDiv showIconColor" data-placement="bottom"
+	title="Change color">
+	<div class="showDropdownColor">
+		<div style="display: inline-block;">
+			<div
+				style="height: 25px; width: 26px; float: left; border: 1px solid #e0e0e0; border-radius: 13px;"
+				ng-click="colorChange(x,'#fff')">
+					<div ng-show="'fff' == x.color"><img src="imgs/right.svg"></div>
+			</div>
+			
+			<div class="colorBox" style="background-color: rgb(255,138,128);"
+				ng-click="colorChange(x,'rgb(255,138,128)')">
+				<div ng-show="'rgb(255,138,128)' == x.color"><img src="imgs/right.svg"></div>	
+			</div>
+			
+			<div class="colorBox" style="background-color: rgb(255,209,128);"
+				ng-click="colorChange(x,'rgb(255,209,128)')">
+				<div ng-show="'rgb(255,209,128)' == x.color"><img src="imgs/right.svg" ></div>
+			</div>
+			
+			<div class="colorBox" style="background-color: rgb(255,255,141);"
+				ng-click="colorChange(x,'rgb(255,255,141)')">
+				<div ng-show="'rgb(255,255,141)' == x.color"><img src="imgs/right.svg" ></div>
+			</div>
+			
+		</div>
+		
+		<div style="display: inline-block;">
+			<div ng-click="colorChange(x,'rgb(207,216,220)')"
+				style="height: 25px; width: 26px; float: left; background-color: rgb(207,216,220); border-radius: 13px;">
+				<div ng-show="'rgb(207,216,220)' == x.color"><img src="imgs/right.svg"></div>
+			</div>
+			<div class="colorBox" ng-click="colorChange(x,'rgb(128,216,255)')"
+				style="background-color: rgb(128, 216, 255);">
+				<div ng-show="'rgb(128,216,255)' == x.color"><img src="imgs/right.svg"></div>
+			</div>
+			<div class="colorBox" ng-click="colorChange(x,'rgb(167,255,235)')"
+				style="background-color: rgb(167, 255, 235);">
+				<div ng-show="'rgb(167,255,235)' == x.color"><img src="imgs/right.svg"></div>
+			</div>
+			<div class="colorBox" ng-click="colorChange(x,'rgb(204,255,144)')"
+				style="background-color: rgb(204, 255, 144);">
+				<div ng-show="'rgb(204,255,144)' == x.color"><img src="imgs/right.svg"></div>
+			</div>
+		</div>
+	</div>
+	<img src="imgs/color.svg">
+</div>

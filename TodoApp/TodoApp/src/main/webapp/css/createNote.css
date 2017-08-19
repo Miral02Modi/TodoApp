@@ -141,6 +141,12 @@ width: 85%;
 	display: block;
 }
 
+.showIcon.clicked,
+.showIcon.clicked.waiting:hover
+{
+   display: block;
+}
+
 
 .pin{
 	display: none;
@@ -148,6 +154,35 @@ width: 85%;
 .toDoNoteCss:hover .pin{
 	display: block;
 	cursor: pointer;
+}
+
+.other11{
+	color: rgba(0,0,0,.54);
+    font-family: 'Roboto',arial,sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 22px 16px;
+    position: absolute;
+}
+.reminderBlock{
+	width: 100%;
+	padding: 11px;
+	font-family: 'Roboto Slab', 'Times New Roman', serif;
+	background: transparent;
+	outline: none;
+	color: black;
+	line-height: 19px;
+	min-height: 46px;
+	font-size: 18px;
+}
+.time{
+	color: rgba(0,0,0,.54);
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 1 auto;
+    flex: 1 1 auto;
+    max-width: 200px;
+    text-align: right;
+    white-space: normal;
 }
 
 /* .createTitle {
