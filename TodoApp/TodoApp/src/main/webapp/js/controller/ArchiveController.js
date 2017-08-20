@@ -8,4 +8,5 @@ myApp.controller('archiveController',['$scope','$controller',function($scope,$co
 	$scope.trash11 = false;
 	$scope.archive11 = true;	
 	$scope.createNotes11=false;
+	$scope.reminder11 =false;
 }]);

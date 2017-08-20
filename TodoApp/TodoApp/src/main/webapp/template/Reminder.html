@@ -5,24 +5,25 @@
 
 
 <div class="dropdown-menu"
-	style="position: absolute; left: 3px; padding: 9px">
+	style="position: absolute; left: 3px; padding: 9px; top: 137px;">
 	<div style="font-size: 14px; width: 300px; height: 35px">Reminder:</div>
 
-	<div style="width: 300px; height: 35px; display: inline-block;" 
-		ng-click="createReminder(x,'Today',8)">
+	<div style="width: 300px; height: 35px; display: inline-block;"
+		ng-click="createReminder(x,'Today')">
 		<div style="float: left;">Later today</div>
 		<div
-			style="color: rgba(0, 0, 0, .54); max-width: 200px; 
-			float: right;">8:00 PM</div>
+			style="color: rgba(0, 0, 0, .54); max-width: 200px; float: right;">8:00
+			PM</div>
 	</div>
-	<div style="width: 300px; height: 35px; display:;" 
-		ng-click="createReminder(x,'Tomorrow',8)">
+	<div style="width: 300px; height: 35px; display:;"
+		ng-click="createReminder(x,'Tomorrow')">
 		<div style="float: left;">Tomorrow</div>
 		<div style="float: right;" class="time">8:00 AM</div>
 	</div>
-	<div style="width: 300px; height: 35px; display:;" 
-		ng-click="createReminder(x,'Next Week',8)">
+	<div style="width: 300px; height: 35px; display:;"
+		ng-click="createReminder(x,'Next Week')">
 		<div style="float: left;">Next week</div>
 		<div style="float: right;" class="time">Mon,8:00 AM</div>
 	</div>
 </div>
+

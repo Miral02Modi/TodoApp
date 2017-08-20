@@ -76,6 +76,8 @@
 	charset="utf-8"></script>
 <script type="text/javascript" src="js/controller/ArchiveController.js"
 	charset="utf-8"></script>
+<script type="text/javascript" src="js/controller/Reminder.js"
+	charset="utf-8"></script>	
 
 
 

@@ -66,7 +66,7 @@
 						</div>
 						<div class="noteImagesDiv" data-toggle="tooltip"
 							data-placement="bottom" title="More">
-							<a href="javascript:void(0);" onclick="miral()"
+							<a href="javascript:void(0);" 
 								class="select_more"><img src="imgs/more.svg"></a>
 						</div>
 
@@ -83,11 +83,11 @@
 				<div  id="reminderBlock" style="width: 100%;padding-left:10px;
 					border-top: 2px dotted rgba(0,0,0,0.1)"
 					ng-style="{'background-color':x.color}"
-					data-ng-click="displayPopupData(x)" ng-if="x.reminderTime != null">
+				    ng-if="x.reminderTime != null">
 					<div style="display: inline-block;">
 						<div style="float: left;"><img src="imgs/clock.svg"></div>
-						<div style="float: left;height: 22px;width: 182px;margin-left:5px;" ng-bind-html="x.reminderTime">vsddddddddddddddddd</div>
-						<div style="float: left;height: 22px;width: 18px"><img src="imgs/cross.svg" ></div>	
+						<div style="float: left;height: 22px;width: 182px;margin-left:5px;" ng-bind-html="x.reminderTime"></div>
+						<div style="float: left;height: 22px;width: 15px" id="deleteReminder" ng-click="createReminder(x,'null')"><img src="imgs/cross.svg" ></div>	
 					</div>
 				</div>
 				

@@ -1,10 +1,8 @@
 
-
 myApp.controller('TodoController', function($scope, createNoteService,
 		updateNoteService, deleteNoteService, refreshTokenService, $http,
 		$state, $uibModal) {
 	/* showDividion */
-	
 
 	if (localStorage.getItem("accesstoken") == null) {
 		console.log("inside the todoHome");
@@ -51,7 +49,9 @@ myApp.controller('TodoController', function($scope, createNoteService,
 	$scope.archive11 = false;
 	$scope.trash11 = false;
 	$scope.createNotes11 = true;
-
+	$scope.reminder11 =false;
+	
+	
 	$scope.ShowHide = function() {
 		console.log("hide and show function...");
 		// If DIV is visible it will be hidden and vice versa.
@@ -81,7 +81,7 @@ myApp.controller('TodoController', function($scope, createNoteService,
 
 		updateNoteService.updateNote(obj).then(
 				function successCallback(data) {
-					
+
 					$scope.success("Note is Trashed");
 					console.log("sdgsd" + data.data.list);
 
@@ -118,6 +118,12 @@ myApp.controller('TodoController', function($scope, createNoteService,
 		console.log("create pinned::" + $scope.description1);
 		console.log("create pinned::" + $scope.title1);
 
+		if ($scope.description1 == undefined) {
+			if ($scope.title1 == undefined) {
+				return;
+			}
+		}
+
 		var obj = {
 			title : $scope.title1,
 			description : $scope.description1,
@@ -125,19 +131,18 @@ myApp.controller('TodoController', function($scope, createNoteService,
 			color : $scope.createColor,
 			isTrash : "false"
 		}
-		$scope.title1="";
-	    $scope.description1="";
-		
-		if (obj.title == "" && obj.description == "" && obj.description!== 'undefined' 
-			&& obj.title !== 'undefined') {
-			console.log("create note");
+		$scope.title1 = "";
+		$scope.description1 = "";
 
+		if ((obj.title == "" || obj.description == "")
+				&& (obj.description == undefined || obj.title == undefined)) {
+			console.log("create note");
 		} else {
 
 			createNoteService.createNote(obj).then(
 					function(data) {
 						console.log("Inside the http response" + data.data);
-						 
+
 						console.log(data.data.status === "-4");
 						if (data.data.status === "-4") {
 							console.log("Inside the data status");
@@ -147,7 +152,7 @@ myApp.controller('TodoController', function($scope, createNoteService,
 
 						console.log(data.data.status === 1);
 						if (data.data.status === 1) {
-							
+
 							$("#presentationNote").html('');
 							$("#presentationTitle").html("");
 							$scope.notes = data.data.list;
@@ -213,12 +218,11 @@ myApp.controller('TodoController', function($scope, createNoteService,
 				console.log("color" + this.pinned);
 
 				this.colorChange = function(noteId, bgcolor) {
-					
-					
-					console.log("inside the color change"+bgcolor);
-					console.log("inside the color trash"+this.isTrash);
-					console.log("inside the color archive"+this.archive);
-					console.log("inside the color pinned"+this.pinned);
+
+					console.log("inside the color change" + bgcolor);
+					console.log("inside the color trash" + this.isTrash);
+					console.log("inside the color archive" + this.archive);
+					console.log("inside the color pinned" + this.pinned);
 					/*
 					 * console.log("inside the color change
 					 * controller::"+this.pinned);
@@ -245,7 +249,7 @@ myApp.controller('TodoController', function($scope, createNoteService,
 							});
 				};
 
-				this.updateData = function(noteId,color) {
+				this.updateData = function(noteId, color) {
 
 					console.log("inside the update id:::" + this.color);
 
@@ -258,6 +262,7 @@ myApp.controller('TodoController', function($scope, createNoteService,
 					obj.id = noteId;
 					obj.isTrash = this.isTrash;
 					obj.archive = this.archive;
+					
 
 					console.log("update note data" + obj.title);
 					console.log("update note data" + obj.description);
@@ -339,7 +344,8 @@ myApp.controller('TodoController', function($scope, createNoteService,
 			color : color,
 			pinned : data.pinned,
 			isTrash : data.isTrash,
-			archive : data.archive
+			archive : data.archive,
+			reminderTime:data.reminderTime
 		}
 
 		updateNoteService.updateNote(obj).then(function success(data) {
@@ -430,7 +436,8 @@ myApp.controller('TodoController', function($scope, createNoteService,
 			color : obj.color,
 			pinned : pin,
 			isTrash : "false",
-			archive : "false"
+			archive : "false",
+			reminderTime:obj.reminderTime
 		}
 		console.log("update pinned" + obj);
 
@@ -483,7 +490,8 @@ myApp.controller('TodoController', function($scope, createNoteService,
 			color : data.color,
 			pinned : "false",
 			isTrash : "false",
-			archive : "true"
+			archive : "true",
+			reminderTime	: data.reminderTime
 		}
 
 		updateNoteService.updateNote(obj).then(
@@ -491,7 +499,7 @@ myApp.controller('TodoController', function($scope, createNoteService,
 
 					console.log("sdgsd" + data.data.list);
 					$scope.success("Archive Successfully");
-					
+
 					if (data.data.status == 1) {
 						$scope.notes = data.data.list.reverse();
 					}
@@ -500,7 +508,7 @@ myApp.controller('TodoController', function($scope, createNoteService,
 						console.log("Inside the data status");
 						refreshTokenService.refreshToken(localStorage
 								.getItem("refreshtoken"));
-						
+
 					}
 
 				});
@@ -508,12 +516,11 @@ myApp.controller('TodoController', function($scope, createNoteService,
 
 	$scope.restoreNote = function(data) {
 
-		
-		if(data.isTrash == "true")
+		if (data.isTrash == "true")
 			$scope.success("restore Successfully");
-		if(data.archive == "true")
+		if (data.archive == "true")
 			$scope.success("UnArchive Successfully");
-		
+
 		var obj = {
 			title : data.title,
 			description : data.description,
@@ -521,7 +528,8 @@ myApp.controller('TodoController', function($scope, createNoteService,
 			color : data.color,
 			pinned : "false",
 			isTrash : "false",
-			archive : "false"
+			archive : "false",
+			reminderTime	: null
 		}
 
 		updateNoteService.updateNote(obj).then(
@@ -555,20 +563,57 @@ myApp.controller('TodoController', function($scope, createNoteService,
 	};
 
 	$scope.setOptions();
-	
-	
-	$scope.createReminder = function(note,day,time){
+
+	$scope.createReminder = function(data, day) {
+			
+		$scope.day = day;
 		
+		var remDate = new Date();
+		console.log("Miral Modi:::::"+day);
 		if(day == "Today"){
+			remDate.setHours(20,0,0);
+			console.log("today is::"+remDate);
+		}else if(day == "Tomorrow"){
+			remDate.setDate(remDate.getDate()+1);
 			
-			
+			console.log("tomorrow is::"+remDate);
+		}else if(day =="Next Week"){
+			remDate.setDate(remDate.getDate()+7);
+			console.log("Next Week is::"+remDate);
+		}else if(day == "null"){
+			$scope.success("Reminder delete Successfully");
+			remDate=null;
 		}
+		console.log("timer is::"+remDate);
+		
+		var remider={
+				title : data.title,
+				description : data.description,
+				id      : data.id,
+				color   : data.color,
+				pinned  : data.pinned,
+				isTrash : data.isTrash,
+				archive : data.archive,
+				reminderTime	: remDate
+		}
+		updateNoteService.updateNote(remider).then(
+				function successCallback(data) {
+
+					console.log("sdgsd" + data.data.list);
+					
+
+					if (data.data.status == 1) {
+						$scope.notes = data.data.list;
+					}
+
+					if (data.data.status === "-4") {
+						console.log("Inside the data status");
+						refreshTokenService.refreshToken(localStorage
+								.getItem("refreshtoken"));
+
+					}
+
+				});
 		
 	};
 });
-
-
-
-
-
-

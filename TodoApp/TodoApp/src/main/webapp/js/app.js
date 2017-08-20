@@ -23,6 +23,10 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 		url:"/archive",
 		templateUrl:"template/TodoHome.html",
 		controller : "archiveController"
+	}).state("reminder",{
+		url:"/reminder",
+		templateUrl:"template/TodoHome.html",
+		controller : "reminderController"
 	});	
 	$urlRouterProvider.otherwise('/login');
 });

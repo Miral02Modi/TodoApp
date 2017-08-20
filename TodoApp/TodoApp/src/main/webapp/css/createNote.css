@@ -184,6 +184,13 @@ width: 85%;
     text-align: right;
     white-space: normal;
 }
+#deleteReminder{
+	display: none;
+}
+#reminderBlock:HOVER  #deleteReminder{
+	display: block;
+	cursor: pointer;
+}
 
 /* .createTitle {
 	font-family: 'Roboto Condensed', arial, sans-serif;

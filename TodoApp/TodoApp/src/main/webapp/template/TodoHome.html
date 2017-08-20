@@ -118,7 +118,7 @@
 				</a></li>
 				<li><a ui-sref="todoHome"><span class="glyphicon glyphicon-home"
 						aria-hidden="true"></span> Notes</a></li>
-				<li><a href="javaScript:void(0);"><span
+				<li><a ui-sref="reminder"><span
 						class="glyphicon glyphicon-search" aria-hidden="true"></span>
 						Reminders</a>
 						
@@ -237,6 +237,7 @@
 						<div ng-show="notes11" ng-include="'template/NotesDisplay.html'"></div>
 						<div ng-show="trash11" ng-include="'template/Trash.html'"></div>
 						<div ng-show="archive11" ng-include="'template/Archive.html'"></div>
+						<div ng-show="reminder11" ng-include="'template/ReminderNote.html'"></div>
 					</div>
 				</div>
 				<!-- /#page-content-wrapper -->

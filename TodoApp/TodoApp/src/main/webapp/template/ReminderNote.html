@@ -1,0 +1,102 @@
+<div class="row sort sortable" my-uid="{{x.id}}">
+	<br> <br> <br>
+	
+	
+	<div ng-repeat="x in notes | filter:test as results track by $index">
+		
+		
+		<!-- <div ng-class="addSpace3"></div> -->
+
+		<div ng-class="chnageView"
+			style="padding-right: 0px; padding-left: 0px">
+			<div class="toDoNoteCss" 
+				ng-style="{'background-color':x.color}">
+
+
+				<div>
+					<div style="float: right; padding: 7px" class="pin"
+						ng-click="pinned(x,'true')" ng-if="x.pinned == 'false'">
+						<img src="imgs/pin.svg">
+					</div>
+					
+					<div style="float: right; padding: 7px" class="pin" 
+						ng-click="pinned(x,'true')" ng-if="x.pinned == 'true'">
+						<img src="imgs/unPin.svg">
+					</div>
+					
+					<div ng-bind-html="x.title" id="presentationTitle" 
+					   	ng-if="x.title != null || x.title !=''"
+						ng-style="{'background-color':x.color}" ng-model="titleNote"
+						data-ng-click="displayPopupData(x)"></div>
+				</div>
+				
+				<div ng-bind-html="x.description" id="presentationNote"
+					(x.description != null || x.description != '')" ng-model="descNote"
+					ng-style="{'background-color':x.color}"
+					data-ng-click="displayPopupData(x)"></div>
+				
+				
+
+
+				<div style="display: inline-block; height: 35px">
+					<div id="presentationDelete" class="showIcon">
+
+						
+						
+						
+						
+						<div class="noteImagesDiv" data-toggle="tooltip"
+							data-placement="bottom" title="Collabrate">
+							<img src="imgs/collabrate.svg">
+						</div>
+
+						
+						<!-- Here I have made reminder Directive so directly I have added -->						
+						<reminder></reminder>
+						
+						<!-- Here I have made color Directive so directly I have added -->						
+						<colorbox></colorbox>
+
+
+
+
+
+						<div class="noteImagesDiv" data-toggle="tooltip"
+							data-placement="bottom" title="Add Image">
+							<img src="imgs/image.svg">
+						</div>
+						<div class="noteImagesDiv" data-toggle="tooltip"
+							ng-click="archiveNote(x)" data-placement="bottom" title="Archive">
+							<img src="imgs/archive.svg">
+						</div>
+						<div class="noteImagesDiv" data-toggle="tooltip"
+							data-placement="bottom" title="More">
+							<a href="javascript:void(0);" onclick="miral()"
+								class="select_more"><img src="imgs/more.svg"></a>
+						</div>
+
+						<!-- <button id="doneButton" data-ng-click="deleteNote(x.id)"
+									style="float: right;">Delete</button> -->
+
+						<div class="noteImagesDiv" data-ng-click="deleteNote(x)">
+							<img src="imgs/Trash.png">
+						</div>
+
+					</div>
+				</div>
+				
+				<div  id="reminderBlock" style="width: 100%;padding-left:10px;
+					border-top: 2px dotted rgba(0,0,0,0.1)"
+					ng-style="{'background-color':x.color}"
+				    ng-if="x.reminderTime != null">
+					<div style="display: inline-block;">
+						<div style="float: left;"><img src="imgs/clock.svg"></div>
+						<div style="float: left;height: 22px;width: 182px;margin-left:5px;" ng-bind-html="x.reminderTime"></div>
+						<div style="float: left;height: 22px;width: 18px" id="deleteReminder" ng-click="createReminder(x,'null')"><img src="imgs/cross.svg" ></div>	
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</div>
