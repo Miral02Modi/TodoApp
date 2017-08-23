@@ -4,9 +4,7 @@
 	http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
 	<display-name>Archetype Created Web Application</display-name>
 
-	<!-- <welcome-file-list>
-		<welcome-file>landingPage</welcome-file>
-	</welcome-file-list> -->
+	<!-- <welcome-file-list> <welcome-file>landingPage</welcome-file> </welcome-file-list> -->
 
 	<!-- <welcome-file-list> <welcome-file>landingPage</welcome-file> </welcome-file-list> -->
 
@@ -48,4 +46,7 @@
 		<!-- <url-pattern>/deleteNotes</url-pattern> -->
 	</filter-mapping>
 
+	<session-config>
+		<session-timeout>1440</session-timeout>
+	</session-config>
 </web-app>

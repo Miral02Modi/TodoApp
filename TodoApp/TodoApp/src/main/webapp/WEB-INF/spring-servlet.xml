@@ -15,29 +15,31 @@
     http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd ">
 
 
-	<context:component-scan base-package="com.bridgeit.TodoApp"/>
+	<context:component-scan base-package="com.bridgeit.TodoApp" />
 	<!-- <context:annotation-config /> -->
-	
-	
+
+
 	<mvc:annotation-driven />
-	
+
 	<mvc:resources location="/js/" mapping="/js/**"></mvc:resources>
 	<mvc:resources location="/css/" mapping="/css/**"></mvc:resources>
 	<mvc:resources location="/imgs/" mapping="/imgs/**"></mvc:resources>
 	<mvc:resources location="/template/" mapping="/template/**"></mvc:resources>
 	<mvc:resources location="/bower_components/" mapping="/bower_components/**"></mvc:resources>
 	<!-- <mvc:resources location="/bower_components/bootstrap/" mapping="/bower_components/**"></mvc:resources> -->
-	
-	
+
+
 	<bean id="service" class="com.bridgeit.TodoApp.service.RegistrationServiceImpl" />
 	<bean id="dao" class="com.bridgeit.TodoApp.dao.RegistrationDaoImpl" />
 	<bean id="tokenService" class="com.bridgeit.TodoApp.service.TokenServiceImpl" />
 	<bean id="dao1" class="com.bridgeit.TodoApp.dao.TokenDaoImpl" />
 	<bean id="doService" class="com.bridgeit.TodoApp.service.ToDoServiceImpl" />
 	<bean id="todoDao" class="com.bridgeit.TodoApp.dao.ToDoNotesDaoImpl" />
-	
-	
-			
+	<bean id="scraperService" class="com.bridgeit.TodoApp.service.PageScraperImpl" />
+	<bean id="scraperDao" class="com.bridgeit.TodoApp.dao.PageScraperDaoImpl" />
+
+
+
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/template/" />
@@ -66,6 +68,9 @@
 				<value>
 					com.bridgeit.TodoApp.model.ToDoNotes
 				</value>
+				<value>
+					com.bridgeit.TodoApp.model.PageScraper
+				</value>
 			</list>
 		</property>
 
@@ -73,9 +78,10 @@
 			<props>
 				<prop key="hibernate.dialect"> org.hibernate.dialect.MySQL5Dialect</prop>
 				<!-- <prop key="hibernate.current_session_context_class">thread</prop> -->
-				<prop key="hibernate.show_sql">true</prop>
+				<!-- <prop key="hibernate.show_sql">true</prop> -->
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
-				<prop key="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</prop>
+				<prop key="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory
+				</prop>
 			</props>
 		</property>
 	</bean>
@@ -85,13 +91,11 @@
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	<tx:annotation-driven transaction-manager="transactionManager" />
-	
-	<!-- <import resource="spring-social.xml" />
-	
-	<bean
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="location">
-			<value>classpath:application.properties</value>
-		</property>
-	</bean> -->
+
+	<!-- <import resource="spring-social.xml" /> <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> 
+		<property name="location"> <value>classpath:application.properties</value> 
+		</property> </bean> -->
+
+
+
 </beans>

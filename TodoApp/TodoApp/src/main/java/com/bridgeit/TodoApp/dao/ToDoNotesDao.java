@@ -10,7 +10,7 @@ import com.bridgeit.TodoApp.model.ToDoNotes;
  */
 public interface ToDoNotesDao {
 	
-	public ToDoNotes createNotes(ToDoNotes doNotesModel) throws Exception;
+	public int createNotes(ToDoNotes doNotesModel) throws Exception;
 	
 	public List<ToDoNotes> searchByTitle(List<Object> list) throws Exception;
 	

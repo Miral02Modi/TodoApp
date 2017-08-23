@@ -1,5 +1,6 @@
 package com.bridgeit.TodoApp.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -23,10 +24,12 @@ public class ToDoNotesDaoImpl implements ToDoNotesDao {
 	SessionFactory factory;
 
 	@Override
-	public ToDoNotes createNotes(ToDoNotes doNotesModel) throws Exception {
+	public int createNotes(ToDoNotes doNotesModel) throws Exception {
 		Session session = factory.getCurrentSession();
-		session.saveOrUpdate(doNotesModel);
-		return doNotesModel;
+		Serializable id= session.save(doNotesModel);
+		int noteId =(int) id;
+		System.out.println("id is::::"+id);
+		return  noteId;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -129,6 +132,11 @@ public class ToDoNotesDaoImpl implements ToDoNotesDao {
 		Query query = session.createQuery("delete from ToDoNotes where id=:noteID");
 		query.setParameter("noteID", doNotes.getId());
 		query.executeUpdate();
+		
+		Query query1 = session.createQuery("delete from PageScraper where noteId=:noteID");
+		query1.setParameter("noteID", doNotes.getId());
+		query1.executeUpdate();
+		
 
 		return doNotes;
 	}

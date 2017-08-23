@@ -13,6 +13,7 @@
 
 
 				<div ng-if="x.pinned == 'false'">
+				
 					<div style="float: right; padding: 7px" class="pin"
 						ng-click="pinned(x,'true')">
 						<img src="imgs/pin.svg">
@@ -65,7 +66,7 @@
 							<img src="imgs/archive.svg">
 						</div>
 						<div class="noteImagesDiv" data-toggle="tooltip"
-							data-placement="bottom" title="More">
+							data-placement="bottom" title="More" ng-click="facebookshare(x)">
 							<a href="javascript:void(0);" 
 								class="select_more"><img src="imgs/more.svg"></a>
 						</div>
@@ -85,12 +86,31 @@
 					ng-style="{'background-color':x.color}"
 				    ng-if="x.reminderTime != null">
 					<div style="display: inline-block;">
-						<div style="float: left;"><img src="imgs/clock.svg"></div>
-						<div style="float: left;height: 22px;width: 182px;margin-left:5px;" ng-bind-html="x.reminderTime"></div>
-						<div style="float: left;height: 22px;width: 15px" id="deleteReminder" ng-click="createReminder(x,'null')"><img src="imgs/cross.svg" ></div>	
+						<div style="float: left;"><img style="width: 15px;padding-top: 4px;" 
+							src="imgs/clock.svg"></div>
+						
+						<div style="float: left;font-size:12px;width: 182px;
+							 padding-left: 16px;padding-top: 7px;
+							 color:gray;
+							 font-family: 'Roboto',arial,sans-serif";
+							 ng-bind-html="x.reminderTime | date:'MMM dd, h:mm a' "></div>
+							 
+						<div style="float: left;height: 22px;width: 15px;"
+						 id="deleteReminder" ng-click="createReminder(x,'null')">
+								<img style="width: 15px; padding-top: 7px;" src="imgs/cross.svg" ></div>	
 					</div>
 				</div>
-				
+				<div id="pageScraper" ng-repeat="y in x.scrapers" style="display: inline-block;">
+					<div style="height: 56px;width: 56px;float: left;">
+						<img ng-src="{{y.url}}" height="56px" width="100%">
+					</div>
+					<div class="scraperTitleDiv">
+						{{y.titleUrl}}
+						<div class="scraperhostName">
+							{{y.hostName}}
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

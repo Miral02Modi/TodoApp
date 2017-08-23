@@ -1,7 +1,7 @@
 package com.bridgeit.TodoApp.controller;
 
 import java.io.IOException;
-import java.net.ServerSocket;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -26,9 +29,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bridgeit.TodoApp.Json.ErrorResponse;
 import com.bridgeit.TodoApp.Json.Response;
 import com.bridgeit.TodoApp.Json.TodoNotesResponse;
+import com.bridgeit.TodoApp.model.PageScraper;
 import com.bridgeit.TodoApp.model.ToDoNotes;
 import com.bridgeit.TodoApp.model.UserRegistration;
+import com.bridgeit.TodoApp.service.PageScaperService;
 import com.bridgeit.TodoApp.service.ToDoService;
+import com.bridgeit.TodoApp.validator.UrlValidate;
 
 /**
  * @author Miral
@@ -40,7 +46,10 @@ public class ToDoNotesController {
 
 	@Autowired
 	ToDoService doService;
-
+	@Autowired
+	PageScaperService scraperService;
+	@SuppressWarnings("rawtypes")
+	List notes = null;
 	// ----------------------------------Create--a--New--Notes--------------------------
 	/**
 	 * Create a new notes
@@ -50,20 +59,14 @@ public class ToDoNotesController {
 	 * @param pRequest
 	 * @param pResponse
 	 * @return
+	 * @throws IOException
 	 */
+	@SuppressWarnings("unchecked")
 	// ----------------------------------Create--a--New--Notes--------------------------
 	@RequestMapping(value = "/createNote", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Response> createNotes(@RequestBody ToDoNotes doNotesModel, BindingResult result,
-			HttpServletRequest pRequest, HttpServletResponse pResponse) {
+			HttpServletRequest pRequest, HttpServletResponse pResponse) throws IOException {
 
-		ServerSocket socket = null;
-		try {
-			socket = new ServerSocket();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		System.out.println("Get EnvironMent Variable::"+socket.getLocalPort());
-		
 		/*
 		 * if (result.hasErrors()) {
 		 * 
@@ -72,21 +75,91 @@ public class ToDoNotesController {
 		 * errorResponse.setMessage("Invalid Credential"); return new
 		 * ResponseEntity<Response>(errorResponse, HttpStatus.NOT_ACCEPTABLE); }
 		 */
-		System.out.println("inside the create Notes");
+
+		// ------Getting the Session
+		HttpSession httpSession = pRequest.getSession();
+		UserRegistration user = (UserRegistration) httpSession.getAttribute("user");
+		PageScraper scraper = null;
+		boolean isScraper = false;
+		try {
+			if (UrlValidate.isValidateUrl(doNotesModel.getDescription()) != null) {
+				
+				String url = UrlValidate.isValidateUrl(doNotesModel.getDescription());
+				URI uri = new URI(url);
+				String hostName = uri.getHost();
+				System.out.println("Url is:::"+hostName);
+				
+				
+				isScraper = true;
+				String title = null;
+				String imgUrl = null;
+				Document document = Jsoup.connect(url).get();
+				Elements metaOgTitle = document.select("meta[property=og:title]");
+				Elements metaOgImage = document.select("meta[property=og:image]");
+				
+				if (metaOgTitle != null) {
+					title = metaOgTitle.attr("content");
+				} else {
+					title = document.text();
+				}
+
+				metaOgImage = document.select("meta[property=og:image]");
+				if (metaOgImage != null) {
+					imgUrl = metaOgImage.attr("content");
+				}
+
+				scraper = new PageScraper();
+				scraper.setUser(user);
+				scraper.setTitleUrl(title);
+				scraper.setUrl(imgUrl);
+				scraper.setHostName(hostName);
+
+				System.out.println("Title::" + title);
+				System.out.println("Image:" + imgUrl);
+
+			}
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+
 		try {
 
-			// ------Getting the Session
-			HttpSession httpSession = pRequest.getSession();
-			UserRegistration user = (UserRegistration) httpSession.getAttribute("user");
 			doNotesModel.setUser(user);
 			doNotesModel.setDate(new Date());
 			doNotesModel.setArchive("false");
-			// ------setting into the DataBase
-			doService.createNotes(doNotesModel);
 
-			List<ToDoNotes> notes = getNotes(user.getId());
+			// ------setting into the DataBase
+			int noteId = doService.createNotes(doNotesModel);
+			doNotesModel.setId(noteId);
+			System.out.println("model id is::"+doNotesModel);
+			
+			if (isScraper) {
+				scraper.setNoteId(noteId);
+				scraperService.createScraper(scraper);
+			}
+
+			notes = getNotes(user.getId());
+			System.out.println("notes is::::" + notes);
+			
+			
+			
+			/*for (int i = 0; i < notes.size(); i++) {
+				ToDoNotes doNotes = (ToDoNotes) notes.get(i);
+				List<PageScraper> scrapers = getScraper(doNotes.getId());
+				doNotes.setScrapers(scrapers);
+			}*/
+			addScraperInNotes();
+			
+			System.out.println("all data is::"+notes);
+			
+			for(int i=0;i<notes.size();i++){
+				System.out.println(notes.get(i));
+			}
+			
+			
+			
 			Collections.reverse(notes);
-			System.out.println("all data" + notes);
+
 			// ------Setting Response
 			TodoNotesResponse response = new TodoNotesResponse();
 			response.setStatus(1);
@@ -102,10 +175,20 @@ public class ToDoNotesController {
 			errorResponse.setStatus(-1);
 			errorResponse.setMessage("Exception Occur");
 			return new ResponseEntity<Response>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-
+		}	
 	}
-
+	
+	void addScraperInNotes(){
+		
+		System.out.println("Inside the function list::::"+notes);
+		for (int i = 0; i < notes.size(); i++) {
+			ToDoNotes doNotes = (ToDoNotes) notes.get(i);
+			List<PageScraper> scrapers = getScraper(doNotes.getId());
+			doNotes.setScrapers(scrapers);
+		}
+	}
+	
+	
 	// ----------------------------------Search--by--Title-------------------------------
 	/**
 	 * 
@@ -227,6 +310,7 @@ public class ToDoNotesController {
 	 *            {@link HttpServletResponse}
 	 * @return {@link ResponseEntity}
 	 */
+	@SuppressWarnings("unchecked")
 	// ----------------------------------Update--Notes--------------------------------------
 	@RequestMapping(value = "/updateNotes", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Response> updateNote(@RequestBody ToDoNotes doNotes, HttpServletRequest pRequest,
@@ -244,8 +328,9 @@ public class ToDoNotesController {
 		try {
 			if (user != null) {
 				doService.updateNote(doNotes);
-				List<ToDoNotes> notes = getNotes(user.getId());
-				Collections.reverse(notes);
+				notes = getNotes(user.getId());
+				addScraperInNotes();
+				/* Collections.reverse(notes); */
 				System.out.println("all data" + notes);
 
 				// ------Setting Response
@@ -255,11 +340,11 @@ public class ToDoNotesController {
 				response.setList(notes);
 
 				return new ResponseEntity<Response>(response, HttpStatus.OK);
-			}else{
+			} else {
 				TodoNotesResponse response = new TodoNotesResponse();
 				response.setStatus(1);
 				response.setMessage("Successfully added");
-				
+
 				return new ResponseEntity<Response>(response, HttpStatus.NOT_FOUND);
 			}
 		} catch (Exception e) {
@@ -395,6 +480,17 @@ public class ToDoNotesController {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
+	List<PageScraper> getScraper(int id) {
+		try {
+			return scraperService.getScraperById(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/getTodoList", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Response> getTodoList(HttpServletRequest pRequest, HttpServletResponse pResponse) {
 
@@ -404,9 +500,11 @@ public class ToDoNotesController {
 			// ------Getting the Session
 			HttpSession httpSession = pRequest.getSession();
 			UserRegistration user = (UserRegistration) httpSession.getAttribute("user");
-			System.out.println("User data::"+user);
+			System.out.println("User data::" + user);
+
+			notes = getNotes(user.getId());
+			addScraperInNotes();
 			
-			List<ToDoNotes> notes = getNotes(user.getId());
 			System.out.println("all data" + notes);
 			// ------Setting Response
 			TodoNotesResponse response = new TodoNotesResponse();

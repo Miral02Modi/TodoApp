@@ -19,7 +19,7 @@ public class ToDoServiceImpl implements ToDoService {
 
 	@Override
 	@Transactional
-	public ToDoNotes createNotes(ToDoNotes doNotesModel) throws Exception {
+	public int createNotes(ToDoNotes doNotesModel) throws Exception {
 		return todoDao.createNotes(doNotesModel);
 	}
 

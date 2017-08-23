@@ -21,8 +21,8 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 <link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.9.2/themes/base/jquery-ui.min.css">	
-	
+	href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.9.2/themes/base/jquery-ui.min.css">
+
 
 
 <script
@@ -39,13 +39,18 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui/0.4.0/angular-ui.min.js"></script> -->
-	
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-sortable/0.17.1/sortable.min.js"></script>	
+
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-sortable/0.17.1/sortable.min.js"></script>
 <script type="text/javascript"
 	src="bower_components/angular-ui-router/release/angular-ui-router.js"
 	charset="utf-8"></script>
+<script type="text/javascript"
+	src="http://connect.facebook.net/en_US/sdk.js"></script>	
+	
 </head>
 
 
@@ -62,8 +67,8 @@
 
 <script type="text/javascript" src="js/DesignJs/NavBar.js"
 	charset="utf-8"></script>
-	
-	
+
+
 <script type="text/javascript" src="js/app.js" charset="utf-8"></script>
 <script type="text/javascript" src="js/controller/LoginController.js"
 	charset="utf-8"></script>
@@ -77,7 +82,7 @@
 <script type="text/javascript" src="js/controller/ArchiveController.js"
 	charset="utf-8"></script>
 <script type="text/javascript" src="js/controller/Reminder.js"
-	charset="utf-8"></script>	
+	charset="utf-8"></script>
 
 
 
@@ -105,7 +110,7 @@
 <script type="text/javascript" src="js/directive/colorDirective.js"
 	charset="utf-8"></script>
 <script type="text/javascript" src="js/directive/ReminderDirective.js"
-	charset="utf-8"></script>	
+	charset="utf-8"></script>
 <script type="text/javascript" src="js/directive/pinnedDirective.js"
 	charset="utf-8"></script>
 <script type="text/javascript" src="js/directive/Drag_DropDirective.js"

@@ -2,6 +2,7 @@ package com.bridgeit.TodoApp.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -23,6 +25,10 @@ public class ToDoNotes implements Serializable {
 	@GenericGenerator(name="id",strategy="increment")
 	@GeneratedValue(generator="id")
 	private int id;
+	
+	@Transient
+	private List<PageScraper> scrapers;
+	
 	private  String title;
 	private  String description;
 	private  Date date;
@@ -37,6 +43,16 @@ public class ToDoNotes implements Serializable {
 	@JoinColumn(name="userId")
 	UserRegistration user;
 	
+	
+	
+	
+	
+	public List<PageScraper> getScrapers() {
+		return scrapers;
+	}
+	public void setScrapers(List<PageScraper> scrapers) {
+		this.scrapers = scrapers;
+	}
 	
 	public int getId() {
 		return id;
@@ -120,13 +136,11 @@ public class ToDoNotes implements Serializable {
 	public void setReminderTime(String reminderTime) {
 		this.reminderTime = reminderTime;
 	}
-	
-	
 	@Override
 	public String toString() {
-		return "ToDoNotes [id=" + id + ", title=" + title + ", description=" + description + ", date=" + date
-				+ ", archive=" + archive + ", pinned=" + pinned + ", color=" + color + ", isTrash=" + isTrash
-				+ ", reminderTime=" + reminderTime + ", user=" + user + "]";
+		return "ToDoNotes [id=" + id + ", scrapers=" + scrapers + ", title=" + title + ", description=" + description
+				+ ", date=" + date + ", archive=" + archive + ", pinned=" + pinned + ", color=" + color + ", isTrash="
+				+ isTrash + ", reminderTime=" + reminderTime + ", user=" + user + "]";
 	}
 	
 }

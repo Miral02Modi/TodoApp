@@ -32,9 +32,8 @@
 	word-wrap: break-word;
 }
 
-
 #presentationTitle {
-	width: 95%;
+	width: 85%;
 	/*   height: 120px; */
 	padding: 10px;
 	background: transparent;
@@ -44,7 +43,7 @@
 	font-size: 17px;
 	line-height: 23px;
 	outline: none;
-/* 	word-wrap: break-word; */
+	/* 	word-wrap: break-word; */
 }
 
 #presentationNote {
@@ -86,7 +85,6 @@
 	border: none;
 	cursor: pointer;
 	overflow: hidden;
-	
 }
 
 #presentationNote[contenteditable=true]:empty:before {
@@ -114,9 +112,8 @@
 	color: grey;
 }
 
-
-.deleteNoteDiv{
-width: 85%;
+.deleteNoteDiv {
+	width: 85%;
 	background: #FFF;
 	margin-top: 10px;
 	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
@@ -124,47 +121,47 @@ width: 85%;
 	border-radius: 3px;
 }
 
-
 #presentationDelete {
 	/* border:1px solid green; */
 	width: 100%;
 	/*   height: 120px; */
-	 /* padding: 21px; */ 
+	/* padding: 21px; */
 	background: #FFF;
 	/* transition: all 0.3s; */
 	word-wrap: break-word;
 }
-.showIcon{
+
+.showIcon {
 	display: none;
 }
+
 .toDoNoteCss:hover .showIcon {
 	display: block;
 }
 
-.showIcon.clicked,
-.showIcon.clicked.waiting:hover
-{
-   display: block;
+.showIcon.clicked, .showIcon.clicked.waiting:hover {
+	display: block;
 }
 
-
-.pin{
+.pin {
 	display: none;
 }
-.toDoNoteCss:hover .pin{
+
+.toDoNoteCss:hover .pin {
 	display: block;
 	cursor: pointer;
 }
 
-.other11{
-	color: rgba(0,0,0,.54);
-    font-family: 'Roboto',arial,sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    margin: 22px 16px;
-    position: absolute;
+.other11 {
+	color: rgba(0, 0, 0, .54);
+	font-family: 'Roboto', arial, sans-serif;
+	font-size: 14px;
+	font-weight: 500;
+	margin: 22px 16px;
+	position: absolute;
 }
-.reminderBlock{
+
+.reminderBlock {
 	width: 100%;
 	padding: 11px;
 	font-family: 'Roboto Slab', 'Times New Roman', serif;
@@ -175,23 +172,56 @@ width: 85%;
 	min-height: 46px;
 	font-size: 18px;
 }
-.time{
-	color: rgba(0,0,0,.54);
-    -webkit-box-flex: 1;
-    -webkit-flex: 1 1 auto;
-    flex: 1 1 auto;
-    max-width: 200px;
-    text-align: right;
-    white-space: normal;
+
+.time {
+	color: rgba(0, 0, 0, .54);
+	-webkit-box-flex: 1;
+	-webkit-flex: 1 1 auto;
+	flex: 1 1 auto;
+	max-width: 200px;
+	text-align: right;
+	white-space: normal;
 }
-#deleteReminder{
+
+#deleteReminder {
 	display: none;
 }
-#reminderBlock:HOVER  #deleteReminder{
+
+#reminderBlock:HOVER  #deleteReminder {
 	display: block;
 	cursor: pointer;
 }
 
+#pageScraper {
+	width: 100%;
+	background: transparent;
+	outline: none;
+	color: black;
+	line-height: 19px;
+	min-height: 46px;
+	font-size: 18px;
+	border-top: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.scraperTitleDiv {
+	height: 56px;
+	width: 173px;
+	font-size: 14px;
+	padding-top: 9px;
+	overflow : hidden;
+	float: left;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-family: 'Roboto Condensed', arial, sans-serif;
+	overflow: hidden;
+	padding-left: 8px;
+}
+
+.scraperhostName{
+	font-family: 'Roboto',arial,sans-serif;
+    color: rgba(0,0,0,.54);
+    font-size: 11px;
+}
 /* .createTitle {
 	font-family: 'Roboto Condensed', arial, sans-serif;
 	font-weight: bold;
