@@ -25,6 +25,8 @@ public class PageScraper implements Serializable {
 	String url;
 	String titleUrl;
 	String hostName;
+	String mainUrl; 
+	
 	@ManyToOne(/*cascade=CascadeType.ALL,*/optional=false)
 	@JoinColumn(name="userId1")
 	UserRegistration user;
@@ -38,6 +40,13 @@ public class PageScraper implements Serializable {
 		this.id = id;
 	}
 	
+	
+	public String getMainUrl() {
+		return mainUrl;
+	}
+	public void setMainUrl(String mainUrl) {
+		this.mainUrl = mainUrl;
+	}
 	
 	public int getNoteId() {
 		return noteId;
@@ -76,10 +85,11 @@ public class PageScraper implements Serializable {
 	public void setHostName(String hostName) {
 		this.hostName = hostName;
 	}
-	
 	@Override
 	public String toString() {
 		return "PageScraper [id=" + id + ", url=" + url + ", titleUrl=" + titleUrl + ", hostName=" + hostName
-				+ ", user=" + user + ", noteId=" + noteId + "]";
+				+ ", mainUrl=" + mainUrl + ", user=" + user + ", noteId=" + noteId + "]";
 	}
+	
+	
 }

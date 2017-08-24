@@ -40,7 +40,7 @@
 						<!--  created color box -->
 						<!-- color division -->
 						<colorbox></colorbox>
-						
+
 						<div class="noteImagesDiv showIcon" data-toggle="tooltip"
 							data-placement="bottom" title="Add Image">
 							<img src="imgs/image.svg">
@@ -51,8 +51,8 @@
 						</div>
 						<div class="noteImagesDiv showIcon" data-toggle="tooltip"
 							data-placement="bottom" title="More">
-							<a href="javascript:void(0);" 
-								class="select_more"><img src="imgs/more.svg"></a>
+							<a href="javascript:void(0);" class="select_more"><img
+								src="imgs/more.svg"></a>
 						</div>
 
 						<ul class="dropdown-menu">
@@ -69,6 +69,45 @@
 						</div>
 
 					</div>
+				</div>
+				
+				<div  id="reminderBlock" style="width: 100%;padding-left:10px;
+					border-top: 2px dotted rgba(0,0,0,0.1)"
+					ng-style="{'background-color':x.color}"
+				    ng-if="x.reminderTime != null">
+					<div style="display: inline-block;">
+						<div style="float: left;"><img style="width: 15px;padding-top: 4px;" 
+							src="imgs/clock.svg"></div>
+						
+						<div style="float: left;font-size:12px;width: 182px;
+							 padding-left: 16px;padding-top: 7px;
+							 color:gray;
+							 font-family: 'Roboto',arial,sans-serif";
+							 ng-bind-html="x.reminderTime | date:'MMM dd, h:mm a' "></div>
+							 
+						<div style="float: left;height: 22px;width: 15px;"
+						 id="deleteReminder" ng-click="createReminder(x,'null')">
+								<img style="width: 15px; padding-top: 7px;" src="imgs/cross.svg" ></div>	
+					</div>
+				</div>
+				
+				<!-- page scarpping div -->
+				<div id="pageScraper" ng-repeat="y in x.scrapers"
+					style="display: inline-block;">
+					<div style="height: 56px; width: 56px; float: left;">
+						<img ng-src="{{y.url}}" height="56px" width="100%">
+					</div>
+					<div>
+						<div>
+							<div class="scraperTitleDiv">{{y.titleUrl}}</div>
+							<div
+								style="margin-top: 3px; float: right; padding-right: 7px; 
+									border: 1px solid transparent;">
+								<a target="_blank" href="{{y.mainUrl}}" ><img src="imgs/redirectUrl.svg"></a>
+							</div>
+						</div>
+					</div>
+					<div class="scraperhostName">{{y.hostName}}</div>
 				</div>
 			</div>
 		</div>

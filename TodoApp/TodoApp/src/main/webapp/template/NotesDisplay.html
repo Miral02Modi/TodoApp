@@ -1,6 +1,7 @@
 <div class="row sort sortable" my-uid="{{x.id}}">
 	<br> <br> <br>
-	<div style="color: rgba(0,0,0,.54);font-weight:bold;font-family: 'Roboto',arial,sans-serif;font-size: 14px;">Other</div>
+	<div ng-show="otherCounted"
+		style="color: rgba(0, 0, 0, .54); font-weight: bold; font-family: 'Roboto', arial, sans-serif; font-size: 14px;">Other</div>
 	<div ng-repeat="x in notes | filter:test as results track by $index"
 		ng-show="x.pinned == 'false' && x.archive == 'false' && x.isTrash == 'false'">
 
@@ -13,44 +14,44 @@
 
 
 				<div ng-if="x.pinned == 'false'">
-				
+
 					<div style="float: right; padding: 7px" class="pin"
 						ng-click="pinned(x,'true')">
 						<img src="imgs/pin.svg">
 					</div>
-					
-					<div ng-bind-html="x.title" id="presentationTitle" 
-					   	ng-if="x.title != null || x.title !=''"
+
+					<div ng-bind-html="x.title" id="presentationTitle"
+						ng-if="x.title != null || x.title !=''"
 						ng-style="{'background-color':x.color}" ng-model="titleNote"
 						data-ng-click="displayPopupData(x)"></div>
 				</div>
-				
+
 				<div ng-bind-html="x.description" id="presentationNote"
-					ng-if="(x.pinned == 'false') && (x.description != null || x.description != '')" ng-model="descNote"
-					ng-style="{'background-color':x.color}"
+					ng-if="(x.pinned == 'false') && (x.description != null || x.description != '')"
+					ng-model="descNote" ng-style="{'background-color':x.color}"
 					data-ng-click="displayPopupData(x)"></div>
-				
-				
+
+
 
 
 				<div style="display: inline-block; height: 35px"
 					ng-if="x.pinned == 'false'">
 					<div id="presentationDelete" class="showIcon">
 
-						
-						
-						
-						
+
+
+
+
 						<div class="noteImagesDiv" data-toggle="tooltip"
 							data-placement="bottom" title="Collabrate">
 							<img src="imgs/collabrate.svg">
 						</div>
 
-						
-						<!-- Here I have made reminder Directive so directly I have added -->						
+
+						<!-- Here I have made reminder Directive so directly I have added -->
 						<reminder></reminder>
-						
-						<!-- Here I have made color Directive so directly I have added -->						
+
+						<!-- Here I have made color Directive so directly I have added -->
 						<colorbox></colorbox>
 
 
@@ -67,8 +68,8 @@
 						</div>
 						<div class="noteImagesDiv" data-toggle="tooltip"
 							data-placement="bottom" title="More" ng-click="facebookshare(x)">
-							<a href="javascript:void(0);" 
-								class="select_more"><img src="imgs/more.svg"></a>
+							<a href="javascript:void(0);" class="select_more"><img
+								src="imgs/more.svg"></a>
 						</div>
 
 						<!-- <button id="doneButton" data-ng-click="deleteNote(x.id)"
@@ -80,36 +81,46 @@
 
 					</div>
 				</div>
-				
-				<div  id="reminderBlock" style="width: 100%;padding-left:10px;
-					border-top: 2px dotted rgba(0,0,0,0.1)"
+
+				<div id="reminderBlock"
+					style="width: 100%; padding-left: 10px; border-top: 2px dotted rgba(0, 0, 0, 0.1)"
 					ng-style="{'background-color':x.color}"
-				    ng-if="x.reminderTime != null">
+					ng-if="x.reminderTime != null">
 					<div style="display: inline-block;">
-						<div style="float: left;"><img style="width: 15px;padding-top: 4px;" 
-							src="imgs/clock.svg"></div>
-						
-						<div style="float: left;font-size:12px;width: 182px;
-							 padding-left: 16px;padding-top: 7px;
-							 color:gray;
-							 font-family: 'Roboto',arial,sans-serif";
+						<div style="float: left;">
+							<img style="width: 15px; padding-top: 4px;" src="imgs/clock.svg">
+						</div>
+
+						<div
+							style="float: left; font-size: 12px; width: 182px; padding-left: 16px; padding-top: 7px; color: gray; font-family: 'Roboto', arial, sans-serif"
+							;
 							 ng-bind-html="x.reminderTime | date:'MMM dd, h:mm a' "></div>
-							 
-						<div style="float: left;height: 22px;width: 15px;"
-						 id="deleteReminder" ng-click="createReminder(x,'null')">
-								<img style="width: 15px; padding-top: 7px;" src="imgs/cross.svg" ></div>	
-					</div>
-				</div>
-				<div id="pageScraper" ng-repeat="y in x.scrapers" style="display: inline-block;">
-					<div style="height: 56px;width: 56px;float: left;">
-						<img ng-src="{{y.url}}" height="56px" width="100%">
-					</div>
-					<div class="scraperTitleDiv">
-						{{y.titleUrl}}
-						<div class="scraperhostName">
-							{{y.hostName}}
+
+						<div style="float: left; height: 22px; width: 15px;"
+							id="deleteReminder" ng-click="createReminder(x,'null')">
+							<img style="width: 15px; padding-top: 7px;" src="imgs/cross.svg">
 						</div>
 					</div>
+				</div>
+				
+				<!-- page scarpping div -->
+				<div id="pageScraper" ng-repeat="y in x.scrapers"
+					style="display: inline-block;">
+					<a target="_blank" href="{{y.mainUrl}}" >
+						<div style="height: 56px; width: 56px; float: left;">
+						<img ng-src="{{y.url}}" height="56px" width="100%">
+					</div>
+					<div>
+						<div>
+							<div class="scraperTitleDiv">{{y.titleUrl}}</div>
+							<div
+								style="margin-top: 3px; float: right; padding-right: 7px; 
+									border: 1px solid transparent;">
+								<a target="_blank" href="{{y.mainUrl}}" ><img src="imgs/redirectUrl.svg"></a>
+							</div>
+						</div>
+					</div>
+					<div class="scraperhostName">{{y.hostName}}</div></a>
 				</div>
 			</div>
 		</div>
@@ -200,11 +211,10 @@
 
 		});
 	});
-	
-	
+
 	var aryButtons = $('.showIcon');
 	aryButtons.on('click', function() {
 		console.log("clicked:::");
-	           $(this).toggleClass('clicked').siblings().removeClass('clicked');
+		$(this).toggleClass('clicked').siblings().removeClass('clicked');
 	});
 </script>

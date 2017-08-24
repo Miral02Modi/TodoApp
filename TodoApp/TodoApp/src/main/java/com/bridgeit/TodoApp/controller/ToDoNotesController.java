@@ -65,7 +65,7 @@ public class ToDoNotesController {
 	// ----------------------------------Create--a--New--Notes--------------------------
 	@RequestMapping(value = "/createNote", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Response> createNotes(@RequestBody ToDoNotes doNotesModel, BindingResult result,
-			HttpServletRequest pRequest, HttpServletResponse pResponse) throws IOException {
+			HttpServletRequest pRequest, HttpServletResponse pResponse)  {
 
 		/*
 		 * if (result.hasErrors()) {
@@ -93,6 +93,7 @@ public class ToDoNotesController {
 				isScraper = true;
 				String title = null;
 				String imgUrl = null;
+				System.out.println("url data is:::"+url);
 				Document document = Jsoup.connect(url).get();
 				Elements metaOgTitle = document.select("meta[property=og:title]");
 				Elements metaOgImage = document.select("meta[property=og:image]");
@@ -113,6 +114,7 @@ public class ToDoNotesController {
 				scraper.setTitleUrl(title);
 				scraper.setUrl(imgUrl);
 				scraper.setHostName(hostName);
+				scraper.setMainUrl(url);
 
 				System.out.println("Title::" + title);
 				System.out.println("Image:" + imgUrl);

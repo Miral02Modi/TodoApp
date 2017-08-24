@@ -7,6 +7,7 @@ myApp.controller('TodoController', function($scope, createNoteService,
 		console.log("inside the todoHome");
 		$state.go("login");
 	}
+	
 
 	$http({
 		method : "get",
@@ -16,18 +17,8 @@ myApp.controller('TodoController', function($scope, createNoteService,
 		}
 	}).then(function successCallback(data) {
 		$scope.notes = data.data.list.reverse();
-
-		/*
-		 * $scope.fff = data.data.list.color == "#fff"; $scope.rgb255138128 =
-		 * data.data.list.color == "rgb(255,138,128)"; $scope.rgb255209128 =
-		 * data.data.list.color == "rgb(255,209,128)"; $scope.rgb255255141 =
-		 * data.data.list.color == "rgb(255,255,141)";
-		 * 
-		 * $scope.rgb207216220 = data.data.list.color == "rgb(207,216,220)";
-		 * $scope.rgb(128,216,255 = data.data.list.color == "rgb(128,216,255)";
-		 * $scope.rgb = data.data.list.color == "rgb(167,255,235)"; $scope.rgb =
-		 * data.data.list.color == "rgb(204,255,144)";
-		 */
+		console.log("length of array is::::");
+		isPinnedCounted(data)
 	});
 
 	console.log("show division controller...");
@@ -84,6 +75,7 @@ myApp.controller('TodoController', function($scope, createNoteService,
 					console.log("sdgsd" + data.data.list);
 
 					if (data.data.status == 1) {
+						isPinnedCounted(data);
 						$scope.notes = data.data.list.reverse();
 					}
 
@@ -150,7 +142,8 @@ myApp.controller('TodoController', function($scope, createNoteService,
 
 						console.log(data.data.status === 1);
 						if (data.data.status === 1) {
-
+							
+							isPinnedCounted(data);
 							$("#presentationNote").html('');
 							$("#presentationTitle").html("");
 							$scope.notes = data.data.list;
@@ -243,6 +236,7 @@ myApp.controller('TodoController', function($scope, createNoteService,
 							function success(data) {
 								console.log("update data success"
 										+ data.data.list);
+								isPinnedCounted(data);
 								$scope.notes = data.data.list.reverse();
 							});
 				};
@@ -270,6 +264,7 @@ myApp.controller('TodoController', function($scope, createNoteService,
 					} else {
 						updateNoteService.updateNote(obj).then(
 								function success(data) {
+									isPinnedCounted(data);
 									console.log("update data success"
 											+ data.data.list.reverse());
 									$scope.notes = data.data.list;
@@ -348,6 +343,7 @@ myApp.controller('TodoController', function($scope, createNoteService,
 		updateNoteService.updateNote(obj).then(function success(data) {
 			console.log("update data success" + data.data.list);
 			$scope.notes = data.data.list.reverse();
+			isPinnedCounted(data);
 		});
 
 		/*
@@ -441,6 +437,7 @@ myApp.controller('TodoController', function($scope, createNoteService,
 		updateNoteService.updateNote(obj).then(function success(data) {
 			console.log("update data success" + data.data.list);
 			$scope.notes = data.data.list.reverse();
+			isPinnedCounted(data);
 		});
 	};
 
@@ -465,6 +462,7 @@ myApp.controller('TodoController', function($scope, createNoteService,
 					console.log("sdgsd" + data.data.list);
 
 					if (data.data.status == 1) {
+						isPinnedCounted(data);
 						$scope.notes = data.data.list.reverse();
 					}
 
@@ -498,6 +496,7 @@ myApp.controller('TodoController', function($scope, createNoteService,
 					$scope.success("Archive Successfully");
 
 					if (data.data.status == 1) {
+						isPinnedCounted(data);
 						$scope.notes = data.data.list.reverse();
 					}
 
@@ -535,6 +534,7 @@ myApp.controller('TodoController', function($scope, createNoteService,
 					console.log("sdgsd" + data.data.list);
 
 					if (data.data.status == 1) {
+						isPinnedCounted(data);
 						$scope.notes = data.data.list.reverse();
 					}
 
@@ -599,6 +599,7 @@ myApp.controller('TodoController', function($scope, createNoteService,
 					console.log("sdgsd" + data.data.list);
 
 					if (data.data.status == 1) {
+						isPinnedCounted(data);
 						$scope.notes = data.data.list.reverse();
 					}
 
@@ -643,6 +644,25 @@ myApp.controller('TodoController', function($scope, createNoteService,
 		
 	}
 	
+	function isPinnedCounted(data){
+		
+		console.log("Inside the pinnedCounted");
+		var countPinned=0;
+		for(var i=0;i<data.data.list.length;i++){
+			if(data.data.list[i].pinned == "true"){
+				countPinned++;
+			}
+		}
+		
+		if(countPinned != 0){
+			console.log("counted is  141::"+countPinned);
+			$scope.pinnedCounted = true;
+			$scope.otherCounted = true;
+		}else{
+			$scope.pinnedCounted = false;
+			$scope.otherCounted = false;
+		}
+		return countPinned; 
+	}
 	
-
 });
