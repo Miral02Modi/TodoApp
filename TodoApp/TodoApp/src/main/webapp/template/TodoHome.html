@@ -4,7 +4,8 @@
 <!---------------------Navigation Bar --------------------------------->
 
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation"
-	id="navigationBar">
+	id="navigationBar"  ng-style="{'background-color':bgColorNavbar,'border-color':borderColorNavbar}">
+	<!-- ng-style="{'background-color':createColor}" -->
 	<div class="container-fluid">
 		<div class="navbar-header" style="display: inline-block;">
 			<button type="button" class="navbar-toggle collapsed"
@@ -17,9 +18,8 @@
 			<a class="navbar-brand" href="#menu-toggle" id="menu-toggle"><span
 				aria-hidden="true"><img src="imgs/menu.svg" alt="Sidemenu"></span></a>
 			<a style="margin-left: 1px; margin-top: 4px" class="navbar-brand"
-				href="#"><span aria-hidden="true"><img
+				href="javascript:void(0);"><span aria-hidden="true"><img
 					src="imgs/googlelogo.svg" alt="notification"></span></a>
-
 		</div>
 
 		<div id="navbar" class="navbar-collapse collapse"
@@ -34,20 +34,18 @@
 
 				<li><a href="javascript:void(0);"><span aria-hidden="true"
 						ng-show="gridImage" ng-click="showListImage()"><img
-							src="imgs/grid.svg" alt="grid"></span> <span aria-hidden="true"
-						ng-show="listImage" ng-click="showGridImage()"><img
-							src="imgs/listview.svg" alt="grid"></span></a></li>
+							src="imgs/listview.svg" alt="grid"></span> <span
+						aria-hidden="true" ng-show="listImage" ng-click="showGridImage()"><img
+							src="imgs/grid.svg" alt="grid"></span></a></li>
 
 				<li><a href="#"><span aria-hidden="true"><img
 							src="imgs/bell.png" alt="notification"></span></a>
-						
-					<div >
+
+					<div>
 						<div></div>
 						<div></div>
 						<div></div>
-					</div>
-				
-				</li>
+					</div></li>
 
 
 
@@ -59,22 +57,28 @@
 							alt="user" style="height: 32px; width: 31px; border-radius: 50%;">
 					</span>
 				</a>
-					<div class="dropdown-menu" style="height: 170px; padding: 10px">
+					<div class="dropdown-menu"
+						style="height: 170px; padding: 10px;">
 						<div
 							style="height: 96px; width: 270px; border-bottom: 1px solid #ddd;">
-							<div style="width: 40%; height: 100%; padding: 8px;">
-								<img src="http://localhost:8080/TodoApp/imgs/usericon.png"
+							<div style="width: 40%; height: 100%; padding: 8px;float: left;">
+								<img src="imgs/usericon.png"
 									style="height: 102%; width: 91%; border-radius: 50%;">
+							</div>
+							<div style="float:left;font-weight: bold;margin-top: 13px;">
+								{{userInfo.name}}
+								<div style="margin-top: 10px;font-weight: 100">
+								{{userInfo.email}}		
+								</div>
 							</div>
 						</div>
 						<div style="float: right; padding: 14px;">
-							<button class="btn btn-default dropdown-toggle" type="button"
-								data-toggle="dropdown">Sign out</button>
+							<button  class="btn btn-default dropdown-toggle" type="button"
+								data-toggle="dropdown">
+									<a ui-sref="signout">Sign out</a>
+								</button>
 						</div>
 					</div></li>
-
-
-
 
 				<!--  <li><a href="#"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> Log Out</a></li> -->
 			</ul>
@@ -84,9 +88,9 @@
 
 			<!-- <input type="text" id="searchBar" name="search" placeholder="Search.." value=""> -->
 			<input ng-click="chngBackgroundOfSearch()" ng-style="myObj"
-				style="text-align: center; margin-top: 6px; margin-left: 232px; width: 573px; height: 47px; -color: transparent; background-color: transparent;"
-				type="text" class="form-control" placeholder="Search..." id="query"
-				name="search" ng-model="test" ng-click="hideAndShowSearchButton">
+				id="query" type="text" class="form-control" placeholder="Search..."
+				id="query" name="search" ng-model="test"
+				ng-click="hideAndShowSearchButton">
 			<div class="input-group">
 				<div class="input-group-btn">
 					<!-- <button type="submit" class="btn btn-success"
@@ -116,14 +120,11 @@
 					class="navbar-brand"> <span class="glyphicon glyphicon-user"
 						aria-hidden="true"></span> Profile
 				</a></li> -->
-				<li><a ui-sref="todoHome"><span class="glyphicon glyphicon-home"
-						aria-hidden="true"></span> Notes</a></li>
+				<li><a ui-sref="todoHome"><span
+						class="glyphicon glyphicon-home" aria-hidden="true"></span> Notes</a></li>
 				<li><a ui-sref="reminder"><span
 						class="glyphicon glyphicon-search" aria-hidden="true"></span>
-						Reminders</a>
-						
-				
-				</li>
+						Reminders</a></li>
 				<!-- <li><span class="glyphicon glyphicon-search" aria-hidden="true"></span><font
 					color="#337AB7"> Archive</font></li> -->
 				<li ng-click="trashCaller()"><a href="javaScript:void(0);"><span
@@ -163,6 +164,9 @@
 
 
 							<div>
+								<div ng-show="showImage">
+									<img height="401px" width="100%" ng-src="{{imageSrc}}">
+								</div>
 								<div style="float: right; padding: 7px; cursor: pointer;"
 									ng-click="generatePin('true')" ng-if="createPin=='false'">
 									<img src="imgs/pin.svg">
@@ -172,9 +176,9 @@
 									<img src="imgs/unPin.svg">
 								</div>
 								<div contenteditable1 contenteditable="true" placeholder="Title"
-								ng-value="value" ng-model="title1" id="presentationTitle"
-								role="textbox" class="createTitle" tabindex="0" focus
-								ng-blur="hideTitle()"></div>
+									ng-value="value" ng-model="title1" id="presentationTitle"
+									role="textbox" class="createTitle" tabindex="0" focus
+									ng-blur="hideTitle()"></div>
 							</div>
 
 
@@ -200,10 +204,14 @@
 									<!-- <img src="imgs/color.svg"> -->
 									<colorbox></colorbox>
 								</div>
-								<div class="titleImagesDiv" data-toggle="tooltip"
-									data-placement="bottom" title="Add image" >
-									<img src="imgs/image.svg">
+
+								<div class="titleImagesDiv" data-placement="bottom"
+									title="Add image" ng-click="addImage()">
+									<input type="image" src="imgs/image.svg" /> <input type="file"
+										id="my_Img" style="display: none;"
+										ng-file-select="onFileSelect($files)" ng-model="imageSrc" />
 								</div>
+
 								<div class="titleImagesDiv" data-toggle="tooltip"
 									data-placement="bottom" title="Archive">
 									<img src="imgs/archive.svg">
@@ -237,7 +245,8 @@
 						<div ng-show="notes11" ng-include="'template/NotesDisplay.html'"></div>
 						<div ng-show="trash11" ng-include="'template/Trash.html'"></div>
 						<div ng-show="archive11" ng-include="'template/Archive.html'"></div>
-						<div ng-show="reminder11" ng-include="'template/ReminderNote.html'"></div>
+						<div ng-show="reminder11"
+							ng-include="'template/ReminderNote.html'"></div>
 					</div>
 				</div>
 				<!-- /#page-content-wrapper -->
@@ -257,5 +266,4 @@
 			function miral() {
 				$('.dropdown-menu').toggle();
 			}
-			
 		</script>

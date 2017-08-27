@@ -1,4 +1,4 @@
-app.directive('testpackery',
+myApp.directive('testpackery',
 		[
 				'$rootScope',
 				'$timeout',

@@ -9,5 +9,8 @@ myApp.controller('trashController', [ '$scope', '$controller',
 			$scope.trash11 = true;
 			$scope.archive11 = false;
 			$scope.createNotes11 = false;
-
+			
+			$scope.bgColorNavbar = "rgb(99, 99, 99)";
+			$scope.borderColorNavbar = "rgb(99, 99, 99)";
+			
 		} ]);

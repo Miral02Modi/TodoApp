@@ -9,4 +9,7 @@ myApp.controller('reminderController',['$scope','$controller',function($scope,$c
 	$scope.archive11 = false;	
 	$scope.createNotes11=false;
 	$scope.reminder11 =true;
+	
+	$scope.bgColorNavbar = "rgb(96, 125, 139)";
+	$scope.borderColorNavbar = "rgb(96, 125, 139)";
 }]);

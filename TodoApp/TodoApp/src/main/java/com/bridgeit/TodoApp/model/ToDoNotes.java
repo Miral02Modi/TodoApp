@@ -4,10 +4,12 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -36,14 +38,14 @@ public class ToDoNotes implements Serializable {
 	private  String pinned; 
 	private  String color;
 	private  String isTrash; 
-	private  String reminderTime; 
-	
+	private  String reminderTime;
+	@Lob
+	@Column(name="image", nullable=false, columnDefinition="mediumblob")
+	private  String image;
 	
 	@ManyToOne(/*cascade=CascadeType.ALL,*/optional=false)
 	@JoinColumn(name="userId")
 	UserRegistration user;
-	
-	
 	
 	
 	
@@ -136,6 +138,15 @@ public class ToDoNotes implements Serializable {
 	public void setReminderTime(String reminderTime) {
 		this.reminderTime = reminderTime;
 	}
+	
+	
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
+	}
+	
 	@Override
 	public String toString() {
 		return "ToDoNotes [id=" + id + ", scrapers=" + scrapers + ", title=" + title + ", description=" + description

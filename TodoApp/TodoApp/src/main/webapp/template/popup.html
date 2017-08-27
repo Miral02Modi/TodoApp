@@ -155,3 +155,22 @@
 	<button id="doneButton" ng-click="$update.updateData($update.id)"
 		style="float: right;">DONE</button>
 </div>
+<div id="reminderBlock"
+	style="width: 100%; padding-left: 10px; border-top: 2px dotted rgba(0, 0, 0, 0.1)"
+	ng-style="{'background-color':$update.color}"
+	ng-if="$update.reminderTime != null">
+	<div style="display: inline-block;">
+		<div style="float: left;">
+			<img style="width: 15px; padding-top: 4px;" src="imgs/clock.svg">
+		</div>
+
+		<div
+			style="float: left; font-size: 12px; width: 182px; padding-left: 16px; padding-top: 7px; color: gray; font-family: 'Roboto', arial, sans-serif;"
+			ng-bind-html="$update.reminderTime | date:'MMM dd, h:mm a' "></div>
+
+		<div style="float: left; height: 22px; width: 15px;"
+			id="deleteReminder" ng-click="createReminder($update,'null')">
+			<img style="width: 15px; padding-top: 7px;" src="imgs/cross.svg">
+		</div>
+	</div>
+</div>

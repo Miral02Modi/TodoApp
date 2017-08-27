@@ -13,10 +13,25 @@
 				ng-style="{'background-color':x.color}">
 
 
-				<div ng-if="x.pinned == 'false'">
-
+				<div ng-if="x.pinned == 'false' && x.image !=''">
 					<div style="float: right; padding: 7px" class="pin"
-						ng-click="pinned(x,'true')">
+						ng-click="pinned(x,'true')" ng-if="x.image != ''">
+						<img src="imgs/pin.svg">
+					</div>
+					<br>
+					<div id="presentationImage"
+						style="margin-top: 5px;"
+						ng-if="x.image != '' && x.image != null" ng-model="descNote"
+						ng-style="{'background-color':x.color}"
+						data-ng-click="displayPopupData(x)">
+						<img ng-src={{x.image}} height="100%" width="100%">
+					</div>
+				</div>
+
+
+				<div ng-if="x.pinned == 'false'">
+					<div style="float: right; padding: 7px" class="pin"
+						ng-click="pinned(x,'true')" ng-if="x.image == null || x.image == ''">
 						<img src="imgs/pin.svg">
 					</div>
 
@@ -25,6 +40,9 @@
 						ng-style="{'background-color':x.color}" ng-model="titleNote"
 						data-ng-click="displayPopupData(x)"></div>
 				</div>
+
+
+
 
 				<div ng-bind-html="x.description" id="presentationNote"
 					ng-if="(x.pinned == 'false') && (x.description != null || x.description != '')"
@@ -54,13 +72,16 @@
 						<!-- Here I have made color Directive so directly I have added -->
 						<colorbox></colorbox>
 
-
-
-
-
 						<div class="noteImagesDiv" data-toggle="tooltip"
 							data-placement="bottom" title="Add Image">
-							<img src="imgs/image.svg">
+							<!-- <img src="imgs/image.svg"> -->
+							<input type="image" src="imgs/image.svg" /> <input type="file"
+								ng-file-select="onFileSelect($files)" ng-model="addImageFunc"
+								ng-click="addImage(addImageFunc)" id="inputImage"
+								style="display: none;" multiple />
+							<!-- <script>$("input[type='image']").click(function() {
+   	   									$("input[id='inputImage']").click();
+   								});</script> -->
 						</div>
 						<div class="noteImagesDiv" data-toggle="tooltip"
 							ng-click="archiveNote(x)" data-placement="bottom" title="Archive">
@@ -102,25 +123,27 @@
 						</div>
 					</div>
 				</div>
-				
+
 				<!-- page scarpping div -->
 				<div id="pageScraper" ng-repeat="y in x.scrapers"
 					style="display: inline-block;">
-					<a target="_blank" href="{{y.mainUrl}}" >
+					<a target="_blank" href="{{y.mainUrl}}">
 						<div style="height: 56px; width: 56px; float: left;">
-						<img ng-src="{{y.url}}" height="56px" width="100%">
-					</div>
-					<div>
+							<img ng-src="{{y.url}}" height="56px" width="100%">
+						</div>
+
 						<div>
-							<div class="scraperTitleDiv">{{y.titleUrl}}</div>
-							<div
-								style="margin-top: 3px; float: right; padding-right: 7px; 
-									border: 1px solid transparent;">
-								<a target="_blank" href="{{y.mainUrl}}" ><img src="imgs/redirectUrl.svg"></a>
+							<div>
+								<div class="scraperTitleDiv">{{y.titleUrl}}</div>
+								<div
+									style="margin-top: 3px; float: right; padding-right: 7px; border: 1px solid transparent;">
+									<a target="_blank" href="{{y.mainUrl}}"><img
+										src="imgs/redirectUrl.svg"></a>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="scraperhostName">{{y.hostName}}</div></a>
+						<div class="scraperhostName">{{y.hostName}}</div>
+					</a>
 				</div>
 			</div>
 		</div>

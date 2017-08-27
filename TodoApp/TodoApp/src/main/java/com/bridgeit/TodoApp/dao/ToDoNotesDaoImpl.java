@@ -49,7 +49,7 @@ public class ToDoNotesDaoImpl implements ToDoNotesDao {
 		conjunction.add(criterion2);
 
 		criteria.add(conjunction);
-
+		
 		return criteria.list();
 	}
 
@@ -68,8 +68,9 @@ public class ToDoNotesDaoImpl implements ToDoNotesDao {
 		conjunction.add(criterion);
 
 		criteria.add(conjunction);
-
-		return criteria.list();
+		List list = criteria.list();
+		session.close();
+		return list;
 	}
 
 	@Override

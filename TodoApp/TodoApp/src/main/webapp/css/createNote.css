@@ -29,8 +29,14 @@
 	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 	/* transition: all 0.3s; */
 	/* border-radius: 3px; */
-	background-color:rgb(250, 250, 250);
+	background-color: rgb(250, 250, 250);
 	word-wrap: break-word;
+}
+
+.toDoNoteCss:HOVER {
+	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
 }
 
 #presentationTitle {
@@ -63,6 +69,25 @@
 	font-size: 18px;
 	/* word-wrap: break-word; */
 }
+
+#presentationImage {
+	width: 100%;
+	/*   height: 120px; */
+	padding: 11px;
+	/* white-space:pre-wrap; */
+	font-family: 'Roboto Slab', 'Times New Roman', serif;
+	/* font-variant-ligatures:none; */
+	background: transparent;
+	/* transition: all 0.3s; */
+	outline: none;
+	color: black;
+	line-height: 19px;
+	min-height: 46px;
+	font-size: 18px;
+	/* word-wrap: break-word; */
+}
+
+
 
 #presentationedit {
 	width: 95%;
@@ -205,7 +230,7 @@
 }
 
 .scraperTitleDiv {
-	width: 148px;
+	width: 61%;
 	font-size: 14px;
 	padding-top: 11px;
 	overflow: hidden;
@@ -222,9 +247,49 @@
 	font-size: 11px;
 	float: left;
 	margin-left: 6%;
+	width: 37%;
 }
 /* .createTitle {
 	font-family: 'Roboto Condensed', arial, sans-serif;
 	font-weight: bold;
 	font-size: 17px;
 } */
+#query{
+	text-align: center;
+		margin-top: 0.5%;
+		margin-left: 21%;
+		width: 476px;
+		height: 47px;
+		background-color: transparent;
+	}
+/* @media only screen and (max-width: 1200px) {
+	#query {
+		width: 200px;
+		margin-right: 167px;
+		height: 45px;
+		margin-top: -7px;
+		text-align: center;
+		margin-top: 0.5%;
+		margin-left: 21%;
+		width: 55 %;
+		height: 47 px;
+		background-color: transparent;
+	}
+} */
+
+
+@media only screen and (max-width: 803px) {
+	#query {
+		/* width: 200px;
+		margin-right: 167px;
+		height: 45px;
+		margin-top: -7px; */
+		text-align: center;
+		margin-top: 6 px;
+		margin-left: 232 px;
+		width: 48%;
+		height: 47 px;
+		background-color: transparent;
+	}
+}
+

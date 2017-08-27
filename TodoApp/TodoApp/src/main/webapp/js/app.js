@@ -27,6 +27,9 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 		url:"/reminder",
 		templateUrl:"template/TodoHome.html",
 		controller : "reminderController"
+	}).state("signout",{
+		url:"signout",
+		controller : "signoutContr"
 	});	
 	$urlRouterProvider.otherwise('/login');
 });

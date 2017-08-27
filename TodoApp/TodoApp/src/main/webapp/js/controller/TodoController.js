@@ -1,13 +1,12 @@
 myApp.controller('TodoController', function($scope, createNoteService,
 		updateNoteService, deleteNoteService, refreshTokenService, $http,
-		$state, $uibModal) {
+		$state, $uibModal, fileReader) {
 	/* showDividion */
 
 	if (localStorage.getItem("accesstoken") == null) {
 		console.log("inside the todoHome");
 		$state.go("login");
 	}
-	
 
 	$http({
 		method : "get",
@@ -17,7 +16,7 @@ myApp.controller('TodoController', function($scope, createNoteService,
 		}
 	}).then(function successCallback(data) {
 		$scope.notes = data.data.list.reverse();
-		console.log("length of array is::::");
+		$scope.userInfo = data.data.list[0].user;
 		isPinnedCounted(data)
 	});
 
@@ -40,7 +39,15 @@ myApp.controller('TodoController', function($scope, createNoteService,
 	$scope.trash11 = false;
 	$scope.createNotes11 = true;
 	$scope.reminder11 = false;
-
+	$scope.bgColorNavbar = "rgb(255, 187, 0)";
+	$scope.borderColorNavbar = "rgb(255, 187, 0)";
+	
+	$scope.imageSrc = null;
+	$scope.showImage = false;
+	
+	
+	
+	
 	$scope.ShowHide = function() {
 		console.log("hide and show function...");
 		// If DIV is visible it will be hidden and vice versa.
@@ -65,7 +72,8 @@ myApp.controller('TodoController', function($scope, createNoteService,
 			color : data.color,
 			pinned : "false",
 			isTrash : "true",
-			archive : "false"
+			archive : "false",
+			image : data.image
 		}
 
 		updateNoteService.updateNote(obj).then(
@@ -107,6 +115,10 @@ myApp.controller('TodoController', function($scope, createNoteService,
 		$scope.IsVisible1 = true;
 		console.log("create pinned::" + $scope.description1);
 		console.log("create pinned::" + $scope.title1);
+		console.log("Image is::" + $scope.imageSrc);
+		if ($scope.imageSrc == null) {
+			$scope.imageSrc = "";
+		}
 
 		if ($scope.description1 == undefined) {
 			if ($scope.title1 == undefined) {
@@ -119,8 +131,10 @@ myApp.controller('TodoController', function($scope, createNoteService,
 			description : $scope.description1,
 			pinned : $scope.createPin,
 			color : $scope.createColor,
-			isTrash : "false"
+			isTrash : "false",
+			image : $scope.imageSrc
 		}
+
 		$scope.title1 = "";
 		$scope.description1 = "";
 
@@ -131,7 +145,8 @@ myApp.controller('TodoController', function($scope, createNoteService,
 
 			createNoteService.createNote(obj).then(
 					function(data) {
-						console.log("Inside the create note response" + data.data);
+						console.log("Inside the create note response"
+								+ data.data);
 
 						console.log(data.data.status === "-4");
 						if (data.data.status === "-4") {
@@ -142,7 +157,7 @@ myApp.controller('TodoController', function($scope, createNoteService,
 
 						console.log(data.data.status === 1);
 						if (data.data.status === 1) {
-							
+
 							isPinnedCounted(data);
 							$("#presentationNote").html('');
 							$("#presentationTitle").html("");
@@ -202,11 +217,14 @@ myApp.controller('TodoController', function($scope, createNoteService,
 				this.pinned = x.pinned;
 				this.archive = x.archive;
 				this.isTrash = x.isTrash;
+				this.image = x.image;
+				this.reminderTime = x.reminderTime;
 
 				console.log("title" + this.title);
 				console.log("description" + this.description);
 				console.log("color" + this.color);
 				console.log("color" + this.pinned);
+				console.log("reminder::" + this.reminderTime);
 
 				this.colorChange = function(noteId, bgcolor) {
 
@@ -231,6 +249,7 @@ myApp.controller('TodoController', function($scope, createNoteService,
 					obj.pinned = this.pinned;
 					obj.isTrash = this.isTrash;
 					obj.archive = this.archive;
+					obj.image = this.color;
 
 					updateNoteService.updateNote(obj).then(
 							function success(data) {
@@ -254,6 +273,7 @@ myApp.controller('TodoController', function($scope, createNoteService,
 					obj.id = noteId;
 					obj.isTrash = this.isTrash;
 					obj.archive = this.archive;
+					obj.image = this.image;
 
 					console.log("update note data" + obj.title);
 					console.log("update note data" + obj.description);
@@ -337,7 +357,8 @@ myApp.controller('TodoController', function($scope, createNoteService,
 			pinned : data.pinned,
 			isTrash : data.isTrash,
 			archive : data.archive,
-			reminderTime : data.reminderTime
+			reminderTime : data.reminderTime,
+			image : data.image
 		}
 
 		updateNoteService.updateNote(obj).then(function success(data) {
@@ -430,7 +451,8 @@ myApp.controller('TodoController', function($scope, createNoteService,
 			pinned : pin,
 			isTrash : "false",
 			archive : "false",
-			reminderTime : obj.reminderTime
+			reminderTime : obj.reminderTime,
+			image : obj.image
 		}
 		console.log("update pinned" + obj);
 
@@ -486,7 +508,8 @@ myApp.controller('TodoController', function($scope, createNoteService,
 			pinned : "false",
 			isTrash : "false",
 			archive : "true",
-			reminderTime : data.reminderTime
+			reminderTime : data.reminderTime,
+			image : data.image
 		}
 
 		updateNoteService.updateNote(obj).then(
@@ -525,7 +548,8 @@ myApp.controller('TodoController', function($scope, createNoteService,
 			pinned : "false",
 			isTrash : "false",
 			archive : "false",
-			reminderTime : null
+			reminderTime : null,
+			image : data.image
 		}
 
 		updateNoteService.updateNote(obj).then(
@@ -591,7 +615,8 @@ myApp.controller('TodoController', function($scope, createNoteService,
 			pinned : data.pinned,
 			isTrash : data.isTrash,
 			archive : data.archive,
-			reminderTime : remDate
+			reminderTime : remDate,
+			image : data.image
 		}
 		updateNoteService.updateNote(remider).then(
 				function successCallback(data) {
@@ -617,12 +642,12 @@ myApp.controller('TodoController', function($scope, createNoteService,
 	/* facebook Sharing using javascript */
 
 	$scope.facebookshare = function(data) {
-		console.log("facebook share::"+data)
-		data.description=data.description.replace("<br>", " ");
-		data.description=data.description.replace("<div>", " ");
-		data.description=data.description.replace("</div>", " ");
+		console.log("facebook share::" + data)
+		data.description = data.description.replace("<br>", " ");
+		data.description = data.description.replace("<div>", " ");
+		data.description = data.description.replace("</div>", " ");
 		console.log($("#presentationNote").val());
-		
+
 		FB.init({
 			appId : '462155094166865',
 			status : true,
@@ -640,29 +665,41 @@ myApp.controller('TodoController', function($scope, createNoteService,
 				}
 			})
 		});
-		
-		
+
 	}
-	
-	function isPinnedCounted(data){
-		
+	$scope.addImage = function() {
+		document.getElementById("my_Img").click();
+		$scope.showImage = true;
+	}
+
+	function isPinnedCounted(data) {
+
 		console.log("Inside the pinnedCounted");
-		var countPinned=0;
-		for(var i=0;i<data.data.list.length;i++){
-			if(data.data.list[i].pinned == "true"){
+		var countPinned = 0;
+		var countOther=0;
+		for (var i = 0; i < data.data.list.length; i++) {
+			if (data.data.list[i].pinned == "true") {
 				countPinned++;
+			}else {
+				countOther++;
 			}
 		}
-		
-		if(countPinned != 0){
-			console.log("counted is  141::"+countPinned);
-			$scope.pinnedCounted = true;
-			$scope.otherCounted = true;
-		}else{
+
+		if (countPinned != 0) {
+
+			/*if (countOther == 0) {
+				console.log("Inside the pinned and other");
+				$scope.pinnedCounted = true;
+				$scope.otherCounted = false;
+				return
+			} else {*/
+				$scope.pinnedCounted = true;
+				$scope.otherCounted = true;
+			/*}*/
+		} else {
 			$scope.pinnedCounted = false;
 			$scope.otherCounted = false;
 		}
-		return countPinned; 
+		return countPinned;
 	}
-	
 });

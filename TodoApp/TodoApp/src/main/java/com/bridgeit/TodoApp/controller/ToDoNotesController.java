@@ -81,6 +81,8 @@ public class ToDoNotesController {
 		UserRegistration user = (UserRegistration) httpSession.getAttribute("user");
 		PageScraper scraper = null;
 		boolean isScraper = false;
+		String image=pRequest.getParameter("image");
+		System.out.println("Image is::"+image);
 		try {
 			if (UrlValidate.isValidateUrl(doNotesModel.getDescription()) != null) {
 				
@@ -154,9 +156,9 @@ public class ToDoNotesController {
 			
 			System.out.println("all data is::"+notes);
 			
-			for(int i=0;i<notes.size();i++){
+			/*for(int i=0;i<notes.size();i++){
 				System.out.println(notes.get(i));
-			}
+			}*/
 			
 			
 			

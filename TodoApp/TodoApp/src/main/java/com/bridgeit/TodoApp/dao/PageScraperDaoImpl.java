@@ -35,8 +35,9 @@ public class PageScraperDaoImpl implements PageScraperDao {
 		Conjunction conjunction = new Conjunction();
 		conjunction.add(criterion);
 		criteria.add(conjunction);
-
-		return criteria.list();
+		List<PageScraper> list = criteria.list();
+		session.close();
+		return list;
 	}
 
 }
