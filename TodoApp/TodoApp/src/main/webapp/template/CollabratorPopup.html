@@ -1,0 +1,34 @@
+<div style="width: 100%; min-height: 150px" role="textbox"
+	id="collabratorTitle">
+	<div class="collabratorTitle">Collaborators</div>
+	<div style="height: 150px;width: 100%">
+		<div id="collabratorTitle">
+			<div class="collabratorOwnerProfile" style="float: left;">
+				<img src="imgs/usericon.png" alt="user" height="40px">
+			</div>
+			<div class="collbratorOwnerName">
+				Miral Modi <span style="font-weight: 100">(Owner)</span>
+				<div style="color: rgba(0, 0, 0, .54); font-weight: 100">miralmodi07@gmail.com</div>
+			</div>
+		</div>
+		<div id="collabratorTitle" style="margin-top: 13px">
+			<div class="collabratorOwnerProfile" style="float: left;">
+				<!-- <img src="imgs/adduser.svg" alt="user" height="40px"> -->
+				<svg xmlns="http://www.w3.org/2000/svg" height="40px" width="40px"
+					viewBox="0 0 18 18" fill="#737373">
+ 					<path
+						d="m10 8c1.66 0 2.99-1.34 2.99-3s-1.33-3-2.99-3-3 1.34-3 3 1.34 3 3 3zm-6 2v-2h2v-2h-2v-2h-2v2h-2v2h2v2h2zm6 0c-2.33 0-7 1.17-7 3.5v2.5h14v-2.5c0-2.33-4.67-3.5-7-3.5z" />
+					 <path d="m0 0h18v18h-18z" fill="none" />
+			</svg>
+			</div>
+			<span style="padding-left: 7%">
+			<input type="text" class="collabstEmail" 
+				placeholder="Person or email to share with"
+				maxlength="320" ng-model="$collabrate.getEmail"> </span>
+		</div>
+	</div>
+</div>
+<div id="collabSubmitDiv">
+	<button class="collaButton" ng-click="$collabrate.getEmailId()">Save</button>
+	<button class="collaButton" ng-model="">Cancel</button>
+</div>

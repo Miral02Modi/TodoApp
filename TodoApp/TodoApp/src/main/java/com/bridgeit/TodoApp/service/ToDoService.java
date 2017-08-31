@@ -2,6 +2,7 @@ package com.bridgeit.TodoApp.service;
 
 import java.util.List;
 
+import com.bridgeit.TodoApp.model.Collabrator;
 import com.bridgeit.TodoApp.model.ToDoNotes;
 
 /**
@@ -22,4 +23,9 @@ public interface ToDoService {
 	
 	public ToDoNotes archivedNotes(ToDoNotes doNotes) throws Exception;
 	
+	public int getOwnerId(String email) throws Exception; 
+	
+	public void createCollbrator(Collabrator collabrator) throws Exception;
+	
+	public List getSharedNotes(int sharedId) throws Exception;
 }

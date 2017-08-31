@@ -87,8 +87,6 @@
 	/* word-wrap: break-word; */
 }
 
-
-
 #presentationedit {
 	width: 95%;
 	/*   height: 120px; */
@@ -254,14 +252,14 @@
 	font-weight: bold;
 	font-size: 17px;
 } */
-#query{
+#query {
 	text-align: center;
-		margin-top: 0.5%;
-		margin-left: 21%;
-		width: 476px;
-		height: 47px;
-		background-color: transparent;
-	}
+	margin-top: 0.5%;
+	margin-left: 21%;
+	width: 476px;
+	height: 47px;
+	background-color: transparent;
+}
 /* @media only screen and (max-width: 1200px) {
 	#query {
 		width: 200px;
@@ -276,8 +274,6 @@
 		background-color: transparent;
 	}
 } */
-
-
 @media only screen and (max-width: 803px) {
 	#query {
 		/* width: 200px;
@@ -293,3 +289,6 @@
 	}
 }
 
+.modal-content {
+	border-radius: 0px;
+}

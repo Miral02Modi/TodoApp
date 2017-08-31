@@ -6,7 +6,10 @@ myApp.service('loginService', function($http) {
 		return $http({
 			method : "post",
 			url : 'http://localhost:8080/TodoApp/login',
-			data : loginObj
+			data : loginObj,
+			headers: { 
+				'accToken': localStorage.getItem("accesstoken")
+			}
 		
 		});
 	}

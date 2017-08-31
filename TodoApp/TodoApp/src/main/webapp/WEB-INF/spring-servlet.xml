@@ -71,6 +71,9 @@
 				<value>
 					com.bridgeit.TodoApp.model.PageScraper
 				</value>
+				<value>
+					com.bridgeit.TodoApp.model.Collabrator
+				</value>
 			</list>
 		</property>
 

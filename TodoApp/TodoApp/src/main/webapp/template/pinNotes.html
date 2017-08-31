@@ -11,10 +11,27 @@
 		<div ng-class="chnageView"
 			style="padding-right: 0px; padding-left: 0px">
 			<div class="toDoNoteCss" ng-style="{'background-color':x.color}">
-
+				
+				
+				<div ng-if= "x.image !=''">
+					<div style="float: right; padding: 7px" class="pin"
+						ng-click="pinned(x,'false')" ng-if="x.image != ''">
+						<img src="imgs/unPin.svg">
+					</div>
+					<br>
+					<div id="presentationImage"
+						style="margin-top: 5px;"
+						ng-if="x.image != '' && x.image != null" ng-model="descNote"
+						ng-style="{'background-color':x.color}"
+						data-ng-click="displayPopupData(x)">
+						<img ng-src={{x.image}} height="100%" width="100%">
+					</div>
+				</div>
+				
+					
 				<div>
 					<div style="float: right; padding: 7px; display: block;"
-						class="pin" ng-click="pinned(x,'false')">
+						class="pin" ng-click="pinned(x,'false')" ng-if="x.image == null || x.image == ''">
 						<img src="imgs/unPin.svg">
 					</div>
 					<div ng-bind-html="x.title" id="presentationTitle"

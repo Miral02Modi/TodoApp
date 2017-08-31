@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bridgeit.TodoApp.Json.ErrorResponse;
 import com.bridgeit.TodoApp.Json.Response;
 import com.bridgeit.TodoApp.Json.TodoNotesResponse;
+import com.bridgeit.TodoApp.model.Collabrator;
 import com.bridgeit.TodoApp.model.PageScraper;
 import com.bridgeit.TodoApp.model.ToDoNotes;
 import com.bridgeit.TodoApp.model.UserRegistration;
@@ -42,14 +43,16 @@ import com.bridgeit.TodoApp.validator.UrlValidate;
  *         Here I am performing Notes curd operation
  */
 @RestController
+@SuppressWarnings("rawtypes")
 public class ToDoNotesController {
 
 	@Autowired
 	ToDoService doService;
 	@Autowired
 	PageScaperService scraperService;
-	@SuppressWarnings("rawtypes")
+	
 	List notes = null;
+	List sharedNotes = null;
 	// ----------------------------------Create--a--New--Notes--------------------------
 	/**
 	 * Create a new notes
@@ -107,8 +110,12 @@ public class ToDoNotesController {
 				}
 
 				metaOgImage = document.select("meta[property=og:image]");
+				System.out.println("Image is::"+metaOgImage);
 				if (metaOgImage != null) {
 					imgUrl = metaOgImage.attr("content");
+					if(imgUrl.isEmpty()){
+						imgUrl = "imgs/OgImage.svg";
+					}
 				}
 
 				scraper = new PageScraper();
@@ -143,15 +150,7 @@ public class ToDoNotesController {
 			}
 
 			notes = getNotes(user.getId());
-			System.out.println("notes is::::" + notes);
-			
-			
-			
-			/*for (int i = 0; i < notes.size(); i++) {
-				ToDoNotes doNotes = (ToDoNotes) notes.get(i);
-				List<PageScraper> scrapers = getScraper(doNotes.getId());
-				doNotes.setScrapers(scrapers);
-			}*/
+			sharedData(user.getId());
 			addScraperInNotes();
 			
 			System.out.println("all data is::"+notes);
@@ -333,6 +332,7 @@ public class ToDoNotesController {
 			if (user != null) {
 				doService.updateNote(doNotes);
 				notes = getNotes(user.getId());
+				sharedData(user.getId());
 				addScraperInNotes();
 				/* Collections.reverse(notes); */
 				System.out.println("all data" + notes);
@@ -505,11 +505,16 @@ public class ToDoNotesController {
 			HttpSession httpSession = pRequest.getSession();
 			UserRegistration user = (UserRegistration) httpSession.getAttribute("user");
 			System.out.println("User data::" + user);
-
+			
 			notes = getNotes(user.getId());
+			sharedData(user.getId());
 			addScraperInNotes();
 			
-			System.out.println("all data" + notes);
+			
+			//System.out.println("all data" + notes);
+			//notes.add(sharedNotes);
+			
+			System.out.println("All Data of the TodoNotes::::\n"+ notes);
 			// ------Setting Response
 			TodoNotesResponse response = new TodoNotesResponse();
 			response.setStatus(1);
@@ -528,5 +533,50 @@ public class ToDoNotesController {
 		}
 
 	}
-
+	
+	
+	@RequestMapping(value="/collabrator",method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE
+					,consumes=MediaType.APPLICATION_JSON_VALUE)
+	public List getSharedToDoList(@RequestBody Map<String,Object> map,HttpServletRequest request,HttpServletResponse response){
+		
+		System.out.println("Inside the collabrator");
+		
+		Collabrator collabrator = new Collabrator();
+		Integer noteId = (Integer) map.get("id");
+		String 	email  = (String) map.get("sharedEmail");
+		System.out.println("email id is::"+email);
+		System.out.println("id is::"+noteId);
+		
+		
+		//-------------------get current session user
+		HttpSession session = request.getSession();
+		UserRegistration user = (UserRegistration) session.getAttribute("user");
+		
+		try {
+			
+			int sharedWith = doService.getOwnerId(email);
+			System.out.println("Data shared id is:::"+sharedWith);
+			
+			collabrator.setNoteId(noteId);
+			collabrator.setOwner(user.getId());
+			collabrator.setSharedWith(sharedWith);
+			doService.createCollbrator(collabrator);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	public void sharedData(int id){
+		try {
+			notes=doService.getSharedNotes(id);
+			System.out.println("Get TodoNote iss:::::::::::::::::::::\n"+notes);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 }

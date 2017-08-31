@@ -1,6 +1,6 @@
 myApp.controller('TodoController', function($scope, createNoteService,
 		updateNoteService, deleteNoteService, refreshTokenService, $http,
-		$state, $uibModal, fileReader) {
+		$state, $uibModal, fileReader, collbratorService) {
 	/* showDividion */
 
 	if (localStorage.getItem("accesstoken") == null) {
@@ -41,13 +41,10 @@ myApp.controller('TodoController', function($scope, createNoteService,
 	$scope.reminder11 = false;
 	$scope.bgColorNavbar = "rgb(255, 187, 0)";
 	$scope.borderColorNavbar = "rgb(255, 187, 0)";
-	
+
 	$scope.imageSrc = null;
 	$scope.showImage = false;
-	
-	
-	
-	
+
 	$scope.ShowHide = function() {
 		console.log("hide and show function...");
 		// If DIV is visible it will be hidden and vice versa.
@@ -249,7 +246,7 @@ myApp.controller('TodoController', function($scope, createNoteService,
 					obj.pinned = this.pinned;
 					obj.isTrash = this.isTrash;
 					obj.archive = this.archive;
-					obj.image = this.color;
+					obj.image = this.image;
 
 					updateNoteService.updateNote(obj).then(
 							function success(data) {
@@ -676,30 +673,95 @@ myApp.controller('TodoController', function($scope, createNoteService,
 
 		console.log("Inside the pinnedCounted");
 		var countPinned = 0;
-		var countOther=0;
+		var countOther = 0;
 		for (var i = 0; i < data.data.list.length; i++) {
-			if (data.data.list[i].pinned == "true") {
+			if (data.data.list[i].pinned == "true"
+					&& data.data.list[i].isTrash == "false"
+					&& data.data.list[i].archive == "false") {
 				countPinned++;
-			}else {
+			} else {
 				countOther++;
 			}
 		}
 
 		if (countPinned != 0) {
 
-			/*if (countOther == 0) {
-				console.log("Inside the pinned and other");
-				$scope.pinnedCounted = true;
-				$scope.otherCounted = false;
-				return
-			} else {*/
-				$scope.pinnedCounted = true;
-				$scope.otherCounted = true;
-			/*}*/
+			/*
+			 * if (countOther == 0) { console.log("Inside the pinned and
+			 * other"); $scope.pinnedCounted = true; $scope.otherCounted =
+			 * false; return } else {
+			 */
+			$scope.pinnedCounted = true;
+			$scope.otherCounted = true;
+			/* } */
 		} else {
 			$scope.pinnedCounted = false;
 			$scope.otherCounted = false;
 		}
 		return countPinned;
 	}
+
+	// Display pop up for updating
+	$scope.collabratorPopup = function(x) {
+
+		console.log("Title::" + x.title);
+		console.log("description::" + x.description);
+		$scope.updatNote = x;
+
+		var modalInstance = $uibModal.open({
+
+			templateUrl : "template/CollabratorPopup.html",
+			controller : function($uibModalInstance) {
+
+				console.log("inside the controller")
+				var $collabrate = this;
+				this.id = x.id;
+				this.title = x.title;
+				this.description = x.description;
+				this.color = x.color;
+				this.pinned = x.pinned;
+				this.archive = x.archive;
+				this.isTrash = x.isTrash;
+				this.image = x.image;
+				this.reminderTime = x.reminderTime;
+
+				console.log("title" + this.title);
+				console.log("description" + this.description);
+				console.log("color" + this.color);
+				console.log("color" + this.pinned);
+				console.log("reminder::" + this.reminderTime);
+
+				$collabrate.getEmailId = function() {
+					var obj = {
+						id : this.id,
+						sharedEmail : $collabrate.getEmail
+					}
+					console.log("shared email data::", $collabrate.getEmail);
+
+					collbratorService.sharedData(obj).then(
+							function successCallback(data) {
+
+								console.log("sdgsd" + data.data.list);
+
+								if (data.data.status == 1) {
+									isPinnedCounted(data);
+									$scope.notes = data.data.list.reverse();
+								}
+
+								if (data.data.status === "-4") {
+									console.log("Inside the data status");
+									refreshTokenService
+											.refreshToken(localStorage
+													.getItem("refreshtoken"));
+								}
+
+							});
+
+				};
+			},
+			controllerAs : "$collabrate"
+		});
+
+	};
+
 });

@@ -1,0 +1,100 @@
+#collabratorTitle {
+	width: 95%;
+	/*   height: 120px; */
+	padding: 11px;
+	/* white-space:pre-wrap; */
+	font-family: 'Roboto Slab', 'Times New Roman', serif;
+	/* font-variant-ligatures:none; */
+	background: transparent;
+	/* transition: all 0.3s; */
+	outline: none;
+	color: black;
+	line-height: 19px;
+	min-height: 46px;
+	font-size: 18px;
+	/* word-wrap: break-word; */
+}
+
+.collabratorTitle {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+	font-size: 18px;
+	font-weight: bold;
+	height: 25px;
+	padding: 0 0 10px 0;
+}
+
+.collabrtorOwner {
+	background-color: transparent;
+}
+
+.collabratorOwnerProfile {
+	border: 2px solid #fff;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-box-shadow: 0 1px 1px 1px rgba(0, 0, 0, .1);
+	box-shadow: 0 1px 1px 1px rgba(0, 0, 0, .1);
+	-webkit-border-radius: 50%;
+	border-radius: 50%;
+	height: 40px;
+	width: 40px;
+	overflow: hidden;
+}
+
+.collbratorOwnerName {
+	padding-left: 7%;
+	float: left;
+	font-size: 13px;
+	font-weight: bold;
+	font-family: 'Roboto', arial, sans-serif;
+}
+
+#collabratorOwnerProfile {
+	background-size: 100%;
+	background-position: center;
+	height: 100%;
+	width: 100%;
+}
+
+.collabstEmail {
+	border: none;
+	outline: none;
+	font-size: 13px;
+	font-family: 'Roboto', arial, sans-serif;
+	height: 25px;
+	outline: none;
+}
+
+#collabSubmitDiv {
+	width: 100%;
+	/*   height: 120px; */
+	padding: 11px;
+	/* white-space:pre-wrap; */
+	font-family: 'Roboto Slab', 'Times New Roman', serif;
+	/* font-variant-ligatures:none; */
+	background-color: rgba(0, 0, 0, 0.07);
+	/* transition: all 0.3s; */
+	outline: none;
+	color: black;
+	line-height: 19px;
+	min-height: 46px;
+	font-size: 18px;
+	/* word-wrap: break-word; */
+}
+
+.collaButton {
+	font-size: 13px;
+	color: rgba(0, 0, 0, .87);
+	float: right;
+	font-weight: bold;
+	background-color: transparent;
+	border: none;
+	padding-left: 16px;
+	text-transform: uppercase;
+	font-family: 'Roboto', arial, sans-serif;
+	width: 87px;
+	outline: none;
+}
+
+.modal-content {
+	border-radius: 0px;
+}

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bridgeit.TodoApp.dao.ToDoNotesDao;
+import com.bridgeit.TodoApp.model.Collabrator;
 import com.bridgeit.TodoApp.model.ToDoNotes;
 
 /**
@@ -54,6 +55,27 @@ public class ToDoServiceImpl implements ToDoService {
 	public ToDoNotes archivedNotes(ToDoNotes doNotes) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+	@Override
+	@Transactional
+	public int getOwnerId(String email) throws Exception {
+		return todoDao.getOwnerId(email);
+	}
+
+
+	@Override
+	@Transactional
+	public void createCollbrator(Collabrator collabrator) throws Exception {
+		todoDao.createCollbrator(collabrator);
+	}
+
+
+	@Override
+	@Transactional
+	public List getSharedNotes(int sharedId) throws Exception {
+		return todoDao.getSharedNotes(sharedId);
 	}
 
 }

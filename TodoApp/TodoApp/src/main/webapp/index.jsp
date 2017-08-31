@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="css/menuBar.css">
 <link rel="stylesheet" href="css/dropDown.css">
 <link rel="stylesheet" href="css/uploadImage.css">
+<link rel="stylesheet" href="css/Collaborator.css">
 
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
 
@@ -102,6 +103,8 @@
 	charset="utf-8"></script>
 <script type="text/javascript" src="js/service/updateNote.js"
 	charset="utf-8"></script>
+<script type="text/javascript" src="js/service/collabratorService.js"
+	charset="utf-8"></script>	
 
 
 
