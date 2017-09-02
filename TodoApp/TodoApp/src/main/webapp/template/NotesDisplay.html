@@ -11,30 +11,24 @@
 			style="padding-right: 0px; padding-left: 0px">
 			<div class="toDoNoteCss" ng-if="x.pinned == 'false'"
 				ng-style="{'background-color':x.color}">
-
-
-				<div ng-if="x.pinned == 'false' && x.image !=''">
-					<div style="float: right; padding: 7px" class="pin"
-						ng-click="pinned(x,'true')" ng-if="x.image != ''">
+				
+				<div style="float: right; padding: 7px" class="pin"
+						ng-click="pinned(x,'true')">
 						<img src="imgs/pin.svg">
 					</div>
-					<br>
+
 					<div id="presentationImage"
-						style="margin-top: 5px;"
+						style="height:238px;
+						background-image: url({{x.image}});
+						background-repeat:no-repeat;background-size: cover;"
 						ng-if="x.image != '' && x.image != null" ng-model="descNote"
 						ng-style="{'background-color':x.color}"
 						data-ng-click="displayPopupData(x)">
-						<img ng-src={{x.image}} height="100%" width="100%">
+						<!-- <img ng-src={{x.image}} height="100%" width="100%"> -->
 					</div>
-				</div>
 
 
 				<div ng-if="x.pinned == 'false'">
-					<div style="float: right; padding: 7px" class="pin"
-						ng-click="pinned(x,'true')" ng-if="x.image == null || x.image == ''">
-						<img src="imgs/pin.svg">
-					</div>
-
 					<div ng-bind-html="x.title" id="presentationTitle"
 						ng-if="x.title != null || x.title !=''"
 						ng-style="{'background-color':x.color}" ng-model="titleNote"
@@ -57,17 +51,15 @@
 					<div id="presentationDelete" class="showIcon">
 
 
-
+						<!-- Here I have made reminder Directive so directly I have added -->
+						<reminder></reminder>
 
 
 						<div class="noteImagesDiv" data-toggle="tooltip"
 							data-placement="bottom" title="Collabrate" ng-click="collabratorPopup(x)">
 							<img src="imgs/collabrate.svg">
 						</div>
-
-
-						<!-- Here I have made reminder Directive so directly I have added -->
-						<reminder></reminder>
+						
 
 						<!-- Here I have made color Directive so directly I have added -->
 						<colorbox></colorbox>

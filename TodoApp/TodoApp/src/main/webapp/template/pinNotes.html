@@ -14,17 +14,19 @@
 				
 				
 				<div ng-if= "x.image !=''">
-					<div style="float: right; padding: 7px" class="pin"
+					<div style="float: right; padding: 2px;display: block;" class="pin"
 						ng-click="pinned(x,'false')" ng-if="x.image != ''">
 						<img src="imgs/unPin.svg">
 					</div>
-					<br>
+					<!-- <br> -->
 					<div id="presentationImage"
-						style="margin-top: 5px;"
+						style="height:238px;
+						background-image: url({{x.image}});
+						background-repeat:no-repeat;background-size: cover;"
 						ng-if="x.image != '' && x.image != null" ng-model="descNote"
 						ng-style="{'background-color':x.color}"
 						data-ng-click="displayPopupData(x)">
-						<img ng-src={{x.image}} height="100%" width="100%">
+						<!-- <img ng-src={{x.image}} height="100%" width="100%"> -->
 					</div>
 				</div>
 				
@@ -52,15 +54,18 @@
 							data-placement="bottom" title="Reminde me">
 							<img src="imgs/remindericon.svg">
 						</div> -->
-
+						
+						
+						<!-- Here I have made reminder Directive so directly I have added -->
+						<reminder></reminder>
+						
 						<div class="noteImagesDiv showIcon" data-toggle="tooltip"
 							data-placement="bottom" title="Collabrate">
 							<img src="imgs/collabrate.svg">
 						</div>
 						
 						
-						<!-- Here I have made reminder Directive so directly I have added -->
-						<reminder></reminder>
+						
 							
 						<!--  created color box -->
 						<!-- color division -->

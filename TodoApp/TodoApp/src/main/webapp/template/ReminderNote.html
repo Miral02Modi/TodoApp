@@ -1,80 +1,70 @@
 <div class="row sort sortable" my-uid="{{x.id}}">
 	<br> <br> <br>
-	
-	
-	<div ng-repeat="x in notes | filter:test as results track by $index" ng-if="x.reminderTime != null">
-		
-		
+
+
+	<div ng-repeat="x in notes | filter:test as results track by $index"
+		ng-if="x.reminderTime != null">
+
+
 		<!-- <div ng-class="addSpace3"></div> -->
 
 		<div ng-class="chnageView"
 			style="padding-right: 0px; padding-left: 0px">
-			<div class="toDoNoteCss" 
-				ng-style="{'background-color':x.color}">
-				
-				
+			<div class="toDoNoteCss" ng-style="{'background-color':x.color}">
+
+
+				<div style="float: right; padding: 7px" class="pin"
+					ng-click="pinned(x,'true')"
+					ng-if="x.pinned == 'false'">
+					<img src="imgs/pin.svg">
+				</div>
+				<div style="float: right; padding: 7px; display: block;" class="pin"
+					ng-click="pinned(x,'true')"
+					ng-if="x.pinned == 'true'">
+					<img src="imgs/unPin.svg">
+				</div>
+
 				<!-- here it is display the image div  -->
-				<div ng-if="x.pinned == 'false' && x.image !=''">
-					<div style="float: right; padding: 7px" class="pin"
-						ng-click="pinned(x,'true')" ng-if="x.image != ''">
-						<img src="imgs/pin.svg">
-					</div>
-					<br>
+				<!-- ng-if="x.pinned == 'false' && x.image !=''" -->
 					<div id="presentationImage"
-						style="margin-top: 5px;"
+						style="height: 238px;background-image: url({{x.image}}); background-repeat: no-repeat; background-size: cover;"
 						ng-if="x.image != '' && x.image != null" ng-model="descNote"
 						ng-style="{'background-color':x.color}"
 						data-ng-click="displayPopupData(x)">
-						<img ng-src={{x.image}} height="100%" width="100%">
+						<!-- <img ng-src={{x.image}} height="100%" width="100%"> -->
 					</div>
-				</div>
-				
-				<!-- here it is checking the div is pinned or un-pinned -->
-				<div>
-					<div style="float: right; padding: 7px" class="pin"
-						ng-click="pinned(x,'true')" ng-if="x.pinned == 'false'" ng-if="x.image == null || x.image == ''">
-						<img src="imgs/pin.svg">
-					</div>
-					
-					<div style="float: right; padding: 7px" class="pin" 
-						ng-click="pinned(x,'true')" ng-if="x.pinned == 'true'">
-						<img src="imgs/unPin.svg">
-					</div>
-					
-					<div ng-bind-html="x.title" id="presentationTitle" 
-					   	ng-if="x.title != null || x.title !=''"
+
+					<div ng-bind-html="x.title" id="presentationTitle"
+						ng-if="x.title != null || x.title !=''"
 						ng-style="{'background-color':x.color}" ng-model="titleNote"
 						data-ng-click="displayPopupData(x)"></div>
-				</div>
-				
-				
-				
+
 				<!-- This is the desciption division -->
 				<div ng-bind-html="x.description" id="presentationNote"
-					(x.description != null || x.description != '')" ng-model="descNote"
+					(x.description !=null || x.description !='' )" ng-model="descNote"
 					ng-style="{'background-color':x.color}"
 					data-ng-click="displayPopupData(x)"></div>
-				
-				
+
+
 
 
 				<div style="display: inline-block; height: 35px">
 					<div id="presentationDelete" class="showIcon">
 
-						
-						
-						
-						
+
+
+
+
 						<div class="noteImagesDiv" data-toggle="tooltip"
 							data-placement="bottom" title="Collabrate">
 							<img src="imgs/collabrate.svg">
 						</div>
 
-						
-						<!-- Here I have made reminder Directive so directly I have added -->						
+
+						<!-- Here I have made reminder Directive so directly I have added -->
 						<reminder></reminder>
-						
-						<!-- Here I have made color Directive so directly I have added -->						
+
+						<!-- Here I have made color Directive so directly I have added -->
 						<colorbox></colorbox>
 
 
@@ -104,21 +94,26 @@
 
 					</div>
 				</div>
-				
-				<div  id="reminderBlock" style="width: 100%;padding-left:10px;
-					border-top: 2px dotted rgba(0,0,0,0.1)"
+
+				<div id="reminderBlock"
+					style="width: 100%; padding-left: 10px; border-top: 2px dotted rgba(0, 0, 0, 0.1)"
 					ng-style="{'background-color':x.color}"
-				    ng-if="x.reminderTime != null">
+					ng-if="x.reminderTime != null">
 					<div style="display: inline-block;">
-						<div style="float: left;padding-top: 3px;"><img src="imgs/clock.svg"></div>
-						<div style="padding-left: 2px;padding-top: 3px;float: left;height: 22px;width: 182px;
-							margin-left:5px;" ng-bind-html="x.reminderTime | date:'MMM dd, h:mm a'"></div>
-						<div style="float: left;padding-top: 3px;height: 22px;width: 15px" 
+						<div style="float: left; padding-top: 3px;">
+							<img src="imgs/clock.svg">
+						</div>
+						<div
+							style="padding-left: 2px; padding-top: 3px; float: left; height: 22px; width: 182px; margin-left: 5px;"
+							ng-bind-html="x.reminderTime | date:'MMM dd, h:mm a'"></div>
+						<div
+							style="float: left; padding-top: 3px; height: 22px; width: 15px"
 							id="deleteReminder" ng-click="createReminder(x,'null')">
-							<img src="imgs/cross.svg" ></div>	
+							<img src="imgs/cross.svg">
+						</div>
 					</div>
 				</div>
-				
+
 				<!-- page scarpping div -->
 				<div id="pageScraper" ng-repeat="y in x.scrapers"
 					style="display: inline-block;">
@@ -129,15 +124,15 @@
 						<div>
 							<div class="scraperTitleDiv">{{y.titleUrl}}</div>
 							<div
-								style="margin-top: 3px; float: right; padding-right: 7px; 
-									border: 1px solid transparent;">
-								<a target="_blank" href="{{y.mainUrl}}" ><img src="imgs/redirectUrl.svg"></a>
+								style="margin-top: 3px; float: right; padding-right: 7px; border: 1px solid transparent;">
+								<a target="_blank" href="{{y.mainUrl}}"><img
+									src="imgs/redirectUrl.svg"></a>
 							</div>
 						</div>
 					</div>
 					<div class="scraperhostName">{{y.hostName}}</div>
 				</div>
-				
+
 			</div>
 		</div>
 	</div>

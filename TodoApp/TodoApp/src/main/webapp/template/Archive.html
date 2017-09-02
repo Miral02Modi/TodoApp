@@ -8,31 +8,23 @@
 			style="padding-right: 0px; padding-left: 0px">
 			<div class="toDoNoteCss" ng-style="{'background-color':x.color}">
 				
-				
-				<div ng-if="x.pinned == 'false' && x.image !=''">
-					<div style="float: right; padding: 7px" class="pin"
-						ng-click="pinned(x,'true')" ng-if="x.image != ''">
+				<div style="float: right; padding: 7px" class="pin"
+						ng-click="pinned(x,'true')">
 						<img src="imgs/pin.svg">
 					</div>
-					<br>
+					
 					<div id="presentationImage"
-						style="margin-top: 5px;"
+						style="height:238px;
+						background-image: url({{x.image}});
+						background-repeat:no-repeat;background-size: cover;"
 						ng-if="x.image != '' && x.image != null" ng-model="descNote"
 						ng-style="{'background-color':x.color}"
 						data-ng-click="displayPopupData(x)">
-						<img ng-src={{x.image}} height="100%" width="100%">
-					</div>
-				</div>
-				
-				<div>
-					<div style="float: right; padding: 7px" class="pin"
-						ng-click="pinned(x,'true')" ng-if="x.image == null || x.image == ''">
-						<img src="imgs/pin.svg">
+						<!-- <img ng-src={{x.image}} height="100%" width="100%"> -->
 					</div>
 					<div ng-bind-html="x.title" id="presentationTitle"
 						ng-style="{'background-color':x.color}" ng-model="titleNote"
 						data-ng-click="displayPopupData(x)"></div>
-				</div>
 
 				<div ng-bind-html="x.description" id="presentationNote"
 					ng-model="descNote" ng-style="{'background-color':x.color}"

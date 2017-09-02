@@ -1,28 +1,20 @@
 <div class="row">
-	<div class="trashTitle">Notes in Trash are deleted after
-		7 days.</div>
+	<div class="trashTitle">Notes in Trash are deleted after 7 days.</div>
 	<div ng-repeat="x in notes | filter:test as results track by $index"
 		ng-if="x.isTrash == 'true'">
 		<div ng-class="addSpace3"></div>
 		<div ng-class="chnageView"
 			style="padding-right: 0px; padding-left: 0px">
 			<div class="toDoNoteCss" ng-style="{'background-color':x.color}">
-				
-				<div ng-if="x.image !=''">
-					<div id="presentationImage"
-						style="margin-top: 5px;"
-						ng-if="x.image != '' && x.image != null" ng-model="descNote"
-						ng-style="{'background-color':x.color}"
-						data-ng-click="displayPopupData(x)">
-						<img ng-src={{x.image}} height="100%" width="100%">
-					</div>
+
+				<div id="presentationImage" style="margin-top: 5px;"
+					ng-if="x.image != '' && x.image != null" ng-model="descNote"
+					ng-style="{'background-color':x.color}"
+					data-ng-click="displayPopupData(x)">
+					<img ng-src={{x.image}} height="100%" width="100%">
 				</div>
 				
 				<div>
-					<!-- <div style="float: right; padding: 7px" class="pin"
-						ng-click="pinned(x,'true')">
-						<img src="imgs/pin.svg">
-					</div> -->
 					<div ng-bind-html="x.title" id="presentationTitle"
 						ng-style="{'background-color':x.color}" ng-model="titleNote"
 						data-ng-click="displayPopupData(x)"></div>
@@ -63,8 +55,8 @@
 						</div> -->
 						<div class="noteImagesDiv showIcon" data-toggle="tooltip"
 							data-placement="bottom" title="More" ng-click="restoreNote(x)">
-							<a href="javascript:void(0);" 
-								class="select_more"><img src="imgs/restore.png"></a>
+							<a href="javascript:void(0);" class="select_more"><img
+								src="imgs/restore.png"></a>
 						</div>
 
 						<!-- <button id="doneButton" data-ng-click="deleteNote(x.id)"

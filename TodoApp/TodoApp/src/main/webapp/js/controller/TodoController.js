@@ -7,7 +7,6 @@ myApp.controller('TodoController', function($scope, createNoteService,
 		console.log("inside the todoHome");
 		$state.go("login");
 	}
-
 	$http({
 		method : "get",
 		url : 'http://localhost:8080/TodoApp/getTodoList',
@@ -15,8 +14,10 @@ myApp.controller('TodoController', function($scope, createNoteService,
 			'accToken' : localStorage.getItem("accesstoken")
 		}
 	}).then(function successCallback(data) {
+		console.log("all data:::",data.data.list);
 		$scope.notes = data.data.list.reverse();
-		$scope.userInfo = data.data.list[0].user;
+		$scope.userInfo = data.data.list[0];
+		console.log("email::::",$scope.userInfo);
 		isPinnedCounted(data)
 	});
 

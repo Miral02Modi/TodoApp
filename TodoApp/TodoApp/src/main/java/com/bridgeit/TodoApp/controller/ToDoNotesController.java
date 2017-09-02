@@ -50,9 +50,10 @@ public class ToDoNotesController {
 	ToDoService doService;
 	@Autowired
 	PageScaperService scraperService;
-	
+
 	List notes = null;
 	List sharedNotes = null;
+
 	// ----------------------------------Create--a--New--Notes--------------------------
 	/**
 	 * Create a new notes
@@ -68,7 +69,7 @@ public class ToDoNotesController {
 	// ----------------------------------Create--a--New--Notes--------------------------
 	@RequestMapping(value = "/createNote", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Response> createNotes(@RequestBody ToDoNotes doNotesModel, BindingResult result,
-			HttpServletRequest pRequest, HttpServletResponse pResponse)  {
+			HttpServletRequest pRequest, HttpServletResponse pResponse) {
 
 		/*
 		 * if (result.hasErrors()) {
@@ -84,25 +85,25 @@ public class ToDoNotesController {
 		UserRegistration user = (UserRegistration) httpSession.getAttribute("user");
 		PageScraper scraper = null;
 		boolean isScraper = false;
-		String image=pRequest.getParameter("image");
-		System.out.println("Image is::"+image);
+		String image = pRequest.getParameter("image");
+		System.out.println("Image is::" + image);
+		int noteId = 0;
 		try {
-			if (UrlValidate.isValidateUrl(doNotesModel.getDescription()) != null) {
-				
-				String url = UrlValidate.isValidateUrl(doNotesModel.getDescription());
-				URI uri = new URI(url);
+
+			List grpOfUrl = UrlValidate.isValidateUrl(doNotesModel.getDescription());
+			for (int i = 0; i < grpOfUrl.size(); i++) {
+				URI uri = new URI((String) grpOfUrl.get(i));
 				String hostName = uri.getHost();
-				System.out.println("Url is:::"+hostName);
-				
-				
+				System.out.println("Url is:::" + hostName);
+
 				isScraper = true;
 				String title = null;
 				String imgUrl = null;
-				System.out.println("url data is:::"+url);
-				Document document = Jsoup.connect(url).get();
+				System.out.println("url data is:::" + (String) grpOfUrl.get(i));
+				Document document = Jsoup.connect((String) grpOfUrl.get(i)).get();
 				Elements metaOgTitle = document.select("meta[property=og:title]");
 				Elements metaOgImage = document.select("meta[property=og:image]");
-				
+
 				if (metaOgTitle != null) {
 					title = metaOgTitle.attr("content");
 				} else {
@@ -110,10 +111,10 @@ public class ToDoNotesController {
 				}
 
 				metaOgImage = document.select("meta[property=og:image]");
-				System.out.println("Image is::"+metaOgImage);
+				System.out.println("Image is::" + metaOgImage);
 				if (metaOgImage != null) {
 					imgUrl = metaOgImage.attr("content");
-					if(imgUrl.isEmpty()){
+					if (imgUrl.isEmpty()) {
 						imgUrl = "imgs/OgImage.svg";
 					}
 				}
@@ -123,44 +124,44 @@ public class ToDoNotesController {
 				scraper.setTitleUrl(title);
 				scraper.setUrl(imgUrl);
 				scraper.setHostName(hostName);
-				scraper.setMainUrl(url);
+				scraper.setMainUrl((String) grpOfUrl.get(i));
 
 				System.out.println("Title::" + title);
 				System.out.println("Image:" + imgUrl);
 
-			}
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
+				doNotesModel.setUser(user);
+				doNotesModel.setDate(new Date());
+				doNotesModel.setArchive("false");
 
-		try {
-
-			doNotesModel.setUser(user);
-			doNotesModel.setDate(new Date());
-			doNotesModel.setArchive("false");
-
-			// ------setting into the DataBase
-			int noteId = doService.createNotes(doNotesModel);
-			doNotesModel.setId(noteId);
-			System.out.println("model id is::"+doNotesModel);
-			
-			if (isScraper) {
-				scraper.setNoteId(noteId);
-				scraperService.createScraper(scraper);
+				// ------setting into the DataBase
+				if (i == 0) {
+					noteId = doService.createNotes(doNotesModel);
+					doNotesModel.setId(noteId);
+				}
+				System.out.println("model id is::" + doNotesModel);
+				if (isScraper) {
+					scraper.setNoteId(noteId);
+					scraperService.createScraper(scraper);
+				}
 			}
 
+			if (isScraper == false) {
+				doNotesModel.setUser(user);
+				doNotesModel.setDate(new Date());
+				doNotesModel.setArchive("false");
+				doService.createNotes(doNotesModel);
+			}
 			notes = getNotes(user.getId());
 			sharedData(user.getId());
 			addScraperInNotes();
-			
-			System.out.println("all data is::"+notes);
-			
-			/*for(int i=0;i<notes.size();i++){
-				System.out.println(notes.get(i));
-			}*/
-			
-			
-			
+
+			System.out.println("all data is::" + notes);
+
+			/*
+			 * for(int i=0;i<notes.size();i++){
+			 * System.out.println(notes.get(i)); }
+			 */
+
 			Collections.reverse(notes);
 
 			// ------Setting Response
@@ -178,20 +179,19 @@ public class ToDoNotesController {
 			errorResponse.setStatus(-1);
 			errorResponse.setMessage("Exception Occur");
 			return new ResponseEntity<Response>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
-		}	
+		}
 	}
-	
-	void addScraperInNotes(){
-		
-		System.out.println("Inside the function list::::"+notes);
+
+	void addScraperInNotes() {
+
+		System.out.println("Inside the function list::::" + notes);
 		for (int i = 0; i < notes.size(); i++) {
 			ToDoNotes doNotes = (ToDoNotes) notes.get(i);
 			List<PageScraper> scrapers = getScraper(doNotes.getId());
 			doNotes.setScrapers(scrapers);
 		}
 	}
-	
-	
+
 	// ----------------------------------Search--by--Title-------------------------------
 	/**
 	 * 
@@ -505,16 +505,16 @@ public class ToDoNotesController {
 			HttpSession httpSession = pRequest.getSession();
 			UserRegistration user = (UserRegistration) httpSession.getAttribute("user");
 			System.out.println("User data::" + user);
-			
+
 			notes = getNotes(user.getId());
 			sharedData(user.getId());
 			addScraperInNotes();
-			
-			
-			//System.out.println("all data" + notes);
-			//notes.add(sharedNotes);
-			
-			System.out.println("All Data of the TodoNotes::::\n"+ notes);
+			notes.add(user);
+
+			// System.out.println("all data" + notes);
+			// notes.add(sharedNotes);
+
+			System.out.println("All Data of the TodoNotes::::\n" + notes);
 			// ------Setting Response
 			TodoNotesResponse response = new TodoNotesResponse();
 			response.setStatus(1);
@@ -533,50 +533,48 @@ public class ToDoNotesController {
 		}
 
 	}
-	
-	
-	@RequestMapping(value="/collabrator",method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE
-					,consumes=MediaType.APPLICATION_JSON_VALUE)
-	public List getSharedToDoList(@RequestBody Map<String,Object> map,HttpServletRequest request,HttpServletResponse response){
-		
+
+	@RequestMapping(value = "/collabrator", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public List getSharedToDoList(@RequestBody Map<String, Object> map, HttpServletRequest request,
+			HttpServletResponse response) {
+
 		System.out.println("Inside the collabrator");
-		
+
 		Collabrator collabrator = new Collabrator();
 		Integer noteId = (Integer) map.get("id");
-		String 	email  = (String) map.get("sharedEmail");
-		System.out.println("email id is::"+email);
-		System.out.println("id is::"+noteId);
-		
-		
-		//-------------------get current session user
+		String email = (String) map.get("sharedEmail");
+		System.out.println("email id is::" + email);
+		System.out.println("id is::" + noteId);
+
+		// -------------------get current session user
 		HttpSession session = request.getSession();
 		UserRegistration user = (UserRegistration) session.getAttribute("user");
-		
+
 		try {
-			
+
 			int sharedWith = doService.getOwnerId(email);
-			System.out.println("Data shared id is:::"+sharedWith);
-			
+			System.out.println("Data shared id is:::" + sharedWith);
+
 			collabrator.setNoteId(noteId);
 			collabrator.setOwner(user.getId());
 			collabrator.setSharedWith(sharedWith);
 			doService.createCollbrator(collabrator);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
-	
-	public void sharedData(int id){
+
+	public void sharedData(int id) {
 		try {
-			notes=doService.getSharedNotes(id);
-			System.out.println("Get TodoNote iss:::::::::::::::::::::\n"+notes);
+			notes = doService.getSharedNotes(id);
+			System.out.println("Get TodoNote iss:::::::::::::::::::::\n" + notes);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
 }
