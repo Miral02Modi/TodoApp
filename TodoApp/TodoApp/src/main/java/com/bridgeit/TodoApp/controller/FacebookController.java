@@ -44,7 +44,7 @@ public class FacebookController {
 	}
 
 	@RequestMapping(value = "/redirectFBURL", method = { RequestMethod.GET, RequestMethod.POST })
-	public ResponseEntity<Object> redirectFacebook(HttpServletRequest request, HttpServletResponse response)
+	public void redirectFacebook(HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 
 		String state = request.getParameter("state");
@@ -57,21 +57,22 @@ public class FacebookController {
 			ErrorResponse errorResponse = new ErrorResponse();
 			errorResponse.setStatus(-1);
 			errorResponse.setMessage("Invalid User");
-			return new ResponseEntity<Object>(errorResponse, HttpStatus.NOT_FOUND);
+	//		return new ResponseEntity<Object>(errorResponse, HttpStatus.NOT_FOUND);
 		}
 
-		String accessToken = facebookUtil.getFBAccessToken(code);
+		String fbAccessToken = facebookUtil.getFBAccessToken(code);
 		Token token = new Token();
 
 		try {
-
+			String accessToken = UUID.randomUUID().toString().replaceAll("-", "");
+			response.setHeader("accToken", accessToken);
 			token.setAccessToken(accessToken);
 			token.setRefreshToken(UUID.randomUUID().toString().replaceAll("-", ""));
 			token.setCreateOn(new Date());
-			response.setHeader("accToken", accessToken);
+	//		response.setHeader("accToken", accessToken);
 
 			tokenService.addToken(token);
-			FaceBookProfile profile = FacebookUtil.getFBProfile(accessToken);
+			FaceBookProfile profile = FacebookUtil.getFBProfile(fbAccessToken);
 			UserRegistration user1 = service.checkUserAvailable(profile.getEmail());
 			HttpSession session = request.getSession();
 			
@@ -86,22 +87,28 @@ public class FacebookController {
 
 				// ----------Set Value in Session
 				session.setAttribute("user", user);
-				response.sendRedirect("http://localhost:8080/TodoApp/#!/todoHome");
+				response.sendRedirect("http://localhost:8080/TodoApp/#!/fbRedirect");
 			}
 			
 			session.setAttribute("user", user1);
-			response.sendRedirect("http://localhost:8080/TodoApp/#!/todoHome");
-			return new ResponseEntity<Object>(token, HttpStatus.OK);
-
+			session.setAttribute("token", token);
+			response.sendRedirect("http://localhost:8080/TodoApp/#!/fbRedirect?tokenData=token");
 		} catch (Exception e) {
 
 			e.printStackTrace();
 			ErrorResponse errorResponse = new ErrorResponse();
 			errorResponse.setStatus(-1);
 			errorResponse.setMessage("Invalid User");
-			return new ResponseEntity<Object>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+		//	return new ResponseEntity<Object>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
+	}
+	
+	@RequestMapping(value="redirectUrl",method={RequestMethod.GET,RequestMethod.POST})
+	public ResponseEntity<Token> redirectUrl(HttpServletRequest request,HttpServletResponse response){
+		System.out.println("Query parameter value:::"+request.getParameter("token"));
+		Token token = (Token) request.getSession().getAttribute("token");
+		return new ResponseEntity<Token>(token, HttpStatus.OK);
 	}
 
 }

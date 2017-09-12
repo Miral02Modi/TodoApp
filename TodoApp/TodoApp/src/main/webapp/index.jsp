@@ -85,6 +85,8 @@
 	charset="utf-8"></script>
 <script type="text/javascript" src="js/controller/SignoutController.js"
 	charset="utf-8"></script>	
+<script type="text/javascript" src="js/controller/socialRedirectCtrl.js"
+	charset="utf-8"></script>		
 
 
 

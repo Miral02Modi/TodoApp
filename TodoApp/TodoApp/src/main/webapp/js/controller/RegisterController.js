@@ -1,4 +1,4 @@
-myApp.controller('registerCtrl', function($scope, registerService,
+myApp.controller('registerCtrl', function($scope, registerService,$state,
 		refreshTokenService) {
 
 	$scope.phoneNumber = /^\+?\d{10}$/;
@@ -20,8 +20,12 @@ myApp.controller('registerCtrl', function($scope, registerService,
 		console.log(obj);
 		var resp = registerService.userRegister(obj).then(
 				function(data) {
-					console.log("Inside the http response"+data.data);
-					console.log(data.data.status === "-4");
+					console.log("Inside the http response"+data.data.status);
+					console.log(data.data.status === 1);
+					console.log(data.data.status == 1);
+					if (data.data.status === 1) {
+						$state.go("login");
+					}
 					if (data.data.status === "-4") {
 						console.log("Inside the data status");
 						refreshTokenService.refreshToken(localStorage

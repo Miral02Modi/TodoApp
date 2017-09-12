@@ -2,11 +2,15 @@ var myApp = angular.module('todoApp', ['ui.router','ngSanitize','ui.bootstrap'])
 
 myApp.config(function($stateProvider, $urlRouterProvider) {
 	
-	console.log("inside the main");
+	console.log("inside the app js");
 	$stateProvider.state("login", {
 		url : "/login",
 		templateUrl : "template/login.html",
 		controller : "loginCtrl"
+	}).state("fbRedirect",{
+		url:"/fbRedirect",
+		templateUrl:"template/socialRedirect.html",
+		controller : "socialRedirectCtrl"
 	}).state("register",{
 		url : "/register",
 		templateUrl : "template/RegisterUser.html",

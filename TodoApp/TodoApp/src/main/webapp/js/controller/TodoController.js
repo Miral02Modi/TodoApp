@@ -217,12 +217,15 @@ myApp.controller('TodoController', function($scope, createNoteService,
 				this.isTrash = x.isTrash;
 				this.image = x.image;
 				this.reminderTime = x.reminderTime;
-
+				this.scrapers = x.scrapers;
+				
+				
 				console.log("title" + this.title);
 				console.log("description" + this.description);
 				console.log("color" + this.color);
 				console.log("color" + this.pinned);
 				console.log("reminder::" + this.reminderTime);
+				console.log("scrappers:::" + this.scrapers);
 
 				this.colorChange = function(noteId, bgcolor) {
 

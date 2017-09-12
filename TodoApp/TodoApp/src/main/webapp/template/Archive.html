@@ -41,7 +41,7 @@
 						</div>
 
 						<div class="noteImagesDiv showIcon" data-toggle="tooltip"
-							data-placement="bottom" title="Collabrate">
+							data-placement="bottom" title="Collabrate" ng-click="collabratorPopup(x)">
 							<img src="imgs/collabrate.svg">
 						</div>
 
@@ -102,6 +102,7 @@
 				<!-- page scarpping div -->
 				<div id="pageScraper" ng-repeat="y in x.scrapers"
 					style="display: inline-block;">
+					<a target="_blank" href="{{y.mainUrl}}">
 					<div style="height: 56px; width: 56px; float: left;">
 						<img ng-src="{{y.url}}" height="56px" width="100%">
 					</div>
@@ -115,7 +116,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="scraperhostName">{{y.hostName}}</div>
+					<div class="scraperhostName">{{y.hostName}}</div></a>
 				</div>
 			</div>
 		</div>

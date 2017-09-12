@@ -54,14 +54,14 @@ public class UserRegistratorValidator implements Validator {
 				error.rejectValue("email", "Please enter the valid emailID");
 
 			// -----------------------mobile validation pattern----------
-			String mobileNumber = "^(?:0091|\\+91|0)[7-9][0-9]{9}$";
+			/*String mobileNumber = "^(?:0091|\\+91|0)[7-9][0-9]{9}$";
 			Pattern pattern2 = Pattern.compile(mobileNumber);
 			String phone = registration.getPhone();
 			Matcher matcher2 = pattern2.matcher(phone);
 			System.out.println(matcher2.matches());
 
 			if (!matcher2.matches())
-				error.rejectValue("phone", "phone.rejected", "Please enter 10 digit number");
+				error.rejectValue("phone", "phone.rejected", "Please enter 10 digit number");*/
 
 			// -----------------------password validation pattern----------
 			/*

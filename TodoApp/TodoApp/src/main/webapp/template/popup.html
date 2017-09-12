@@ -1,4 +1,5 @@
-<div style="max-height: 551px;overflow-y:auto; ">
+<div style="max-height: 551px; overflow-y: auto;"
+	ng-style="{'background-color':$update.color}">
 	<div>
 		<div id="presentationImage" style="height: 408px; width: 100%"
 			ng-if="$update.image != '' && $update.image != null"
@@ -31,140 +32,163 @@
 		ng-style="{'background-color':$update.color}"></div>
 
 
-</div>
-	<div id="presentationNote" class="createDescription"
-		style="outline: none; width: 100%"
-		ng-style="{'background-color':$update.color}">
+	<div id="pageScraper" ng-repeat="y in $update.scrapers"
+		style="display: inline-block; width: 95%; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.12), 0 1px 1px 0 rgba(0, 0, 0, 0.12), 0 1px 4px 0 rgba(0, 0, 0, 0.12); margin-left: 15px; margin-top: 7px">
+		
+			<div style="height: 56px; width: 56px; float: left;">
+				<a target="_blank" href="{{y.mainUrl}}"> <img ng-src="{{y.url}}" height="56px" width="100%"></a>
+			</div>
 
-		<div class="noteImagesDiv" data-toggle="tooltip"
-			data-placement="bottom" title="Reminde me">
-			<img src="imgs/remindericon.svg">
-		</div>
-		<div class="noteImagesDiv" data-toggle="tooltip"
-			data-placement="bottom" title="Collabrate">
-			<img src="imgs/collabrate.svg">
-		</div>
-		<!-- <div class="noteImagesDiv" data-toggle="tooltip" data-placement="bottom" title="Change color">
+			<div class="dropdown">
+				<div  
+					style="margin-top: 3px; float: right; padding-right: 7px; border: 1px solid transparent;">
+					<img src="imgs/more.svg" height="19px" data-toggle="dropdown">
+					<ul class="dropdown-menu" style="margin-left: 80%;margin-top: 5%;
+							border-radius: 0px;min-width: 108px ">
+						<li><a href="#">Remove</a></li>
+						<li><a href="#">Copy Url</a></li>
+					</ul>
+				</div>
+				<div>
+					<div class="scraperTitleDiv">{{y.titleUrl}}</div>
+				</div>
+			</div>
+			<div class="scraperhostName">{{y.hostName}}</div>
+	</div>
+
+</div>
+<div id="presentationNote" class="createDescription"
+	style="outline: none; width: 100%"
+	ng-style="{'background-color':$update.color}">
+
+	<div class="noteImagesDiv" data-toggle="tooltip"
+		data-placement="bottom" title="Reminde me">
+		<img src="imgs/remindericon.svg">
+	</div>
+	<div class="noteImagesDiv" data-toggle="tooltip"
+		data-placement="bottom" title="Collabrate">
+		<img src="imgs/collabrate.svg">
+	</div>
+	<!-- <div class="noteImagesDiv" data-toggle="tooltip" data-placement="bottom" title="Change color">
 		<img src="imgs/color.svg">
 	</div> -->
 
-		<!-- <colorbox></colorbox> -->
+	<!-- <colorbox></colorbox> -->
 
 
-		<div class="noteImagesDiv showIconColor" data-placement="bottom"
-			title="Change color">
-			<div class="showDropdownColor">
-				<div style="display: inline-block;">
+	<div class="noteImagesDiv showIconColor" data-placement="bottom"
+		title="Change color">
+		<div class="showDropdownColor">
+			<div style="display: inline-block;">
 
-					<div
-						style="height: 25px; width: 26px; float: left; border: 1px solid #e0e0e0; border-radius: 13px;"
-						ng-click="$update.colorChange($update.id,'#fff')">
+				<div
+					style="height: 25px; width: 26px; float: left; border: 1px solid #e0e0e0; border-radius: 13px;"
+					ng-click="$update.colorChange($update.id,'#fff')">
 
-						<div ng-show="'fff' == $update.color">
-							<img src="imgs/right.svg">
-						</div>
-
+					<div ng-show="'fff' == $update.color">
+						<img src="imgs/right.svg">
 					</div>
 
-					<div class="colorBox" style="background-color: rgb(255, 138, 128);"
-						ng-click="$update.colorChange($update.id,'rgb(255, 138, 128)')">
-
-						<div ng-show="'rgb(255,138,128)' == $update.color">
-							<img src="imgs/right.svg">
-						</div>
-
-					</div>
-
-
-					<div class="colorBox" style="background-color: rgb(255, 209, 128);"
-						ng-click="$update.colorChange($update.id,'rgb(255, 209, 128)')">
-
-						<div ng-show="'rgb(255,209,128)' == $update.color">
-							<img src="imgs/right.svg">
-						</div>
-
-					</div>
-
-					<div class="colorBox" style="background-color: rgb(255, 255, 141);"
-						ng-click="$update.colorChange($update.id,'rgb(255, 255, 141)')">
-
-						<div ng-show="'rgb(255,255,141)' == $update.color">
-							<img src="imgs/right.svg">
-						</div>
-
-					</div>
 				</div>
 
-				<div style="display: inline-block;">
+				<div class="colorBox" style="background-color: rgb(255, 138, 128);"
+					ng-click="$update.colorChange($update.id,'rgb(255, 138, 128)')">
 
-					<div
-						ng-click="$update.colorChange($update.id,'rgb(207, 216, 220)')"
-						style="height: 25px; width: 26px; float: left; background-color: rgb(207, 216, 220); border-radius: 13px;">
-
-						<div ng-show="'rgb(207,216,220)' == $update.color">
-							<img src="imgs/right.svg">
-						</div>
-
+					<div ng-show="'rgb(255,138,128)' == $update.color">
+						<img src="imgs/right.svg">
 					</div>
 
-					<div class="colorBox"
-						ng-click="$update.colorChange($update.id,'rgb(128, 216, 255)')"
-						style="background-color: rgb(128, 216, 255);">
+				</div>
 
-						<div ng-show="'rgb(128,216,255)' == $update.color">
-							<img src="imgs/right.svg">
-						</div>
 
+				<div class="colorBox" style="background-color: rgb(255, 209, 128);"
+					ng-click="$update.colorChange($update.id,'rgb(255, 209, 128)')">
+
+					<div ng-show="'rgb(255,209,128)' == $update.color">
+						<img src="imgs/right.svg">
 					</div>
 
+				</div>
 
-					<div class="colorBox"
-						ng-click="$update.colorChange($update.id,'rgb(167, 255, 235)')"
-						style="background-color: rgb(167, 255, 235);">
+				<div class="colorBox" style="background-color: rgb(255, 255, 141);"
+					ng-click="$update.colorChange($update.id,'rgb(255, 255, 141)')">
 
-						<div ng-show="'rgb(167,255,235)' == $update.color">
-							<img src="imgs/right.svg">
-						</div>
-
+					<div ng-show="'rgb(255,255,141)' == $update.color">
+						<img src="imgs/right.svg">
 					</div>
 
-					<div class="colorBox"
-						ng-click="$update.colorChange($update.id,'rgb(204, 255, 144)')"
-						style="background-color: rgb(204, 255, 144);">
+				</div>
+			</div>
 
-						<div ng-show="'rgb(204,255,144)' == $update.color">
-							<img src="imgs/right.svg">
-						</div>
+			<div style="display: inline-block;">
+
+				<div ng-click="$update.colorChange($update.id,'rgb(207, 216, 220)')"
+					style="height: 25px; width: 26px; float: left; background-color: rgb(207, 216, 220); border-radius: 13px;">
+
+					<div ng-show="'rgb(207,216,220)' == $update.color">
+						<img src="imgs/right.svg">
+					</div>
+
+				</div>
+
+				<div class="colorBox"
+					ng-click="$update.colorChange($update.id,'rgb(128, 216, 255)')"
+					style="background-color: rgb(128, 216, 255);">
+
+					<div ng-show="'rgb(128,216,255)' == $update.color">
+						<img src="imgs/right.svg">
+					</div>
+
+				</div>
+
+
+				<div class="colorBox"
+					ng-click="$update.colorChange($update.id,'rgb(167, 255, 235)')"
+					style="background-color: rgb(167, 255, 235);">
+
+					<div ng-show="'rgb(167,255,235)' == $update.color">
+						<img src="imgs/right.svg">
+					</div>
+
+				</div>
+
+				<div class="colorBox"
+					ng-click="$update.colorChange($update.id,'rgb(204, 255, 144)')"
+					style="background-color: rgb(204, 255, 144);">
+
+					<div ng-show="'rgb(204,255,144)' == $update.color">
+						<img src="imgs/right.svg">
 					</div>
 				</div>
 			</div>
-			<img src="imgs/color.svg">
 		</div>
+		<img src="imgs/color.svg">
+	</div>
 
 
-		<div class="noteImagesDiv" data-toggle="tooltip"
-			data-placement="bottom" title="Add image">
-			<img src="imgs/image.svg">
-		</div>
-		<div class="noteImagesDiv" data-toggle="tooltip"
-			data-placement="bottom" title="Archive">
-			<img src="imgs/archive.svg">
-		</div>
-		<div class="noteImagesDiv" data-toggle="tooltip"
-			data-placement="bottom" title="More">
-			<img src="imgs/more.svg">
-		</div>
+	<div class="noteImagesDiv" data-toggle="tooltip"
+		data-placement="bottom" title="Add image">
+		<img src="imgs/image.svg">
+	</div>
+	<div class="noteImagesDiv" data-toggle="tooltip"
+		data-placement="bottom" title="Archive">
+		<img src="imgs/archive.svg">
+	</div>
+	<div class="noteImagesDiv" data-toggle="tooltip"
+		data-placement="bottom" title="More">
+		<img src="imgs/more.svg">
+	</div>
 
-		<!-- <button id="doneButton" data-ng-click="deleteNote(x.id)"
+	<!-- <button id="doneButton" data-ng-click="deleteNote(x.id)"
 									style="float: right;">Delete</button> -->
 
-		<div class="noteImagesDiv" data-ng-click="deleteNote(x.id)">
-			<img src="imgs/Trash.png">
-		</div>
-
-		<button id="doneButton" ng-click="$update.updateData($update.id)"
-			style="float: right;">DONE</button>
+	<div class="noteImagesDiv" data-ng-click="deleteNote(x.id)">
+		<img src="imgs/Trash.png">
 	</div>
+
+	<button id="doneButton" ng-click="$update.updateData($update.id)"
+		style="float: right;">DONE</button>
+</div>
 
 <div id="reminderBlock"
 	style="width: 100%; padding-left: 10px; border-top: 2px dotted rgba(0, 0, 0, 0.1)"

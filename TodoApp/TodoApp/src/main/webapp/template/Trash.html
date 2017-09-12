@@ -66,8 +66,28 @@
 							data-ng-click="deletepermanent(x.id)">
 							<img src="imgs/Trash.png">
 						</div>
+						
+						<!-- page scarpping div -->
 
 					</div>
+				</div>
+				<div id="pageScraper" ng-repeat="y in x.scrapers"
+					style="display: inline-block;">
+					<a target="_blank" href="{{y.mainUrl}}">
+					<div style="height: 56px; width: 56px; float: left;">
+						<img ng-src="{{y.url}}" height="56px" width="100%">
+					</div>
+					<div>
+						<div>
+							<div class="scraperTitleDiv">{{y.titleUrl}}</div>
+							<div
+								style="margin-top: 3px; float: right; padding-right: 7px; 
+									border: 1px solid transparent;">
+								<a target="_blank" href="{{y.mainUrl}}" ><img src="imgs/redirectUrl.svg"></a>
+							</div>
+						</div>
+					</div>
+					<div class="scraperhostName">{{y.hostName}}</div></a>
 				</div>
 			</div>
 		</div>

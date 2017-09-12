@@ -106,9 +106,17 @@ public class ToDoNotesController {
 
 				if (metaOgTitle != null) {
 					title = metaOgTitle.attr("content");
-				} else {
-					title = document.text();
-				}
+					
+					if(title == null || title.isEmpty()){
+						title = document.title();
+						System.out.println("Title is::::"+title);
+						if(title == null){
+							title = "";
+						}
+					}
+				} 
+					
+			
 
 				metaOgImage = document.select("meta[property=og:image]");
 				System.out.println("Image is::" + metaOgImage);

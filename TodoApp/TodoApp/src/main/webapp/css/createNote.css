@@ -252,14 +252,14 @@
 	font-weight: bold;
 	font-size: 17px;
 } */
-#query {
+/* #query {
 	text-align: center;
 	margin-top: 0.5%;
 	margin-left: 21%;
 	width: 476px;
 	height: 47px;
 	background-color: transparent;
-}
+} */
 /* @media only screen and (max-width: 1200px) {
 	#query {
 		width: 200px;
@@ -274,12 +274,12 @@
 		background-color: transparent;
 	}
 } */
-@media only screen and (max-width: 803px) {
+/* @media only screen and (max-width: 803px) {
 	#query {
-		/* width: 200px;
+		width: 200px;
 		margin-right: 167px;
 		height: 45px;
-		margin-top: -7px; */
+		margin-top: -7px;
 		text-align: center;
 		margin-top: 6 px;
 		margin-left: 232 px;
@@ -287,7 +287,7 @@
 		height: 47 px;
 		background-color: transparent;
 	}
-}
+} */
 
 .modal-content {
 	border-radius: 0px;

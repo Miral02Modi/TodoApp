@@ -11,21 +11,19 @@
 			style="padding-right: 0px; padding-left: 0px">
 			<div class="toDoNoteCss" ng-if="x.pinned == 'false'"
 				ng-style="{'background-color':x.color}">
-				
-				<div style="float: right; padding: 7px" class="pin"
-						ng-click="pinned(x,'true')">
-						<img src="imgs/pin.svg">
-					</div>
 
-					<div id="presentationImage"
-						style="height:238px;
-						background-image: url({{x.image}});
-						background-repeat:no-repeat;background-size: cover;"
-						ng-if="x.image != '' && x.image != null" ng-model="descNote"
-						ng-style="{'background-color':x.color}"
-						data-ng-click="displayPopupData(x)">
-						<!-- <img ng-src={{x.image}} height="100%" width="100%"> -->
-					</div>
+				<div style="float: right; padding: 7px" class="pin"
+					ng-click="pinned(x,'true')">
+					<img src="imgs/pin.svg">
+				</div>
+
+				<div id="presentationImage"
+					style="height: 238px; background-image: url({{x.image}}); background-repeat: no-repeat; background-size: cover;"
+					ng-if="x.image != '' && x.image != null" ng-model="descNote"
+					ng-style="{'background-color':x.color}"
+					data-ng-click="displayPopupData(x)">
+					<!-- <img ng-src={{x.image}} height="100%" width="100%"> -->
+				</div>
 
 
 				<div ng-if="x.pinned == 'false'">
@@ -41,7 +39,8 @@
 				<div ng-bind-html="x.description" id="presentationNote"
 					ng-if="(x.pinned == 'false') && (x.description != null || x.description != '')"
 					ng-model="descNote" ng-style="{'background-color':x.color}"
-					data-ng-click="displayPopupData(x)"></div>
+					data-ng-click="displayPopupData(x)">
+				</div>
 
 
 
@@ -56,10 +55,11 @@
 
 
 						<div class="noteImagesDiv" data-toggle="tooltip"
-							data-placement="bottom" title="Collabrate" ng-click="collabratorPopup(x)">
+							data-placement="bottom" title="Collabrate"
+							ng-click="collabratorPopup(x)">
 							<img src="imgs/collabrate.svg">
 						</div>
-						
+
 
 						<!-- Here I have made color Directive so directly I have added -->
 						<colorbox></colorbox>
