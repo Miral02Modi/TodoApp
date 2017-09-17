@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -29,9 +30,18 @@ public class UserRegistration implements Serializable {
 	private String password;
 	@Column(unique = true)
 	private String phone;
+	private String varifyUser;
+	@Lob
+	@Column(name="profilleImage", columnDefinition="LONGBLOB")
+	private String profilleImage;
 	
 	
-	
+	public String getProfilleImage() {
+		return profilleImage;
+	}
+	public void setProfilleImage(String profilleImage) {
+		this.profilleImage = profilleImage;
+	}
 	public int getId() {
 		return id;
 	}
@@ -71,9 +81,19 @@ public class UserRegistration implements Serializable {
 		this.phone = phone;
 	}
 	
+	
+	
+	public String getVarifyUser() {
+		return varifyUser;
+	}
+	public void setVarifyUser(String varifyUser) {
+		this.varifyUser = varifyUser;
+	}
+	
 	@Override
 	public String toString() {
 		return "UserRegistration [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password
-				+ ", phone=" + phone + "]";
+				+ ", phone=" + phone + ", varifyUser=" + varifyUser + "]";
 	}
+	
 }

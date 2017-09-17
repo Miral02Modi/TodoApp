@@ -5,7 +5,7 @@ myApp.service('createNoteService', function($http) {
 		//console.log("inside the login1" + loginObj.email);
 		return $http({
 			method : "post",
-			url : 'http://localhost:8080/TodoApp/createNote',
+			url : 'http://localhost:8080/TodoApp/rest/createNote',
 			data : obj,
 			headers: { 
 				'accToken': localStorage.getItem("accesstoken")

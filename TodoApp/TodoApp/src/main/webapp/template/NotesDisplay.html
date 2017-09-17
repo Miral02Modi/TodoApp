@@ -64,17 +64,17 @@
 						<!-- Here I have made color Directive so directly I have added -->
 						<colorbox></colorbox>
 
-						<div class="noteImagesDiv" data-toggle="tooltip"
+						<!-- <div class="noteImagesDiv" data-toggle="tooltip"
 							data-placement="bottom" title="Add Image">
-							<!-- <img src="imgs/image.svg"> -->
+							<img src="imgs/image.svg">
 							<input type="image" src="imgs/image.svg" /> <input type="file"
 								ng-file-select="onFileSelect($files)" ng-model="addImageFunc"
 								ng-click="addImage(addImageFunc)" id="inputImage"
 								style="display: none;" multiple />
-							<!-- <script>$("input[type='image']").click(function() {
+							<script>$("input[type='image']").click(function() {
    	   									$("input[id='inputImage']").click();
-   								});</script> -->
-						</div>
+   								});</script>
+						</div> -->
 						<div class="noteImagesDiv" data-toggle="tooltip"
 							ng-click="archiveNote(x)" data-placement="bottom" title="Archive">
 							<img src="imgs/archive.svg">
@@ -87,9 +87,13 @@
 
 						<!-- <button id="doneButton" data-ng-click="deleteNote(x.id)"
 									style="float: right;">Delete</button> -->
-
+									
+						<div class="noteImagesDiv" data-ng-click="copyNote(x)" title="Copy Note">
+							<img src="imgs/copyNote.svg">
+						</div>
+						
 						<div class="noteImagesDiv" data-ng-click="deleteNote(x)">
-							<img src="imgs/Trash.png">
+							<img src="imgs/Trash.svg">
 						</div>
 
 					</div>

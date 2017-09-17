@@ -8,7 +8,7 @@ myApp.service('updateNoteService', function($http) {
 		console.log("update Note Service::"+obj.pinned);
 		return $http({
 			method : "PUT",
-			url : 'http://localhost:8080/TodoApp/updateNotes',
+			url : 'http://localhost:8080/TodoApp/rest/updateNotes',
 			data : obj,
 			headers : {
 				'accToken' : localStorage.getItem("accesstoken")

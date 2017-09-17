@@ -1,0 +1,23 @@
+<div class="watermark">
+	<div style="width: 100%; height: 100%;"
+		ng-click="$imageUpload.getProfileImage()"
+		ng-if="$imageUpload.profileImage == null">
+		<center>
+			<img src="imgs/uploadImag.png">
+			<div class="dragImage">Drag a profile photo here</div>
+		</center>
+	</div>
+	<div ng-if="$imageUpload.profileImage != null" >
+		<div class="cropArea">
+			<img-crop image="$imageUpload.profileImage" result-image="$imageUpload.myCroppedImage">
+				<canvas width="500" height="250" style="margin-top: -125px; margin-left: -250px; cursor: move;"></canvas>
+			</img-crop>
+		</div>
+		<button class="collaButton" style="margin-top: 15px" ng-click="$imageUpload.save()">Save</button>
+	</div>
+	<!-- onchange="angular.element(this).scope().handleFileSelect(this)" -->
+	<input type="file" id="changeProfile" style="display: none;"
+				ng-file-select="onFileSelect($files)"
+				ng-model="$imageUpload.profileImage"
+				class="ng-pristine ng-untouched ng-valid ng-isolate-scope ng-empty">
+</div>

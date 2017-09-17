@@ -1,4 +1,4 @@
-var myApp = angular.module('todoApp', ['ui.router','ngSanitize','ui.bootstrap']);
+var myApp = angular.module('todoApp', ['ui.router','ngSanitize','ui.bootstrap','ngImgCrop']);
 
 myApp.config(function($stateProvider, $urlRouterProvider) {
 	
@@ -7,6 +7,10 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 		url : "/login",
 		templateUrl : "template/login.html",
 		controller : "loginCtrl"
+	}).state("forgetPassword",{
+		url:"/forgetPassword",
+		templateUrl:"template/ForgetPassword.html",
+		controller : "fogetPassword"
 	}).state("fbRedirect",{
 		url:"/fbRedirect",
 		templateUrl:"template/socialRedirect.html",

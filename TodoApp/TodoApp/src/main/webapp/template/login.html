@@ -44,11 +44,11 @@
 		<button class="btn btn-lg btn-primary btn-block" type="submit"
 			ng-click="loginController()"  ng-disabled="loginForm.$invalid">Login</button>
 		<a ui-sref="register" role="button">register</a><br>
-		<p><a href="loginWithFB">Connect to Facebook</a></p>
-		<p><a href="gmailVarify">Gmail Send</a></p>		
+		<p><a href="loginWithFB">Login with Facebook</a></p>
+		<a href="loginWithGmailData">Login with Gmail</a>	
+		<a href="javaScript:void(0);" ng-click="forgetPassword()">Forget Password</a>
 		<!-- <h1>{{loginForm.email1.$error.email}}</h1> -->
 		<div role="alert"></div>
-
 	</form>
 </div>
 

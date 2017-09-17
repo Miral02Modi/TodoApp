@@ -41,7 +41,9 @@ public class TokenDaoImpl implements TokenDao {
 		Conjunction conjunction = new Conjunction();
 		conjunction.add(criterion);
 		criteria.add(conjunction);
-		return (Token) criteria.uniqueResult();
+		Token token = (Token) criteria.uniqueResult();
+		System.out.println("Access token:::"+token);
+		return token;
 	}
 	
 	
@@ -62,10 +64,10 @@ public class TokenDaoImpl implements TokenDao {
 	
 	@Transactional
 	public Token deleteToken(Token token) throws Exception{
-		
+		System.out.println("Token id is::"+token.getUserId());
 		Session session = factory.getCurrentSession();
-		Query query = session.createQuery("delete from Token where user.id := userId");
-		query.setParameter("userId", token.getUserId());
+		Query query = session.createQuery("delete from Token where userId =:userID");
+		query.setParameter("userID", token.getUserId());
 		return token;
 	}
 	

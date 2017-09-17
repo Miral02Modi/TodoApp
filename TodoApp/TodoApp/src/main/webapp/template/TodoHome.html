@@ -67,32 +67,41 @@
 						aria-hidden="true" ng-show="listImage" ng-click="showGridImage()"><img
 							src="imgs/grid.svg" alt="grid"></span></a></li>
 
-				<li><a href="#"><span aria-hidden="true"><img
+				<!--  <li><a href="#"><span aria-hidden="true"><img
 							src="imgs/bell.png" alt="notification"></span></a>
 
 					<div>
 						<div></div>
 						<div></div>
-						<div></div>
-					</div></li>
-
+						<div></div> 
+					</div></li> -->
 
 
 
 				<li class="dropdown"><a href="javascript:void(0);"
 					class="dropdown-toggle" data-toggle="dropdown"
 					style="height: 32px; width: 32px; margin: 14px; padding: 1px;">
-						<span aria-hidden="true"> <img src="imgs/usericon.png"
-							alt="user" style="height: 32px; width: 31px; border-radius: 50%;">
+						<span aria-hidden="true"> 
+						<img ng-if="userImage == null || userImage == undefined" 
+							src="imgs/usericon.png" alt="user" 
+							style="height: 32px; width: 31px; border-radius: 50%;">
+						<img ng-if="userImage  != null" 
+							ng-src="{{userImage}}" alt="user" 
+							style="height: 32px; width: 31px; border-radius: 50%;">	
 					</span>
 				</a>
 					<div class="dropdown-menu"
 						style="height: 170px; padding: 10px;">
 						<div
 							style="height: 96px; width: 270px; border-bottom: 1px solid #ddd;">
-							<div style="width: 40%; height: 100%; padding: 8px;float: left;">
+							<div style="width: 40%; height: 100%; padding: 8px;float: left;"
+								  ng-click="updateImagePopup()">
 								<img src="imgs/usericon.png"
+									 ng-if="userImage == null || userImage == undefined"
 									style="height: 102%; width: 91%; border-radius: 50%;">
+								<img ng-if="userImage  != null" 
+								 ng-src="{{userImage}}" alt="user" 
+								style="height: 102%; width: 91%; border-radius: 50%;">	
 							</div>
 							<div style="float:left;font-weight: bold;margin-top: 13px;">
 								{{userInfo.name}}
@@ -193,7 +202,7 @@
 							ng-style="{'background-color':createColor}">
 
 							<div>
-								<div ng-show="showImage">
+								<div ng-show="showImage" ng-if="imageSrc != null || imageSrc != undefined">
 									<img height="401px" width="100%" ng-src="{{imageSrc}}">
 								</div>
 								<div style="float: right; padding: 7px; cursor: pointer;"
@@ -242,13 +251,13 @@
 								</div>
 
 								<div class="titleImagesDiv" data-toggle="tooltip"
-									data-placement="bottom" title="Archive">
+									data-placement="bottom" title="Archive" ng-click="addToArchive()">
 									<img src="imgs/archive.svg">
 								</div>
-								<div class="titleImagesDiv" data-toggle="tooltip"
+								<!-- <div class="titleImagesDiv" data-toggle="tooltip"
 									data-placement="bottom" title="More">
 									<img src="imgs/more.svg">
-								</div>
+								</div> -->
 
 								<div style="float: right;">
 									<button id="doneButton" ng-click="createNote()"

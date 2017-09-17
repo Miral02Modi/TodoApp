@@ -69,7 +69,7 @@ public class FacebookController {
 			token.setAccessToken(accessToken);
 			token.setRefreshToken(UUID.randomUUID().toString().replaceAll("-", ""));
 			token.setCreateOn(new Date());
-	//		response.setHeader("accToken", accessToken);
+			//response.setHeader("accToken", accessToken);
 
 			tokenService.addToken(token);
 			FaceBookProfile profile = FacebookUtil.getFBProfile(fbAccessToken);

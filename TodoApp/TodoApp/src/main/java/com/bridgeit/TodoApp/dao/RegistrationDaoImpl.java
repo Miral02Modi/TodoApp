@@ -1,5 +1,6 @@
 package com.bridgeit.TodoApp.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -28,7 +29,7 @@ public class RegistrationDaoImpl implements RegistrationDao {
 	SessionFactory factory;
 
 	@Override
-	public void userRegister(UserRegistration user, String url) throws Exception {
+	public int userRegister(UserRegistration user, String url) throws Exception {
 		
 		Session session = factory.getCurrentSession();
 		
@@ -38,10 +39,13 @@ public class RegistrationDaoImpl implements RegistrationDao {
 			user.setPassword(encrypt.generateStorngPasswordHash(user.getPassword()));
 
 			
-			session.saveOrUpdate(user);
+			Serializable userId=session.save(user);
+			int id = (int) userId;
+			return id;
 		}if(url.equals("facebook")){
 			session.saveOrUpdate(user);
 		}
+		return 0;
 	}
 
 	@Override
@@ -78,12 +82,15 @@ public class RegistrationDaoImpl implements RegistrationDao {
 		 * return (UserRegistration) criteria.uniqueResult();
 		 */
 
+		
 		// -------Getting User-register object from database
 		Password_Encrypt encrypt = new Password_Encrypt();
 		Session session = factory.getCurrentSession();
 		Criteria criteria = session.createCriteria(UserRegistration.class);
 
 		Criterion criterion = Restrictions.eq("email", email);
+		criteria.add(Restrictions.eq("varifyUser", "true"));
+		
 		Conjunction conjunction = new Conjunction();
 
 		conjunction.add(criterion);
@@ -139,5 +146,51 @@ public class RegistrationDaoImpl implements RegistrationDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	
+	@Override
+	public void verifyMail(int id) throws Exception {
+		System.out.println("Id i::s:::"+id);
+		Session session = factory.getCurrentSession();
+		Query query = session.createQuery("update UserRegistration set varifyUser=:varifyUser1 where id=:ID");
+		query.setParameter("varifyUser1", "true");
+		query.setParameter("ID", id);
+		query.executeUpdate();
+	}
 
+	@Override
+	public void updatePassword(String password,int id) throws Exception {
+		System.out.println("id is::"+id);
+		Password_Encrypt encrypt = new Password_Encrypt();
+		password = encrypt.generateStorngPasswordHash(password);
+		System.out.println("password is::::"+password);
+		Session session = factory.getCurrentSession();
+		Query query = session.createQuery("update UserRegistration set password=:password1 where id=:ID");
+		query.setParameter("password1", password);
+		query.setParameter("ID", id);
+		query.executeUpdate();
+	}
+
+	@Override
+	public int getUserId(String email) throws Exception {
+		
+		Session  session = factory.getCurrentSession();
+		Criteria criteria = session.createCriteria(UserRegistration.class);
+		criteria.setProjection(Projections.property("id"));
+		Criterion criterion = Restrictions.eq("email", email);
+		criteria.add(criterion);
+		int id = (Integer) criteria.uniqueResult();
+		System.out.println("Id" + id);
+		return id;
+	}
+
+	@Override
+	public void updateImage(UserRegistration user) throws Exception {
+		Session session = factory.getCurrentSession();
+		Query query = session.createQuery("update UserRegistration set profilleImage=:profilleImage1 where id=:ID");
+		query.setParameter("profilleImage1", user.getProfilleImage());
+		query.setParameter("ID", user.getId());
+		query.executeUpdate();
+		System.out.println("Update successfully");
+	}
 }

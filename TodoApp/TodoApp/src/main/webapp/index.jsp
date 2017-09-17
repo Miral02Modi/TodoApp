@@ -43,6 +43,8 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/12.0.4/ng-file-upload.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ng-img-crop/0.3.2/ng-img-crop.js"></script>	
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui/0.4.0/angular-ui.min.js"></script> -->
 <!-- <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-sortable/0.17.1/sortable.min.js"></script> -->
@@ -70,6 +72,8 @@
 <script type="text/javascript" src="js/DesignJs/NavBar.js"
 	charset="utf-8"></script>
 <script type="text/javascript" src="js/app.js" charset="utf-8"></script>
+
+
 <script type="text/javascript" src="js/controller/LoginController.js"
 	charset="utf-8"></script>
 <script type="text/javascript" src="js/controller/RegisterController.js"
@@ -87,7 +91,8 @@
 	charset="utf-8"></script>	
 <script type="text/javascript" src="js/controller/socialRedirectCtrl.js"
 	charset="utf-8"></script>		
-
+<script type="text/javascript" src="js/controller/ForgetController.js"
+	charset="utf-8"></script>
 
 
 <!-- JavScript services -->
@@ -107,7 +112,10 @@
 	charset="utf-8"></script>
 <script type="text/javascript" src="js/service/collabratorService.js"
 	charset="utf-8"></script>	
-
+<script type="text/javascript" src="js/service/ForgetPasswordService.js"
+	charset="utf-8"></script>
+<script type="text/javascript" src="js/service/ProfileImage.js"
+	charset="utf-8"></script>	
 
 
 

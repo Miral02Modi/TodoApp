@@ -9,7 +9,7 @@ import com.bridgeit.TodoApp.model.UserRegistration;
  */
 public interface RegistrationDao {
 	
-	public void userRegister(UserRegistration registration,String url) throws Exception;
+	public int userRegister(UserRegistration registration,String url) throws Exception;
 	
 	public UserRegistration loginUser(String email,String password) throws Exception;
 	
@@ -19,4 +19,11 @@ public interface RegistrationDao {
 	
 	public UserRegistration  checkUserAvailable(String email) throws Exception;
 	
+	public void verifyMail(int email) throws Exception;
+	
+	public void updatePassword(String password,int id) throws Exception;
+	
+	public int getUserId(String email) throws Exception;
+	
+	public void updateImage(UserRegistration user) throws Exception;
 }

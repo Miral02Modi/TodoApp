@@ -42,7 +42,7 @@
 	<filter-mapping>
 		<filter-name>authenticationFilter</filter-name>
 		<!-- <url-pattern>/createNote</url-pattern> -->
-		<url-pattern>/getTodoList</url-pattern>
+		<url-pattern>/rest/*</url-pattern>
 		<!-- <url-pattern>/deleteNotes</url-pattern> -->
 	</filter-mapping>
 

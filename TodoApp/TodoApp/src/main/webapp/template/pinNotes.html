@@ -73,19 +73,19 @@
 						
 							
 
-						<div class="noteImagesDiv showIcon" data-toggle="tooltip"
+						<!-- <div class="noteImagesDiv showIcon" data-toggle="tooltip"
 							data-placement="bottom" title="Add Image">
 							<img src="imgs/image.svg">
-						</div>
+						</div> -->
 						<div class="noteImagesDiv showIcon" data-toggle="tooltip"
 							data-placement="bottom" title="Archive" ng-click="archiveNote(x)">
 							<img src="imgs/archive.svg">
 						</div>
-						<div class="noteImagesDiv showIcon" data-toggle="tooltip"
+						<!-- <div class="noteImagesDiv showIcon" data-toggle="tooltip"
 							data-placement="bottom" title="More">
 							<a href="javascript:void(0);" onclick="miral()"
 								class="select_more"><img src="imgs/more.svg"></a>
-						</div>
+						</div> -->
 
 						<!-- <ul class="dropdown-menu">
 							<li><a href="#">HTML</a></li>
@@ -95,9 +95,14 @@
 
 						<!-- <button id="doneButton" data-ng-click="deleteNote(x.id)"
 									style="float: right;">Delete</button> -->
-
+						
+						<div class="noteImagesDiv showIcon" data-toggle="tooltip" data-ng-click="copyNote(x)"
+							data-placement="bottom" title="Copy note">
+							<img src="imgs/copyNote.svg">
+						</div>
+						
 						<div class="noteImagesDiv showIcon" data-ng-click="deleteNote(x)">
-							<img src="imgs/Trash.png">
+							<img src="imgs/Trash.svg">
 						</div>
 
 					</div>

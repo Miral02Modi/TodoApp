@@ -29,4 +29,5 @@ public interface ToDoNotesDao {
 	public void createCollbrator(Collabrator collabrator) throws Exception;
 	
 	public List getSharedNotes(int sharedId) throws Exception;
+	
 }

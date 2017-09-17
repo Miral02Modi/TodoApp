@@ -67,9 +67,12 @@ public class ToDoNotesController {
 	 */
 	@SuppressWarnings("unchecked")
 	// ----------------------------------Create--a--New--Notes--------------------------
-	@RequestMapping(value = "/createNote", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "rest/createNote", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Response> createNotes(@RequestBody ToDoNotes doNotesModel, BindingResult result,
 			HttpServletRequest pRequest, HttpServletResponse pResponse) {
+		
+		
+		System.out.println("Todo Note is:::"+doNotesModel);
 
 		/*
 		 * if (result.hasErrors()) {
@@ -79,7 +82,7 @@ public class ToDoNotesController {
 		 * errorResponse.setMessage("Invalid Credential"); return new
 		 * ResponseEntity<Response>(errorResponse, HttpStatus.NOT_ACCEPTABLE); }
 		 */
-
+		
 		// ------Getting the Session
 		HttpSession httpSession = pRequest.getSession();
 		UserRegistration user = (UserRegistration) httpSession.getAttribute("user");
@@ -139,7 +142,7 @@ public class ToDoNotesController {
 
 				doNotesModel.setUser(user);
 				doNotesModel.setDate(new Date());
-				doNotesModel.setArchive("false");
+				//doNotesModel.setArchive("false");
 
 				// ------setting into the DataBase
 				if (i == 0) {
@@ -156,7 +159,7 @@ public class ToDoNotesController {
 			if (isScraper == false) {
 				doNotesModel.setUser(user);
 				doNotesModel.setDate(new Date());
-				doNotesModel.setArchive("false");
+				//doNotesModel.setArchive("false");
 				doService.createNotes(doNotesModel);
 			}
 			notes = getNotes(user.getId());
@@ -323,7 +326,7 @@ public class ToDoNotesController {
 	 */
 	@SuppressWarnings("unchecked")
 	// ----------------------------------Update--Notes--------------------------------------
-	@RequestMapping(value = "/updateNotes", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "rest/updateNotes", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Response> updateNote(@RequestBody ToDoNotes doNotes, HttpServletRequest pRequest,
 			HttpServletResponse pResponse) {
 
@@ -384,7 +387,7 @@ public class ToDoNotesController {
 	 * @return {@link ResponseEntity}
 	 */
 	// ----------------------------------delete--Notes--------------------------------------
-	@RequestMapping(value = "deleteNotes", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "rest/deleteNotes", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Response> deleteNotes(@RequestBody Integer id, HttpServletRequest pRequest,
 			HttpServletResponse pResponse) {
 
@@ -503,7 +506,7 @@ public class ToDoNotesController {
 	}
 
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/getTodoList", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "rest/getTodoList", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Response> getTodoList(HttpServletRequest pRequest, HttpServletResponse pResponse) {
 
 		System.out.println("inside the todoNotescontroller Notes");
@@ -542,7 +545,7 @@ public class ToDoNotesController {
 
 	}
 
-	@RequestMapping(value = "/collabrator", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "rest/collabrator", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public List getSharedToDoList(@RequestBody Map<String, Object> map, HttpServletRequest request,
 			HttpServletResponse response) {
 

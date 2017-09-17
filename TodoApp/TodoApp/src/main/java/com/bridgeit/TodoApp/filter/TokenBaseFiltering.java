@@ -37,7 +37,9 @@ public class TokenBaseFiltering implements Filter {
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
 			throws IOException, ServletException {
-
+			
+		System.out.println("Inside the Filter");
+		
 		WebApplicationContext applicationContext = WebApplicationContextUtils
 				.getWebApplicationContext(req.getServletContext());
 

@@ -27,5 +27,7 @@ public interface ToDoService {
 	
 	public void createCollbrator(Collabrator collabrator) throws Exception;
 	
+	@SuppressWarnings("rawtypes")
 	public List getSharedNotes(int sharedId) throws Exception;
+	
 }

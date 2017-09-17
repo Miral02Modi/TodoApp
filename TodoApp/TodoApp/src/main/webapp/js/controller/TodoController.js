@@ -1,6 +1,7 @@
 myApp.controller('TodoController', function($scope, createNoteService,
 		updateNoteService, deleteNoteService, refreshTokenService, $http,
-		$state, $uibModal, fileReader, collbratorService) {
+		$state, $uibModal, fileReader, collbratorService, $timeout,
+		profileImgUpdate) {
 	/* showDividion */
 
 	if (localStorage.getItem("accesstoken") == null) {
@@ -9,15 +10,16 @@ myApp.controller('TodoController', function($scope, createNoteService,
 	}
 	$http({
 		method : "get",
-		url : 'http://localhost:8080/TodoApp/getTodoList',
+		url : 'http://localhost:8080/TodoApp/rest/getTodoList',
 		headers : {
 			'accToken' : localStorage.getItem("accesstoken")
 		}
 	}).then(function successCallback(data) {
-		console.log("all data:::",data.data.list);
 		$scope.notes = data.data.list.reverse();
 		$scope.userInfo = data.data.list[0];
-		console.log("email::::",$scope.userInfo);
+		$scope.userImage = $scope.userInfo.profilleImage;
+		// $scope.userImage = data.data.list[0].user.
+
 		isPinnedCounted(data)
 	});
 
@@ -130,7 +132,59 @@ myApp.controller('TodoController', function($scope, createNoteService,
 			pinned : $scope.createPin,
 			color : $scope.createColor,
 			isTrash : "false",
-			image : $scope.imageSrc
+			image : $scope.imageSrc,
+			archive : "false"
+		}
+
+		$scope.title1 = "";
+		$scope.description1 = "";
+
+		if ((obj.title == "" || obj.description == "")
+				&& (obj.description == undefined || obj.title == undefined)) {
+			console.log("create note");
+		} else {
+
+			createNoteService.createNote(obj).then(
+					function(data) {
+						console.log("Inside the create note response"
+								+ data.data);
+
+						console.log(data.data.status === "-4");
+						if (data.data.status === "-4") {
+							console.log("Inside the data status");
+							refreshTokenService.refreshToken(localStorage
+									.getItem("refreshtoken"));
+						}
+
+						console.log(data.data.status === 1);
+						if (data.data.status === 1) {
+
+							isPinnedCounted(data);
+							$("#presentationNote").html('');
+							$("#presentationTitle").html("");
+							$scope.notes = data.data.list;
+							console.log(data.data.list);
+						}
+
+						$scope.createPin = "false";
+						$scope.createColor = "#ff";
+					});
+
+		}
+	};
+
+	$scope.copyNote = function(x) {
+
+		console.log("Inside the copy note");
+
+		var obj = {
+			title : x.title,
+			description : x.description,
+			pinned : x.pinned,
+			color : x.color,
+			isTrash : x.isTrash,
+			image : x.image,
+			archive : x.archive
 		}
 
 		$scope.title1 = "";
@@ -218,8 +272,7 @@ myApp.controller('TodoController', function($scope, createNoteService,
 				this.image = x.image;
 				this.reminderTime = x.reminderTime;
 				this.scrapers = x.scrapers;
-				
-				
+
 				console.log("title" + this.title);
 				console.log("description" + this.description);
 				console.log("color" + this.color);
@@ -261,6 +314,46 @@ myApp.controller('TodoController', function($scope, createNoteService,
 							});
 				};
 
+				this.copyNote = function() {
+
+					console.log("Inside the copy note");
+
+					var obj = {
+						title : this.title,
+						description : this.description,
+						pinned : this.pinned,
+						color : this.color,
+						isTrash : this.isTrash,
+						image : this.image,
+						archive : this.archive
+					}
+					
+					
+					
+					createNoteService.createNote(obj).then(
+							function(data) {
+								console.log("Inside the create note response"
+										+ data.data);
+								console.log(data.data.status === "-4");
+								if (data.data.status === "-4") {
+									console.log("Inside the data status");
+									refreshTokenService
+											.refreshToken(localStorage
+													.getItem("refreshtoken"));
+								}
+									
+								console.log(data.data.status === 1);
+								if (data.data.status === 1) {
+
+									$scope.notes = data.data.list;
+									console.log(data.data.list);
+								}
+
+								$scope.createPin = "false";
+								$scope.createColor = "#ff";
+							});
+				};
+
 				this.updateData = function(noteId, color) {
 
 					console.log("inside the update id:::" + this.color);
@@ -292,6 +385,70 @@ myApp.controller('TodoController', function($scope, createNoteService,
 								});
 					}
 				};
+
+				this.addToArchive = function(noteId) {
+					console.log("inside the update id:::", noteId);
+
+					var obj = {};
+
+					obj.title = this.title;
+					obj.pinned = "false";
+					obj.description = this.description;
+					obj.color = this.color;
+					obj.id = noteId;
+					obj.isTrash = this.isTrash;
+					obj.archive = "true";
+					obj.image = this.image;
+
+					console.log("update note data" + obj.title);
+					console.log("update note data" + obj.description);
+					$uibModalInstance.dismiss('Done');
+
+					if (obj.title1 == "" && obj.description1 == "") {
+						return;
+					} else {
+						updateNoteService.updateNote(obj).then(
+								function success(data) {
+									isPinnedCounted(data);
+									$uibModalInstance.dismiss('Done');
+									console.log("update data success"
+											+ data.data.list.reverse());
+									$scope.notes = data.data.list;
+								});
+					}
+				};
+				this.addToTrash = function(noteId) {
+					console.log("inside the update id:::", noteId);
+
+					var obj = {};
+
+					obj.title = this.title;
+					obj.pinned = "false";
+					obj.description = this.description;
+					obj.color = this.color;
+					obj.id = noteId;
+					obj.isTrash = "true";
+					obj.archive = "false";
+					obj.image = this.image;
+
+					console.log("update note data" + obj.title);
+					console.log("update note data" + obj.description);
+					$uibModalInstance.dismiss('Done');
+
+					if (obj.title1 == "" && obj.description1 == "") {
+						return;
+					} else {
+						updateNoteService.updateNote(obj).then(
+								function success(data) {
+									isPinnedCounted(data);
+									$uibModalInstance.dismiss('Done');
+									console.log("update data success"
+											+ data.data.list.reverse());
+									$scope.notes = data.data.list;
+								});
+					}
+				};
+
 			},
 			controllerAs : "$update"
 		});
@@ -534,6 +691,52 @@ myApp.controller('TodoController', function($scope, createNoteService,
 				});
 	};
 
+	$scope.addToArchive = function() {
+
+		$scope.IsVisible = false;
+		$scope.IsVisible1 = true;
+
+		if ($scope.imageSrc == null) {
+			$scope.imageSrc = "";
+		}
+
+		var todoNoteInfo = {
+			title : $scope.title1,
+			description : $scope.description1,
+			pinned : "false",
+			color : $scope.createColor,
+			isTrash : "false",
+			image : $scope.imageSrc,
+			archive : "true"
+		}
+
+		createNoteService.createNote(todoNoteInfo).then(
+				function(data) {
+					console.log("Inside the create note response" + data.data);
+
+					console.log(data.data.status === "-4");
+					if (data.data.status === "-4") {
+						console.log("Inside the data status");
+						refreshTokenService.refreshToken(localStorage
+								.getItem("refreshtoken"));
+					}
+
+					console.log(data.data.status === 1);
+					if (data.data.status === 1) {
+
+						isPinnedCounted(data);
+						$("#presentationNote").html('');
+						$("#presentationTitle").html("");
+						$scope.notes = data.data.list;
+						console.log(data.data.list);
+					}
+
+					$scope.createPin = "false";
+					$scope.createColor = "#ff";
+				});
+
+	}
+
 	$scope.restoreNote = function(data) {
 
 		if (data.isTrash == "true")
@@ -705,6 +908,44 @@ myApp.controller('TodoController', function($scope, createNoteService,
 		return countPinned;
 	}
 
+	$scope.updateImagePopup = function() {
+		console.log("Inside the Update image");
+
+		var modalInstance = $uibModal.open({
+
+			templateUrl : "template/uploadImage.html",
+			controller : function($uibModalInstance) {
+				console.log("inside the controller");
+				this.myCroppedImage = '';
+				// var that = this;
+				this.profileImage = null;
+
+				this.getProfileImage = function() {
+					console.log("Inside the getProfile");
+					$timeout(function() {
+						document.getElementById("changeProfile").click();
+					}, 100);
+				};
+				this.save = function() {
+					var imageObj = {
+						image : this.myCroppedImage
+					}
+
+					profileImgUpdate.imageUpload(imageObj).then(
+							function successCallback(data) {
+								$scope.userImage = data.data.image;
+								if (data.status == 200) {
+									console.log("Status is", data.status);
+								}
+							});
+					$uibModalInstance.dismiss('Done');
+				}
+
+			},
+			controllerAs : "$imageUpload"
+		});
+	}
+
 	// Display pop up for updating
 	$scope.collabratorPopup = function(x) {
 
@@ -760,7 +1001,7 @@ myApp.controller('TodoController', function($scope, createNoteService,
 								}
 
 							});
-
+					$uibModalInstance.dismiss('Done');
 				};
 			},
 			controllerAs : "$collabrate"
