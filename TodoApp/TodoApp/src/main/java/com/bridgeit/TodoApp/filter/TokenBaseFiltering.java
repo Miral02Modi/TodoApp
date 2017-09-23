@@ -20,6 +20,7 @@ import com.bridgeit.TodoApp.Json.ErrorResponse;
 import com.bridgeit.TodoApp.model.Token;
 import com.bridgeit.TodoApp.service.TokenService;
 
+
 /**
  * @author Miral
  *
@@ -42,6 +43,8 @@ public class TokenBaseFiltering implements Filter {
 		
 		WebApplicationContext applicationContext = WebApplicationContextUtils
 				.getWebApplicationContext(req.getServletContext());
+		/*Jedis jedis = new Jedis("localhost");*/
+		/*System.out.println("jedis is::"+jedis.get("tokenAccess"));*/
 
 		TokenService tokenService = (TokenService) applicationContext.getBean("tokenService");
 
@@ -140,7 +143,6 @@ public class TokenBaseFiltering implements Filter {
 	
 		 /*token.setCreateOn(new Date()); try { tokenService.addToken(token); }
 		 catch (Exception e) { e.printStackTrace(); }*/
-		 
 		System.out.println("do chain");
 		chain.doFilter(request, responce);
 	}

@@ -28,7 +28,6 @@ public class RegistrationDaoImpl implements RegistrationDao {
 	@Autowired
 	SessionFactory factory;
 
-	@Override
 	public int userRegister(UserRegistration user, String url) throws Exception {
 		
 		Session session = factory.getCurrentSession();
@@ -39,10 +38,14 @@ public class RegistrationDaoImpl implements RegistrationDao {
 			user.setPassword(encrypt.generateStorngPasswordHash(user.getPassword()));
 
 			
-			Serializable userId=session.save(user);
-			int id = (int) userId;
+			session.save( user );
+			
+			int id = user.getId();
+			
 			return id;
-		}if(url.equals("facebook")){
+		}
+		
+		if( url.equals("facebook") ){
 			session.saveOrUpdate(user);
 		}
 		return 0;

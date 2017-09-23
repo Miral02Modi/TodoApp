@@ -273,6 +273,7 @@ myApp.controller('TodoController', function($scope, createNoteService,
 				this.reminderTime = x.reminderTime;
 				this.scrapers = x.scrapers;
 
+//				console.log("title" + this.top);
 				console.log("title" + this.title);
 				console.log("description" + this.description);
 				console.log("color" + this.color);
@@ -919,7 +920,21 @@ myApp.controller('TodoController', function($scope, createNoteService,
 				this.myCroppedImage = '';
 				// var that = this;
 				this.profileImage = null;
-
+			    /*var handleFileSelect=function(evt) {
+			    	console.log(evt.target.result)
+			      var file=evt.currentTarget.files[0];
+			      var reader = new FileReader();
+			      reader.onload = function (evt) {
+			        $scope.$apply(function($scope){
+			          $scope.profileImage=evt.target.result;
+			        });
+			      };
+			      reader.readAsDataURL(file);
+			    };
+			    console.log(document.getElementById('fileInput'))
+			    angular.element(document.getElementById('fileInput')).on('click',handleFileSelect);*/
+			    
+			    
 				this.getProfileImage = function() {
 					console.log("Inside the getProfile");
 					$timeout(function() {

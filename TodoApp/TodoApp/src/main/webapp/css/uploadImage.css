@@ -60,14 +60,26 @@ div.hiddenFileInputContainter {
 	padding: 0 10px;
 }
 
-.cropArea {
+/* .cropArea {
 	background: #E4E4E4;
 	width: 100%;
 	height: 165px;
 	padding-left: 24%;
 	overflow: hidden;
+} */
+.cropArea {
+  background: #E4E4E4;
+  overflow: hidden;
+ /*  width:500px;
+  height:350px; */
 }
-
+img-crop {
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: relative;
+    overflow: hidden;
+}
 canvas {
 	margin-top: 28px !important;
 	margin-left: 105px !important;

@@ -1,0 +1,10 @@
+com/bridgeit/TodoApp/service/RegistrationService.class
+com/bridgeit/TodoApp/Json/Response.class
+com/bridgeit/TodoApp/model/PageScraper.class
+com/bridgeit/TodoApp/model/FBToken.class
+com/bridgeit/TodoApp/validator/Password_Encrypt.class
+com/bridgeit/TodoApp/Json/UserResponse.class
+com/bridgeit/TodoApp/Json/TodoNotesResponse.class
+com/bridgeit/TodoApp/model/UserRegistration.class
+com/bridgeit/TodoApp/service/PageScaperService.class
+com/bridgeit/TodoApp/model/ToDoNotes.class

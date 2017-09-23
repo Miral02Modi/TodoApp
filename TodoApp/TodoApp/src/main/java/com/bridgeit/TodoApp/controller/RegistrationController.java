@@ -37,9 +37,11 @@ import com.bridgeit.TodoApp.Json.Response;
 import com.bridgeit.TodoApp.Json.UserResponse;
 import com.bridgeit.TodoApp.model.Token;
 import com.bridgeit.TodoApp.model.UserRegistration;
+import com.bridgeit.TodoApp.redis.TokenReposetory;
 import com.bridgeit.TodoApp.service.RegistrationService;
 import com.bridgeit.TodoApp.service.TokenService;
 import com.bridgeit.TodoApp.validator.UserRegistratorValidator;
+
 
 /**
  * It is
@@ -56,7 +58,8 @@ public class RegistrationController {
 	UserRegistratorValidator validator;
 	@Autowired
 	TokenService tokenService;
-
+	/*@Autowired
+	TokenReposetory tokenRepo;*/
 	// ----------------------------UserRegistration-----------------------------
 	/**
 	 * 
@@ -140,11 +143,13 @@ public class RegistrationController {
 
 	@RequestMapping(value = "/login", method = { RequestMethod.GET,
 			RequestMethod.POST }, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@SuppressWarnings("resource")
 	public ResponseEntity<Object> loginController(@RequestBody Map<String, String> loginMap, BindingResult result,
 			HttpServletRequest pRequest, HttpServletResponse presponse) throws IOException {
-
-		System.out.println("Inside the login controlle gsdgsdgsdgsdgr");
-
+			
+		
+		/*Jedis jedis = new Jedis("localhost");
+		System.out.println("Ping is:::"+jedis.ping());*/
 		System.out.println("email" + loginMap.get("email"));
 		System.out.println("password" + loginMap.get("password"));
 
@@ -168,12 +173,17 @@ public class RegistrationController {
 
 			// -----generating token
 			Token token = new Token();
-			token.setAccessToken(UUID.randomUUID().toString().replaceAll("-", ""));
+			String accessToken = UUID.randomUUID().toString().replaceAll("-", "");
+			token.setAccessToken(accessToken);
 			token.setRefreshToken(UUID.randomUUID().toString().replaceAll("-", ""));
 			token.setUserId(user.getId());
 			token.setCreateOn(new Date());
+		//	jedis.set("tokenAccess", accessToken);
 			tokenService.addToken(token);
-
+			
+			/*tokenRepo.saveToken(token);
+			System.out.println("Find redis Token is"+tokenRepo.findToken(accessToken));*/
+			
 			presponse.setHeader("accToken", token.getAccessToken());
 			System.out.println("Login header:::::" + presponse.getHeader("accToken"));
 
